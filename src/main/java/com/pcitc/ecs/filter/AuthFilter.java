@@ -195,7 +195,7 @@ public final class AuthFilter implements Filter {
 
          Cookie token = new Cookie("SYS_CONTEXT_TOKEN", result);
          token.setPath("/");
-//         token.setHttpOnly(true);
+//       token.setHttpOnly(true);
          httpServletResponse.addCookie(token);
 
 
