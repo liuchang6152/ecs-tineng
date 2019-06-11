@@ -2,6 +2,7 @@ var initUrl = ECS.api.emUrl + '/meetingUser/getMeeting';    //会议相关信息
 var getAlertInformationUrl = ECS.api.apUrl + '/fileAlarmChild/getAlertInformation';    //接警信息
 var updateStatusUrl = ECS.api.emUrl + '/initiateMeeting/call';    //更新接通状态
 //var getOut = ECS.api.emUrl + '/meetingUser/leaveMeeting';   //离场
+var closeMeeting = ECS.api.emUrl + '/meetingRecord';
 window.pageLoadMode = PageLoadMode.None;
 var vm = new Vue({
 	el: '#main',
@@ -17,7 +18,7 @@ var vm = new Vue({
 		eventId: '',
 		AlertInfo: '',
 		show: true,
-		heigth:''
+		heigth: ''
 	},
 	mounted: function () {
 		this.heigth = document.body.clientHeight - 120 + 'px';
@@ -70,16 +71,16 @@ $(function () {
 				// },
 				{
 					text: '屏蔽', action: function (e) {
-					
+
 						var select = $(".selectorDiv li input:checked + label");
 						var userList = [];
-					
+
 						$(select).each(function (i) {
 							var a = $(select[i]).attr("data");
 							userList.push(a);
 						});
 						parent.meetCtrl(userList, 1);
-					
+
 						$(select).addClass("off");
 						$(select).removeClass("on");
 					}
@@ -142,9 +143,9 @@ $(function () {
 		},
 		logic: {
 			setStatus: function (number, callType) {
-				 if(number.length==14&& number.substr(0,3)=="080"){
-					number = number.substr(3,11);
-				 }
+				if (number.length == 14 && number.substr(0, 3) == "080") {
+					number = number.substr(3, 11);
+				}
 				if (callType == 3 || callType == 4) {
 					$.ajax({
 						url: updateStatusUrl + "?metingRecordId=" + vm.meetingRecordId + "&phone=" + number + "&status=" + Number(callType - 2),
@@ -245,12 +246,9 @@ $(function () {
 						var body = layer.getChildFrame('body', index);
 						var iframeWin = window[layero.find('iframe')[0]['name']];
 						var data = {
-
 							'title': '会议详情'
-
 						};
-
-						iframeWin.page.logic.setData(vm.meetingRecordId,vm.items);
+						iframeWin.page.logic.setData(vm.meetingRecordId, vm.items);
 					},
 					end: function () {
 						if (window.pageLoadMode == PageLoadMode.Refresh) {
@@ -291,8 +289,13 @@ $(function () {
 			// 	});
 			// },
 			OffMeeting: function () {
-				var index = parent.layer.getFrameIndex(window.name);//获取子窗口索引
-				parent.layer.close(index);
+				ECS.util.addOrEdit({
+					url: closeMeeting + '?meetingRecordId=' + vm.meetingRecordId,
+					pageMode: PageModelEnum.Edit
+				}, function () {
+					var index = parent.layer.getFrameIndex(window.name);//获取子窗口索引
+					parent.layer.close(index);
+				});
 			},
 			Off: function () {
 				var nums = page.logic.getPhoneNum();
@@ -303,7 +306,7 @@ $(function () {
 				$(select).removeClass("on");
 			},
 			On: function () {
-			
+
 
 				var nums = page.logic.getPhoneNum();
 				parent.meetCtrl(nums, 0);
@@ -327,6 +330,22 @@ $(function () {
 				else {
 					parent.startRecord(parent.currentPcNum, '');
 				}
+			},
+			isExistsArr: function (arr) {
+				var data = [];
+				for (var i = 0, len = vm.items.length; i < len; i++) {
+					data.push(vm.items[i].isHandSet == 0 ? vm.items[i].phone : vm.items[i].mobile);
+				}
+				arr = arr.concat(data);
+				var hash = {};
+				for (var i = 0, len = arr.length; i < len; i++) {
+					if (hash[arr[i]]) {
+						layer.msg(arr[i] + '存在重复');
+						return true;
+					}
+					hash[arr[i]] = true;
+				}
+				return false;
 			}
 		}
 	};

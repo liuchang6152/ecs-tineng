@@ -143,12 +143,16 @@ $(function () {
                     var obj = {
                         personId: users[i].userId,
                         mark: users[i].mark,
-                        phone:users[i].mark == 1 ? users[i].userMobile : users[i].userPhone
+                        phone: users[i].mark == 1 ? users[i].userMobile : users[i].userPhone
                     };
                     data.person.push(obj);
                     phoneNums.push(users[i].mark == 1 ? users[i].userMobile : users[i].userPhone);
                 }
-                console.log(JSON.stringify(data));
+                
+                if(page.logic.isExistsArr(phoneNums)){
+                    return;
+                }
+
                 ECS.util.addOrEdit({
                     url: initMeetingUrl,
                     data: data,
@@ -160,8 +164,8 @@ $(function () {
                         parent.closeMeeting();
                     }, { height: '95%', width: '95%', closeBtn: 0 }, function () {
                         parent.meeting(phoneNums);
-                      
-                        
+
+
                     });
                 });
             },
@@ -169,6 +173,17 @@ $(function () {
                 if (e.field == 'mark' && (e.record.userPhone == '' || e.record.userMobile == '')) {
                     e.cancel = true;
                 }
+            },
+            isExistsArr: function (arr) {
+                var hash = {};
+                for (var i = 0, len = arr.length; i < len; i++) {
+                    if (hash[arr[i]]) {
+                        layer.msg(arr[i] + '存在重复');
+                        return true;
+                    }
+                    hash[arr[i]] = true;
+                }
+                return false;
             }
         }
     };
