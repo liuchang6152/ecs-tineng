@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="cn">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+    <title>实时监测点配置</title>
+    <meta name="keywords">
+    <meta name="description">
+    <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css">
+    <link rel="stylesheet" href="../../../lib/layer/skin/layer.css">
+    <link rel="stylesheet" href="../../../css/common/animate.css">
+    <link rel="stylesheet" href="../../../css/common/font.css">
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../../css/common/common.css">
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+    <link rel="stylesheet" href="../../../css/bc/MonitorFactor/index.css" />
+    <style>
+        .box-main > .box-body{min-height:577px;}
+    </style>
+</head>
+<body>
+<div class="main-content">
+    <div class="box box-main">
+        <div class="box-header">
+            <i class="title-vertical"></i>
+            <div class="box-title text-color">
+                实时监测点配置(PCITC_ECS V1.0_20190412)
+                <div class="box-tools pull-right">
+                    <a href="#" class="btn btn-primary btn-sm" id="btnAdd" title="新增"><i class="icon-add mr__5"></i> 新增</a>
+                    <a href="#" class="btn btn-danger btn-sm" id="btnDel" title="删除"><i class="icon-delete mr__5"></i> 删除</a>
+                </div>
+            </div>
+        </div>
+        <div class="box-body">
+            <form id="searchForm" onsubmit="return false;" class="form-inline">
+                <div class="search-fixed">
+                    <div class="form-group">
+                        <label class="control-label width__120">企业：</label>
+                        <div class="control-inline">
+                            <input style="width:150px;" name="enterpriseCode" id="enterpriseCode" class="mini-treeselect width__140" multiSelect="false"
+                                   textField="orgSname" valueField="orgId" parentField="orgPID"  checkRecursive="true"
+                                   showFolderCheckBox="false"  expandOnLoad="true"   showRadioButton="false" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label width__110">二级单位：</label>
+                        <div class="control-inline">
+                            <input style="width:150px;" name="drtDeptCode" id="drtDeptCode" class="mini-treeselect width__140" multiSelect="false"
+                                   textField="orgSname" valueField="orgId" parentField="orgPID"  checkRecursive="true"
+                                   showFolderCheckBox="false"  expandOnLoad="true"   showRadioButton="false" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label width__110">实时监测点名称：</label>
+                        <div class="control-inline">
+                            <input name="siteName" id="siteName" type="text" class="form-control width__140 mr__10" value="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label width__120">是否启用：</label>
+                        <div class="control-inline">
+                            <select name="inUse" id="inUse" class="form-control width__140 mr__10"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <a href="#" class="btn btn-primary btn-sm" id="btnQuery" title="查询"><i class="icon-search"></i> 查询</a>
+                    </div>
+                    <div id="btnToggle"><i class="icon-showMore"></i></div>
+                </div>
+                <div class="search-unfixed">
+                    <div class="form-group">
+                        <label class="control-label width__120">安全风险区板块：</label>
+                        <div class="control-inline">
+                            <select name="riskAreaCatg" id="riskAreaCatg" class="form-control width__140"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label width__110">安全风险区分类：</label>
+                        <div class="control-inline">
+                            <input style="width:150px;" name="riskAreaCatgName" id="riskAreaCatgName" class="mini-treeselect width__140" multiSelect="false"
+                                   textField="cateName" valueField="categID" checkRecursive="true"
+                                   showFolderCheckBox="false" expandOnLoad="true" showRadioButton="false" emptyText="全部" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label width__110">作业风险区类型：</label>
+                        <div class="control-inline">
+                            <select name="zoneCatg" id="zoneCatg" class="form-control width__140 mr__10"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">风险分析对象类型：</label>
+                        <div class="control-inline">
+                            <select name="riskAnlsObjCatg" id="riskAnlsObjCatg" class="form-control width__140"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-unfixed" style="margin-left: 273px;">
+                    <div class="form-group">
+                        <label class="control-label width__110">安全风险区名称：</label>
+                        <div class="control-inline">
+                            <input id="riskAreaCode" emptyText="全部" class="mini-combobox width__140" textField="riskAreaName" valueField="riskAreaCode" allowInput="true" valueFromSelect="true" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label width__110">作业风险区名称：</label>
+                        <div class="control-inline">
+                            <input id="optlRiskCode" emptyText="全部" class="mini-combobox width__140 mr__10" textField="name" valueField="code" allowInput="true" valueFromSelect="true" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">风险分析对象名称：</label>
+                        <div class="control-inline">
+                            <input id="riskAnlsObjCode" emptyText="全部" class="mini-combobox width__140" textField="name" valueField="code" allowInput="true" valueFromSelect="true" />
+                        </div>
+                    </div>
+                </div>
+                <div class="search-unfixed">
+                    <div class="form-group">
+                        <label class="control-label width__120">监测类型：</label>
+                        <div class="control-inline">
+                            <select name="monitorTypeID" id="monitorTypeID" class="form-control width__140"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label width__110">风险分析点名称：</label>
+                        <div class="control-inline">
+                            <select name="pointID" id="pointID" class="form-control width__140"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label width__110">当前值：</label>
+                        <div class="control-inline">
+                            <select name="siteValue" id="siteValue" class="form-control width__140">
+                                <option value="">全部</option>
+                                <option value="1">有值</option>
+                                <option value="2">空</option>
+                                <option value="3">错误</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div id="datagrid" class="mini-datagrid" idField="siteID" multiSelect="true" frozenstartcolumn="0" frozenendcolumn="2">
+                <div property="columns">
+                    <div type="indexcolumn" headerAlign="center" align="center" width="35">序号</div>
+                    <div type="checkcolumn" allowResize="false" width="35"></div>
+                    <div field="event_cancel" headerAlign="center" align="center" width="40" renderer="page.logic.show_edit">操作</div>
+                    <div field="drtDeptName" name="drtDeptName"  align="center" headerAlign="center">二级单位</div>
+                    <div field="areaName" name="areaName" headerAlign="center" align="center">安全风险区名称</div>
+                    <div field="optlRiskZoneName" name="optlRiskZoneName" headerAlign="center" align="center">作业风险区名称</div>
+                    <div field="riskAnlsObjName" name="riskAnlsObjName" align="center" headerAlign="center" renderer="ShowRiskAreaCate">风险分析对象名称</div>
+                    <div field="rapName" name="rapName" width="100" headeralign="center" align="center">风险分析点名称</div>
+                    <div field="siteName" name="siteName" width="100" headeralign="center" align="center">监测点名称</div>
+                    <div field="systemUID" name="systemUID" width="100" headeralign="center" align="center">系统标识</div>
+                    <div field="monitorTypeName" name="monitorTypeName" width="100" headeralign="center" align="center">监测类型</div>
+                    <div field="paramMesUnitName" name="paramMesUnitName" width="100" headeralign="center" align="center">测量单位</div>
+                    <div field="siteNumber" name="siteNumber" width="150" headeralign="center" align="center">位号编码</div>
+                    <div field="siteValue" name="siteValue" width="100" headeralign="center" align="center">监测值</div>
+                    <div field="siteID" headeralign="center" align="center" renderer="page.logic.show_upload">是否添加附件</div>
+                    <div field="inUseShow" width="60" headeralign="center" align="center">是否启用</div>
+                    <div field="crtDate" width="150" headeralign="center" align="center" renderer="page.logic.DateTime">创建时间</div>
+                    <div field="crtUserName" width="100" headeralign="center" align="center">创建人</div>
+                    <div field="mntDate" width="150" headeralign="center" align="center" renderer="page.logic.mntTime">维护时间</div>
+                    <div field="mntUserName" width="100" headeralign="center" align="center">维护人</div>
+                    <div field="sortNum" width="100" headeralign="center" align="center">排序</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 全局js -->
+<script src="../../../lib/jquery/jquery.min.js"></script>
+<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- 自定义js -->
+<script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+<!-- JQ 表单序列化 -->
+<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+<script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+<!--公共js-->
+<script src="../../../js/common/CommonEnum.js"></script>
+<script src="../../../js/common/ecs-util.js"></script>
+<script src="../../../js/common/ecs-env.js"></script>
+<!--layUI表格-->
+<script src="../../../lib/layui-2.3.0/layui.js"></script>
+<script src="../../../lib/layui-2.3.0/layui.all.js"></script>
+<!-- 弹窗 -->
+<script src="../../../lib/layer/layer.js"></script>
+<script src="../../../lib/miniui/miniui.js"></script>
+<!--页面逻辑-->
+<script src="../../../js/bc/MonitorSite/index.js"></script>
+</body>
+</html>

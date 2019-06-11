@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>应急值守</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../../css/common/font.css">
+    <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css">
+    <link rel="stylesheet" href="../../../lib/layer/skin/layer.css">
+    <link rel="stylesheet" href="../../../css/common/font.css">
+    <link rel="stylesheet" href="../../../css/common/common.css">
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+    <link rel="stylesheet" href="../../../css/edd/MsgSchedul/IndexShow.css" />
+</head>
+
+<style>
+    .title-vertical {
+    display: inline-block;
+    width: 3px;
+    height: 18px;
+    background: #45c8dc;
+    margin: 0px 5px 0px 0px;
+}
+/* div{
+    padding-top: 3px;
+} */
+</style>
+
+<body>
+    <div class="main-content" id="main">
+        <div class="box box-main">
+            <!-- <div class="box-body">
+                <i class="title-vertical"></i>
+                <h4>值班信息</h4>
+                <div class="row pl__10">
+                    <div v-for="item in items" class="col-xs-3">
+                        <div class="font__14">{{ item.name }}</div>
+                        <div v-for="person in item.value">
+                            {{person.personnelName}} {{person.userMobile}} {{person.userPhone}}
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt__10 mb__10" />
+                <i class="title-vertical"></i>
+                <h4>车辆信息</h4>
+                <div class="row pl__10">
+                    <div v-for="item in vehicles" class="col-xs-3">
+                        <div  class="font__14">{{ item.name }}</div>
+                        <div style="height:120px;overflow-y: auto;">
+                            <div v-for="vehicle in item.value">
+                                {{vehicle.vehicleName}} {{vehicle.abnormalStatusEnumName}}
+                                {{vehicle.poactionStatusEnumName}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="mt__10 mb__10" />
+                <i class="title-vertical"></i>
+                <h4>占道信息 (开始时间和结束时间前后各增加一天)</h4>
+                <div class="row pl__10">
+                    <div class="col-xs-3 font__14">通知时间</div>
+                    <div class="col-xs-3 font__14">占道开始时间</div>
+                    <div class="col-xs-3 font__14">占道结束时间</div>
+                    <div class="col-xs-3 font__14">内容</div>
+                </div>
+                <div v-for='item in presentJeeves' class="row pl__10">
+                    <div class="col-xs-3">
+                        {{item.noticeDate}}
+                    </div>
+                    <div class="col-xs-3">
+                        {{item.startDate}}
+                    </div>
+                    <div class="col-xs-3">
+                        {{item.endDate}}
+                    </div>
+                    <div class="col-xs-3">
+                        {{item.address}}
+                    </div>
+                </div>
+            </div> -->
+            <div class="box-body">
+                <div class="box box-main">
+                    <div class="search-fixed" style="height: 30px;">
+                        <div class="form-group">
+                          <img src="../../../images/car/1.gif"  style="width: 30px;height: 30px"/>  <label style="padding-top: 5px">值班信息</label>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row-fluid">
+                            <div v-for="item in items" style="width:24%;height:100px;float: left;margin-right: 10px;  "
+                                class="div">
+                                <h5 style="text-align: center;margin-left: 20px;height: 26px;" v-cloak> {{item.name}}</h5>
+                                <div class="mini-grid-rows-content" style="height: 200px;overflow: auto">
+                                    <table class="mini-grid-table mini-grid-rowstable" cellspacing="0" cellpadding="0"
+                                        border="0" style="width: 100%;">
+                                        <tbody>
+                                            <tr v-for='person in item.value'>
+                                                <td class="mini-grid-cell" style="text-align:center; border-right: 0px">
+                                                    <div class="mini-grid-cell-inner  mini-grid-cell-nowrap " v-cloak>{{person.personnelName}}</div>
+                                                </td>
+                                                <td class="mini-grid-cell" style="text-align:center;border-right: 0px">
+                                                    <a v-if="isShow(person.userMobile)" href="#" class=" btn-link" id="btnMobile"
+                                                        v-on:click="page.logic.callMobile(person)" v-bind:title="person.userMobile">
+                                                        <i class="icon-mobile"></i>手机</a>
+                                                </td>
+                                                <td class="mini-grid-cell" style="text-align:center;border-right: 0px">
+                                                    <a v-if="isShow(person.userPhone)" href="#" class=" btn-link" id="btnPhone"
+                                                        v-on:click="page.logic.callPhone(person)" v-bind:title="person.userPhone">
+                                                        <i class="icon-phone"></i>电话</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-main">
+                    <div class="search-fixed" style="height: 30px;">
+                        <div class="form-group">
+                            <img src="../../../images/car/2.gif"  style="width: 30px;height: 30px"/>  <label style="padding-top: 5px">车辆信息</label>
+                        </div>
+                    </div>
+                    <div class="container-fluid" id="main">
+                        <div class="row-fluid">
+                            <div v-for="item in vehicles" style="width:24%;float: left;margin-right: 10px; margin-top: 10px " class="div">
+                                <h5 style="text-align: center;margin-left: 20px;height: 26px;" v-cloak> {{item.name}}</h5>
+                                <div class="mini-grid-rows-content" style="height: 150px;overflow: auto">
+                                    <table class="mini-grid-table mini-grid-rowstable" cellspacing="0" cellpadding="0"
+                                        border="0" style="width: 100%;">
+                                        <tbody>
+                                            <tr class="mini-grid-row" v-for='vehicle in item.value'>
+                                                <td class="mini-grid-cell" style="text-align:left;border-right: 0px">
+                                                    <div class="mini-grid-cell-inner  mini-grid-cell-nowrap "
+                                                        v-bind:title="vehicle.vehicleName" v-cloak>{{vehicle.vehicleName}}</div>
+                                                </td>
+                                                <td class="mini-grid-cell" style="text-align:center;border-right: 0px">
+                                                    <div class="mini-grid-cell-inner  mini-grid-cell-nowrap " :id="vehicle.vehicleID"   @mouseover="mouseover(vehicle.malfunctionEntities,vehicle.vehicleID)" @mouseleave ="mouseout()"
+                                                        v-bind:style="(vehicle.abnormalStatusEnumName=='异常') ? 'color: red' : ''"
+                                                       v-cloak>{{vehicle.abnormalStatusEnumName}}</div>
+                                                </td>
+                                                <td class="mini-grid-cell" style="text-align:center;border-right: 0px">
+                                                    <div class="mini-grid-cell-inner  mini-grid-cell-nowrap " id="vehicleDiv">
+                                                        <span style="width:100%"
+                                                            :id="gernerateId(vehicle.vehicleID)" v-cloak>{{vehicle.poactionStatusEnumName}}</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box box-main">
+                    <div class="search-fixed"  style="height: 30px;">
+                        <div class="form-group">
+                            <img src="../../../images/car/3.gif"  style="width: 30px;height: 30px"/>    <label style="padding-top: 5px"> 占道信息</label>
+                        </div>
+                    </div>
+                    <div class="container-fluid" id="main">
+                        <div class="row-fluid">
+                            <div style="width:99%;height:auto;float: left;margin: 1px; " class="div">
+                                <table class="mini-grid-table" cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <td class="mini-grid-cell" style="text-align:center;">
+                                                <div class="mini-grid-cell-inner  mini-grid-cell-nowrap ">通知时间</div>
+                                            </td>
+                                            <td class="mini-grid-cell" style="text-align:center;">
+                                                <div class="mini-grid-cell-inner  mini-grid-cell-nowrap ">占道开始时间</div>
+                                            </td>
+                                            <td class="mini-grid-cell" style="text-align:center;">
+                                                <div class="mini-grid-cell-inner  mini-grid-cell-nowrap ">占道结束时间</div>
+                                            </td>
+                                            <td class="mini-grid-cell" style="text-align:center;">
+                                                <div class="mini-grid-cell-inner  mini-grid-cell-nowrap ">内容</div>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for='item in presentJeeves'>
+                                            <td class="mini-grid-cell" style="text-align:center;">
+                                                <div class="mini-grid-cell-inner  mini-grid-cell-nowrap " v-cloak>{{item.noticeDate}}</div>
+                                            </td>
+                                            <td class="mini-grid-cell" style="text-align:center;">
+                                                <div class="mini-grid-cell-inner  mini-grid-cell-nowrap " v-cloak>{{item.startDate}}</div>
+                                            </td>
+                                            <td class="mini-grid-cell" style="text-align:center;">
+                                                <div class="mini-grid-cell-inner  mini-grid-cell-nowrap " v-cloak>{{item.endDate}}</div>
+                                            </td>
+                                            <td class="mini-grid-cell" style="text-align:center;">
+                                                <div class="mini-grid-cell-inner  mini-grid-cell-nowrap " v-cloak>{{item.address}}</div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 全局js -->
+    <script src="../../../lib/jquery/jquery.min.js"></script>
+    <!--公共js-->
+    <script src="../../../js/common/ecs-util.js"></script>
+    <script src="../../../js/common/ecs-env.js"></script>
+    <script src="../../../lib/miniui/miniui.js"></script>
+    <script src="../../../lib/vue/vue.min.js"></script>
+    <script src="../../../js/common/moment.min.js"></script>
+    <!--layUI表格-->
+    <script src="../../../lib/layui-2.3.0/layui.js"></script>
+    <script src="../../../lib/layui-2.3.0/layui.all.js"></script>
+    <!-- 弹窗 -->
+    <script src="../../../lib/layer/layer.js"></script>
+    <!--页面逻辑-->
+    <script src="../../../js/edd/MsgSchedul/IndexShow.js" type="text/javascript"></script>
+</body>
+
+</html>

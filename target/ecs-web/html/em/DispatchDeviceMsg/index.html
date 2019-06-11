@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+    <title>应急调度设备联动</title>
+    <meta name="keywords">
+    <meta name="description">
+    <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
+    <link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
+    <link rel="stylesheet" href="../../../css/common/animate.css" />
+    <link rel="stylesheet" href="../../../css/common/font.css" />
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../css/common/common.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+    <link rel="stylesheet" href="../../../css/em/DispatchDeviceMsg/index.css"/>
+    <style>
+        .box-main > .main-body{min-height:577px;}
+    </style>
+</head>
+<body>
+<div class="main-content">
+    <div class="box box-main">
+        <div class="box-header">
+            <i class="title-vertical"></i>
+            <div class="box-title text-color">
+                应急调度设备联动(PCITC_ECS V1.0_20190415)
+                <span class="ml__30 text-danger font__14">当前事件：</span>
+                <div class="box-tools pull-right">
+                    <a href="#" class="btn btn-success btn-sm" id="btnChange" title="事件切换"><i class="icon-change mr__5"></i> 事件切换</a>&nbsp;&nbsp;
+                    <a href="#" class="btn btn-success btn-sm" id="btnAdd" title="操作历史"><i class="icon-history mr__5"></i> 操作历史</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-body">
+            <div class="leftNav-body">
+                <!--左侧主体 start-->
+                <select name="enterpriseCode" id="enterpriseCode" class="form-control mb__10"></select>
+                <ul id="tree1" class="mini-tree" style="height: 460px;" showTreeIcon="true"  resultAsTree="false"  textField="name" valueField="id"></ul>
+                <!--左侧主体 end-->
+            </div>
+            <div class="box-body" style="height:577px;">
+                <!--右侧主体 start-->
+                <div class="mini-tabs" activeIndex="0" plain="false">
+                    <!--开关类 end-->
+                    <div title="开关类">
+                        <form id="TurnModal" class="form-inline">
+                            <div class="titleBar">
+                                <div class="pull-left">
+                                    <b>操作控制：</b>
+                                    <input type="radio" id="onDevisce" name="turnDevice" value="打开设备" > 打开设备&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="radio" id="offDevice" name="turnDevice" value="关闭设备" checked="checked"> 关闭设备
+                                </div>
+                                <div class="pull-right">
+                                    <button type="button" class="btn btn-primary mb__15" id="btnSave"><i class="icon-save mr__5"></i> 执 行</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="deviceTit">
+                            <div class="pull-left"><b>待选设备：</b></div>
+                        </div>
+                        <div id="turnSelect" class="mini-datagrid" idField="id" multiSelect="true" pageSizeWidth="60" >
+                            <div property="columns">
+                                <div type="indexcolumn" headerAlign="center" align="center" allowResize="false" width="35">序号</div>
+                                <div type="checkcolumn" allowResize="false" width="35"></div>
+                                <div field="event_cancel" headerAlign="center" align="center" allowResize="false" width="80" renderer="page.logic.curStatus">当前状态</div>
+                                <div field="drtDeptName" headerAlign="center" align="center">关联位置</div>
+                                <div field="deviceE.deviceCatgName" headerAlign="center" align="center">设备大类</div>
+                                <div field="deviceE.deviceTypeName" headerAlign="center" align="center">设备小类</div>
+                                <div field="deviceE.deviceName" headerAlign="center" align="center">设备名称</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--开关类 end-->
+                    <!--消息类 start-->
+                    <div title="消息类">
+                        <form id="AddOrEditModal" class="form-inline">
+                            <div class="form-group col-xs-12">
+                                <label class="control-label col-xs-1">消息内容：</label>
+                                <div class="col-xs-11">
+                                    <textarea class="form-control" id="autoMsg" rows="3" style="resize: none;width: 100%;font-size: 12px;" placeholder="请输入自定义广播语"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label class="control-label col-xs-1">快播广告语：</label>
+                                <div class="col-xs-2">
+                                    <select name="msg" id="msg" class="form-control">
+                                        <option value="0">请选择</option>
+                                        <option value="1">发生火灾 全员撤离</option>
+                                        <option value="2">发生水灾 全员撤离</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-5">
+                                    <div class="form-group">
+                                        <div class="control-label col-xs-3">
+                                            <label>
+                                                <input type="checkbox" id="shortLanguage" name="shortLanguage" checked="checked" />
+                                            </label>
+                                        </div>
+                                        <label class="control-label col-xs-9">快捷广播语</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label class="control-label col-xs-1">播放次数：</label>
+                                <div class="col-xs-1">
+                                    <select name="nums" id="nums" class="form-control width__90">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="0">其他</option>
+                                    </select>
+                                </div>
+                                <div id="custom">
+                                    <label class="control-label col-xs-1">输入次数：</label>
+                                    <div class="col-xs-2">
+                                        <input name="autoNum" type="number" min="11" value="11" class="form-control width__110" id="autoNum" onpaste="return false" />
+                                    </div>
+                                </div>
+                                <div class="pull-right mr__15">
+                                    <button type="button" class="btn btn-primary mb__15" id="btnOn"><i class="icon-save mr__5"></i> 执 行</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="deviceTit">
+                            <div class="pull-left"><b>待选设备：</b></div>
+                        </div>
+                        <div id="noSelect" class="mini-datagrid" idField="id" multiSelect="true" showLoading="true"  pageSizeWidth="60" >
+                            <div property="columns">
+                                <div type="indexcolumn" headerAlign="center" align="center" allowResize="false" width="35">序号</div>
+                                <div type="checkcolumn" allowResize="false" width="35"></div>
+                                <div field="event_cancel" headerAlign="center" align="center" allowResize="false" width="80" renderer="page.logic.curStatus">当前状态</div>
+                                <div field="drtDeptName" headerAlign="center" align="center">关联位置</div>
+                                <div field="deviceE.deviceCatgName" headerAlign="center" align="center">设备大类</div>
+                                <div field="deviceE.deviceTypeName" headerAlign="center" align="center">设备小类</div>
+                                <div field="deviceE.deviceName" headerAlign="center" align="center">设备名称</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--消息类 end-->
+                </div>
+                <!--右侧主体 end-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 全局js -->
+<script src="../../../lib/jquery/jquery.min.js"></script>
+<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- 自定义js -->
+<script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+<!-- JQ 表单序列化 -->
+<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+<script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+<!--公共js-->
+<script src="../../../js/common/CommonEnum.js"></script>
+<script src="../../../js/common/ecs-util.js"></script>
+<script src="../../../js/common/ecs-env.js"></script>
+<!-- 弹窗 -->
+<script src="../../../lib/miniui/miniui.js"></script>
+<script src="../../../lib/layer/layer.js"></script>
+<!--页面逻辑-->
+<script src="../../../js/em/DispatchDeviceMsg/index.js"></script>
+</body>
+</html>

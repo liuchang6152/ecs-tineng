@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-control" content="no-cache" />
+    <meta http-equiv="Cache" content="no-cache" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+    <title>图形编辑器</title>
+    <meta name="keywords" />
+    <meta name="description" />
+</head>
+<body>
+<!-- 全局js -->
+<script src="../../lib/jquery/jquery.min.js"></script>
+<script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- 自定义js -->
+<script src="../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+<!-- JQ 表单序列化 -->
+<script src="../../lib/jquery/jquery.serialize-object.min.js"></script>
+<script src="../../lib/adminlte/js/adminlte.min.js"></script>
+<!--公共js-->
+<script src="../../js/common/CommonEnum.js"></script>
+<script src="../../js/common/ecs-util.js"></script>
+<script src="../../js/common/ecs-env.js"></script>
+<script type="text/javascript">
+    ECS.sys.RefreshContextFromSYS();
+    var height = window.screen.availHeight * (window.screen.systemYDPI/window.screen.logicalYDPI);
+    var width = window.screen.availWidth * (window.screen.systemXDPI/window.screen.logicalXDPI);
+    window.open(ECS.api.gisserver_url+"/giseditor/editorpt.html?"+window.btoa(ECS.sys.Context.SYS_ENTERPRISE_CODE),
+        "_blank", "height=" + height + ",width=" + width +",menubar=no,scrollbars=no,location=no,status=no,toolbar=no");
+</script>
+</body>
+</html>

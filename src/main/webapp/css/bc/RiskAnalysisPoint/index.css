@@ -1,0 +1,107 @@
+#btnImport{
+    position: relative;
+}
+#importeven{
+    position: absolute;
+    left: 0;
+    top: 0;
+    cursor: pointer;
+    font-size: 0;
+    width: 75px;
+    height: 32px;
+    opacity: 0;
+}
+/*树形菜单*/
+form .mini-buttonedit{
+    height: auto;
+    width: auto;
+    display: block;
+}
+form .mini-buttonedit-border{
+    height: 28px;
+    border:1px solid #ccc;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding-left: 10px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+form .mini-buttonedit-input{
+    height: 28px;
+    line-height: 28px;
+    color: #555555;
+    font-size: 14px;
+    font-family: inherit;
+}
+form .mini-buttonedit-icon{
+    margin-top:-5px;
+}
+.mini-popup{
+    width: 200px!important;
+}
+/*人员选择*/
+.input-group-btn .btn{
+    width: auto;
+    line-height: 30px;
+    padding:0 10px;
+}
+.searchbox{
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+.mini-textbox{
+    height: 35px;
+    padding: 3px 6px 4px;
+}
+.mini-textbox-border{
+    height: 30px;
+    border:1px solid #cccccc;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.mini-textbox-input{
+    height: 30px;
+    line-height: 30px;
+    margin-left: 5px;
+}
+.container{
+    border-radius: 5px;
+    border:1px solid #ccc;
+    height: 270px;
+    overflow: scroll;
+    margin-left: 20px;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+#remove,#add{
+    width: 50px;
+    margin:10px 0;
+}
+/*导入数据错误提示*/
+#selectOwner{
+    width: auto;
+}
+.panel-content{
+    background: #e7e7e7;
+    height: 250px;
+    overflow-y: scroll;
+    line-height: 22px;
+}
+ol{
+    list-style: decimal;
+}
+#grid2 p{
+    line-height: 25px;
+}
+.selected{
+    color: red;
+}
+.mini-tree-user{
+    background-image: url("../../../images/common/user-icon.png");
+}

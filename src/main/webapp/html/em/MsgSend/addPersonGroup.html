@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+    <title>添加个人通讯组</title>
+    <meta name="keywords">
+    <meta name="description">
+    <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
+    <link rel="stylesheet" href="../../../lib/jquery.validate-1.16/jquery.validate.css">
+    <link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
+    <link rel="stylesheet" href="../../../css/common/animate.css" />
+    <link rel="stylesheet" href="../../../css/common/font.css" />
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../css/common/common.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+</head>
+
+<body style="overflow: hidden;">
+    <div class="main-content__dialog">
+        <div class="main-header__dialog">
+            <i class="title-vertical"></i>
+            <span id="title-main"></span>
+            <i class="icon-close fr btnClose" title="关闭" aria-hidden="true"></i>
+        </div>
+        <div class="box box-main">
+            <form id="form" onsubmit="return false;" class="form-inline mt__50">
+                <div class="form-group mt__50 ml__50">
+                    <label class="control-label">个人通讯组名称</label>
+                    <div class="control-inline">
+                        <input name="personGroup" id="personGroup" type="text" class="form-control" maxlength="200"
+                            placeholder="输入个人通讯组名称" />
+                    </div>
+                    <div class="control-inline ml__10">
+                        <span class="span-required">*</span>
+                    </div>
+                </div>
+                <div class="main-footer__dialog">
+                    <div class="row">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary" id="btnSave"><i class="icon-save"></i> 保 存</button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-close btnClose"><i class="icon-close"></i> 关 闭</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- 全局js -->
+    <script src="../../../lib/jquery/jquery.min.js"></script>
+    <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+
+    <script src="../../../lib/jquery.validate-1.16/jquery.validate.js"></script>
+    <script src="../../../lib/jquery.validate-1.16/jquery.validate.extend.js"></script>
+    <script src="../../../lib/jquery.validate-1.16/localization/messages_zh_CN.js"></script>
+
+    <!-- JQ 表单序列化 -->
+    <script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+    <script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+    <!--公共js-->
+    <script src="../../../js/common/CommonEnum.js"></script>
+    <script src="../../../js/common/ecs-util.js"></script>
+    <script src="../../../js/common/ecs-env.js"></script>
+    <!-- 弹窗 -->
+    <script src="../../../lib/miniui/miniui.js"></script>
+    <script src="../../../lib/layer/layer.js"></script>
+    <script src="../../../js/em/MsgSend/addPersonGroup.js"></script>
+</body>
+
+</html>

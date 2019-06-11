@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+    <title>危化品信息</title>
+    <meta name="keywords">
+    <meta name="description">
+    <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
+    <link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
+    <link rel="stylesheet" href="../../../css/common/animate.css" />
+    <link rel="stylesheet" href="../../../css/common/font.css" />
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../css/common/common.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+    <link rel="stylesheet" href="../../../lib/select2/select2.min.css" />
+    <style>
+        .box-main > .box-body{min-height:577px;}
+    </style>
+</head>
+<body>
+<div class="main-content">
+    <div class="box box-main">
+        <div class="box-header">
+            <i class="title-vertical"></i>
+            <div class="box-title text-color">
+                危化品信息(PCITC_ECS V1.0_20190508)
+               
+            </div>
+        </div>
+        <div class="box-body">
+            <form id="searchForm" onsubmit="return false;" class="form-inline">
+                <div class="form-group">
+                    <label class="control-label">所属企业：</label>
+                    <div class="control-inline">
+                        <input name="orgId" id="orgId" class="mini-treeselect width__120 mr__10" url="" multiSelect="false"
+                               textField="orgSname" valueField="orgCode" checkRecursive="true" showFolderCheckBox="false" expandOnLoad="true" showRadioButton="false" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">危化品名：</label>
+                    <div class="control-inline">
+                        <input name="msdsChineseName" id="msdsChineseName" type="text" class="form-control width__110 mr__10" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">CAS No：</label>
+                    <div class="control-inline">
+                        <input name="casno" id="casno" type="text" class="form-control width__110 mr__10" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label ">危险类别：</label>
+                    <div class="control-inline">
+                        <div id="riskType" class="mini-combobox" style="width:100%;"  popupWidth="205" textField="riskTypeName" valueField="riskTypeId" value="" multiSelect="true"  showClose="true" oncloseclick="page.logic.onCloseClick">
+                            <div property="columns">
+                                <div header="名称" field="riskTypeName"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <a href="#" class="btn btn-primary btn-sm" id="btnQuery" title="查询">
+                        <i class="icon-search"></i> 查询
+                    </a>&nbsp;&nbsp;
+                    <a href="#" class="btn btn-danger btn-sm" id="btnReset" title="重置"><i class="icon-zero"></i> 重置</a>&nbsp;&nbsp;
+                </div>
+            </form>
+            <div id="datagrid" class="mini-datagrid" idField="msdsId" multiSelect="true" frozenstartcolumn="0" frozenendcolumn="2">
+                <div property="columns">
+                    <div type="indexcolumn" headerAlign="center" align="center" width="35">序号</div>
+                    <div type="checkcolumn" allowResize="false" width="35"></div>
+                    <div field="event_cancel" headerAlign="center" align="center" width="100" renderer="page.logic.show_edit">操作</div>
+                    <div field="msdsChineseName" name="msdsChineseName"  align="center" headerAlign="center">危化品中文名</div>
+                    <div field="msdsAliasName" name="msdsAliasName" headerAlign="center" align="center">危化品别名</div>
+                    <div field="msdsEnglishName" name="msdsEnglishName" headerAlign="center" align="center">危化品英文名</div>
+                    <div field="casno" name="casno" align="center" headerAlign="center">CAS No.</div>
+                    <div field="materialCode" name="materialCode" align="center" headerAlign="center">物料编码</div>
+                    <div field="riskType" name="riskType" align="center" headerAlign="center" renderer="page.logic.show_risktype">危险性类别</div>
+                    <div field="risk" name="risk" align="center" headerAlign="center" renderer="page.logic.param_danger">危险性</div>
+                    <div field="firstAidMeasure" name="firstAidMeasure" align="center" headerAlign="center" renderer="page.logic.param_firstAidMeasure">急救措施</div>
+                    <div field="fireMeasure" name="fireMeasure" align="center" headerAlign="center" renderer="page.logic.param_fireMeasure">消防措施</div>
+                    <div field="revealHandle" name="revealHandle" align="center" headerAlign="center" renderer="page.logic.param_revealHandle">泄漏应急处理</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 全局js -->
+<script src="../../../lib/jquery/jquery.min.js"></script>
+<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- 自定义js -->
+<script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+<!-- JQ 表单序列化 -->
+<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+<script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+<!--公共js-->
+<script src="../../../js/common/CommonEnum.js"></script>
+<script src="../../../js/common/ecs-util.js"></script>
+<script src="../../../js/common/ecs-env.js"></script>
+<!--select-->
+<script src="../../../lib/select2/select2.min.js"></script>
+<!-- 弹窗 -->
+<script src="../../../lib/layer/layer.js"></script>
+<script src="../../../lib/miniui/miniui.js"></script>
+<!--页面逻辑-->
+<script src="../../../js/rtt/MSDS/index.js"></script>
+</body>
+</html>

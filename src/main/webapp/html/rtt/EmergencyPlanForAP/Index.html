@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+    <title>预案查询</title>
+    <meta name="keywords" />
+    <meta name="description" />
+    <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
+    <link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
+    <link rel="stylesheet" href="../../../css/common/animate.css" />
+    <link rel="stylesheet" href="../../../css/common/font.css" />
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../css/common/common.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+    <link rel="stylesheet" href="../../../css/bc/MonitorFactor/index.css" />
+    <link rel="stylesheet" href="../../../lib/select2/select2.min.css" />
+    <style>
+        .box-main > .box-body{min-height:577px;}
+    </style>
+</head>
+<body>
+<div class="main-content">
+    <div class="box box-main">
+        <div class="box-header">
+            <i class="title-vertical"></i>
+            <div class="box-title text-color">
+                预案查询(PCITC_ECS V1.0_20190508)
+                <div class="box-tools pull-right">
+                    <a href="#" class="btn btn-primary btn-sm" id="btnAdd" title="新增"><i class="icon-export mr__5"></i> 导出</a>&nbsp;&nbsp;
+                
+                </div>
+            </div>
+        </div>
+        <div class="box-body">
+            <form id="searchForm" onsubmit="return false;" class="form-inline">
+                <div class="search-fixed">
+                    <div class="form-group">
+                        <label class="control-label width__110">预案类型：</label>
+                        <div class="control-inline mr__10">
+                            <select name="planDefinition" id="planDefinition" class="form-control width__200"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label width__110">事故小类：</label>
+                        <div class="control-inline">
+                            <select name="smallIds" id="smallIds" class="form-control width__200"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label width__110">预算名称：</label>
+                        <div class="control-inline">
+                            <input name="riskAreaName" id="riskAreaName" type="text" class="form-control width__140" maxlength="200" value="" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <a href="#" class="btn btn-primary btn-sm" id="btnQuery" title="查询"><i class="icon-search"></i> 查询</a>
+                    </div>
+                    <div id="btnToggle"><i class="icon-showMore"></i></div>
+                </div>
+                <div class="search-unfixed">
+                    <div class="form-group">
+                        <label class="control-label width__110">二级单位：</label>
+                        <div class="control-inline">
+                                <select name="drtDeptId" id="drtDeptCode" class="form-control width__140"></select>
+                          
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label width__110">所属车间：</label>
+                        <div class="control-inline">
+                                <select name="riskAreaId" id="riskAreaId" class="form-control width__140"></select>
+                           
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label width__110">所属装置：</label>
+                        <div class="control-inline">
+                                <select name="optlRiskZoneId" id="optlRiskZoneId" class="form-control width__140"></select>
+                           
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label width__110">所属设备：</label>
+                        <div class="control-inline">
+                                <select name="riskAnlsObjId" id="riskAnlsObjId" class="form-control width__140"></select>
+                           
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div id="datagrid" class="mini-datagrid" idField="emergencyPlanID" multiSelect="true">
+                <div property="columns">
+                    <div type="indexcolumn" headerAlign="center" align="center" width="35">序号</div>
+                    <div field="planDefinitionName" name="planDefinitionName" headerAlign="center" align="center">预案类型</div>
+                    <div field="accidentCategoryName" name="accidentCategoryName" align="center" headerAlign="center">事故大类</div>
+                    <div field="accidentCategorySmallName" name="accidentCategorySmallName" align="center" headerAlign="center" renderer="page.logic.cate_type">事故小类</div>
+                    <div field="optlRiskZoneName" name="optlRiskZoneName" headerAlign="center" align="center">作业风险区</div>
+                    <div field="riskAreaName" name="riskAreaName" align="center" headerAlign="center" renderer="page.logic.set_level">安全风险区</div>
+                    <div field="riskAnlsObjName" name="riskAnlsObjName" align="center" headerAlign="center">风险分析</div>
+                    <div field="emergencyPlanName" name="emergencyPlanName"  align="center" headerAlign="center"  renderer="page.logic.show_Detail">预案名称</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 全局js -->
+<script src="../../../lib/jquery/jquery.min.js"></script>
+<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- 自定义js -->
+<script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+<!-- JQ 表单序列化 -->
+<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+<script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+<!--公共js-->
+<script src="../../../js/common/CommonEnum.js"></script>
+<script src="../../../js/common/ecs-util.js"></script>
+<script src="../../../js/common/ecs-env.js"></script>
+<!-- 弹窗 -->
+<script src="../../../lib/miniui/miniui.js"></script>
+<script src="../../../lib/layer/layer.js"></script>
+<script src="../../../lib/select2/select2.min.js"></script>
+<!--页面逻辑by weiwan-->
+<script src="../../../js/rtt/EmergencyPlanForAP/index.js"></script>
+</body>
+</html>

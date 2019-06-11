@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../lib/jquery.validate-1.16/jquery.validate.css">
+    <link rel="stylesheet" href="../../../css/common/font.css">
+    <link rel="stylesheet" href="../../../css/common/animate.css">
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../css/common/common.css">
+    <link rel="stylesheet" href="../../../lib/iCheck/all.css">
+</head>
+<body>
+<div class="main-content__dialog">
+    <div class="main-header__dialog">
+        <i class="title-vertical"></i>
+        <span id="title-main">
+    </span>
+        <i class="icon-close fr btnClose" aria-hidden="true"></i>
+    </div>
+    <div class="box box-main mt__45 mb__55 pt__30">
+        <form id="AddOrEditModal" class="form-horizontal">
+            <input type="hidden" name="siteID" id="siteID" />
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">企业：</label>
+                        <div class="col-xs-7">
+                            <input name="enterpriseCode" id="enterpriseCode" class="mini-treeselect" multiSelect="false"
+                                   textField="orgSname" valueField="orgId" parentField="orgPID" checkRecursive="true"
+                                   showFolderCheckBox="false" expandOnLoad="true" showRadioButton="false" />
+                        </div>
+                        <span class="span-required">*</span>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">二级单位：</label>
+                        <div class="col-xs-7">
+                            <input name="drtDeptCode" id="drtDeptCode" class="mini-treeselect" multiSelect="false"
+                                   textField="orgSname" valueField="orgId" parentField="orgPID"  checkRecursive="true"
+                                   showFolderCheckBox="false" expandOnLoad="true" showRadioButton="false" />
+                        </div>
+                        <span class="span-required ">*</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">安全风险区板块：</label>
+                        <div class="col-xs-7">
+                            <select name="riskAreaCatg" id="riskAreaCatg" class="form-control"></select>
+                        </div>
+                        <span class="span-required">*</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">安全风险区分类：</label>
+                        <div class="col-xs-7">
+                            <input name="riskAreaCatgName" id="riskAreaCatgName" class="mini-treeselect" multiSelect="false"
+                                   textField="cateName" valueField="categID" checkRecursive="true"
+                                   showFolderCheckBox="false"  expandOnLoad="true" showRadioButton="false" />
+                        </div>
+                        <span class="span-required">*</span>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">安全风险区名称：</label>
+                        <div class="col-xs-7">
+                            <input name="riskAreaName" id="riskAreaName" class="mini-combobox" textField="riskAreaName" valueField="riskAreaCode" allowInput="true" valueFromSelect="true" />
+                        </div>
+                        <span class="span-required">*</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">作业风险区类型：</label>
+                        <div class="col-xs-7">
+                            <select name="zoneCatg" id="zoneCatg" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">作业风险区名称：</label>
+                        <div class="col-xs-7">
+                            <input id="optlRiskZoneName" class="mini-combobox" textField="name" valueField="code" allowInput="true" valueFromSelect="true" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">风险分析对象类型：</label>
+                        <div class="col-xs-7">
+                            <select name="riskAnlsObjCatg" id="riskAnlsObjCatg" class="form-control"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">风险分析对象名称：</label>
+                        <div class="col-xs-7">
+                            <input id="riskAnlsObjName" class="mini-combobox" textField="name" valueField="code" allowInput="true" valueFromSelect="true" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">风险分析点名称：</label>
+                        <div class="col-xs-7">
+                            <select name="pointID" id="pointID" class="form-control"></select>
+                        </div>
+                        <span class="span-required">*</span>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">实时监测点当前值：</label>
+                        <div class="col-xs-7">
+                            <input name="siteValue" id="siteValue" type="text" class="form-control required" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">监测类型：</label>
+                        <div class="col-xs-7">
+                            <select name="monitorTypeID" id="monitorTypeID" class="form-control"></select>
+                        </div>
+                        <span class="span-required">*</span>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5" style="color: #ff0000">监测点名称：</label>
+                        <div class="col-xs-7">
+                            <input id="siteName" name="siteName" type="text" class="form-control" maxlength="200" />
+                        </div>
+                        <span class="span-required">*</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">系统标识：</label>
+                        <div class="col-xs-7">
+                            <select name="systemUID" id="systemUID" class="form-control"></select>
+                        </div>
+                        <span class="span-required">*</span>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">测量单位：</label>
+                        <div class="col-xs-7">
+                            <select name="paramMesUnitID" id="paramMesUnitID" class="form-control"></select>
+                        </div>
+                        <span class="span-required">*</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">位号编码：</label>
+                        <div class="col-xs-7">
+                            <input id="siteNumber" name="siteNumber" maxlength="200" type="text" class="form-control" />
+                        </div>
+                        <span class="span-required">*</span>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">是否触发火警：</label>
+                        <div class="col-xs-7">
+                            <label>
+                                <input type="checkbox" name="isFireAlarm" id="isFireAlarm" class="minimal" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group" >
+                        <label class="control-label col-xs-5">排序：</label>
+                        <div class="col-xs-7">
+                            <input name="sortNum" class="mini-spinner" id="sortNum"  minValue="0" maxValue="999999" value="999" />
+                        </div>
+                        <span class="span-required">*</span>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label class="control-label col-xs-5">是否启用：</label>
+                        <div class="col-xs-7">
+                            <label>
+                                <input type="checkbox" name="inUse" id="inUse" checked="checked" class="minimal" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="main-footer__dialog">
+        <div class="row">
+            <div class="text-center">
+                <button type="button" class="btn btn-primary" id="btnSave"><i class="icon-save"></i> 保 存
+                </button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-close btnClose"><i class="icon-close"></i> 关 闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../../lib/jquery/jquery.min.js"></script>
+<!-- JQ 表单序列化 -->
+<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+<script src="../../../lib/layer/layer.js"></script>
+<script src="../../../lib/miniui/miniui.js"></script>
+<!-- 表单验证 -->
+<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../lib/iCheck/icheck.js"></script>
+<script src="../../../lib/jquery.validate-1.16/jquery.validate.js"></script>
+<script src="../../../lib/jquery.validate-1.16/jquery.validate.extend.js"></script>
+<script src="../../../lib/jquery.validate-1.16/localization/messages_zh_CN.js"></script>
+<script src="../../../js/common/CommonEnum.js"></script>
+<script src="../../../js/common/ecs-util.js"></script>
+<script src="../../../js/common/ecs-env.js"></script>
+<!--页面逻辑-->
+<script src="../../../js/bc/MonitorSite/MonitorSiteAddOrEdit.js"></script>
+<script>
+function beforenodeselect(e) {
+    //禁止选中父节点
+    if (e.isLeaf == false) e.cancel = true;
+}
+//点击关闭，关闭联系人弹框；
+function onCloseClick(e) {
+    var obj = e.sender;
+    obj.setText("");
+    obj.setValue("");
+}
+</script>
+</html>

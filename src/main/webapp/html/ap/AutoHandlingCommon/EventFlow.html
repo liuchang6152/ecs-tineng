@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>警情记录回顾</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css">
+    <link rel="stylesheet" href="../../../lib/layer/skin/layer.css">
+    <link rel="stylesheet" href="../../../css/common/animate.css">
+    <link rel="stylesheet" href="../../../css/common/font.css">
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../../css/common/common.css">
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+    <link rel="stylesheet" href="../../../css/ap/FireAlarm/WF.css" />
+</head>
+
+<body style="overflow-x: hidden">
+<div class="main-content__dialog">
+    <div class="main-header__dialog">
+        <i class="title-vertical"></i>
+        <span id="title-main">警情记录</span>
+        <i class="icon-close fr btnClose" aria-hidden="true"></i>
+    </div>
+    <div class="box box-main mt__45 pt__10">
+        <!--<fieldset class="layui-elem-field layui-field-title mt__45 pt__10" style="margin-top: 30px;">-->
+            <!--<legend>单警情记录</legend>-->
+        <!--</fieldset>-->
+        <ul class="layui-timeline" style="padding-left: 30px" id="main" v-cloak>
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis"></i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title">开始</h3>
+                    <ul class="left-ul">
+                        <li>时间：<span id="start_time">{{detail.alarmTime}}</span></li>
+                        <!--<li>报警电话：{{detail.mobileOrPhone}}</li>-->
+                    </ul>
+                    <ul class="right-ul">
+                        <li style="list-style-type:none;border-left:#ccc solid 1px;">
+                            <table class="mini-grid-table" cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+                                <thead>
+                                <tr>
+                                    <td class="mini-grid-headerCell" style="text-align:center;">
+                                        <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">事故大类</div>
+                                    </td>
+                                    <td class="mini-grid-headerCell" style="text-align:center;">
+                                        <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">事故小类</div>
+                                    </td>
+                                    <td class="mini-grid-headerCell" style="text-align:center; width: 400px">
+                                        <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">来源</div>
+                                    </td>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="mini-grid-cell" style="text-align:center;">
+                                        <div class="mini-grid-cell-inner  mini-grid-cell-nowrap" id="accidentCategoryName">{{detail.mobileOrPhone}}</div>
+                                    </td>
+                                    <td class="mini-grid-cell" style="text-align:center;">
+                                        <div class="mini-grid-cell-inner  mini-grid-cell-nowrap" id="accidentTypeName">{{detail.userName}}</div>
+                                    </td>
+                                    <td class="mini-grid-cell" style="text-align:center;">
+                                        <div class="mini-grid-cell-inner" id="eventSource">{{detail.ringInstallAddress}}</div>
+                                    </td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table class="mini-grid-table" cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+                                <thead>
+                                <tr>
+                                    <td class="mini-grid-headerCell" style="text-align:center;">
+                                        <div class="mini-grid-headerCell-inner mini-grid-cell-nowrap">预警等级</div>
+                                    </td>
+                                    <td class="mini-grid-headerCell" style="text-align:center;">
+                                        <div class="mini-grid-headerCell-inner mini-grid-cell-nowrap">事故等级</div>
+                                    </td>
+                                    <td class="mini-grid-headerCell" style="text-align:center; width: 400px">
+                                        <div class="mini-grid-headerCell-inner mini-grid-cell-nowrap">案发位置</div>
+                                    </td>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="mini-grid-cell" style="text-align:center;">
+                                        <div class="mini-grid-cell-inner  mini-grid-cell-nowrap" id="riskRankName">{{detail.mobileOrPhone}}</div>
+                                    </td>
+                                    <td class="mini-grid-cell" style="text-align:center;">
+                                        <div class="mini-grid-cell-inner  mini-grid-cell-nowrap" id="eventLvlName">{{detail.userName}}</div>
+                                    </td>
+                                    <td class="mini-grid-cell" style="text-align:center;">
+                                        <div class="mini-grid-cell-inner" style="text-align:center;" id="eventAddress">{{detail.ringInstallAddress}}</div>
+                                    </td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    </ul>
+
+                </div>
+            </li>
+            <li class="layui-timeline-item" style="overflow:hidden;">
+                <i class="layui-icon layui-timeline-axis"></i>
+                <div class="layui-timeline-content layui-text">
+                    <h3 class="layui-timeline-title">开始受理</h3>
+                    <ul class="left-ul">
+                        <li>时间：<span id="receive_time">{{detail.initTime}}</span></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis"></i>
+                <div class="layui-timeline-content layui-text">
+                    <div class="layui-timeline-title">
+                        <h3 class="layui-timeline-title">接警</h3>
+                        <ul class="left-ul">
+                            <li>时间：<span id="getcall_time">{{detail.commandTime}}</span></li>
+                        </ul>
+                        <ul class="right-ul">
+                            <li style="list-style-type: none;border-left:#ccc solid 1px;">
+                                <table class="mini-grid-table" cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <td class="mini-grid-headerCell" style="text-align:center;">
+                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">人员受伤（/人）</div>
+                                        </td>
+                                        <td class="mini-grid-headerCell" style="text-align:center;">
+                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">人员死亡（/人）</div>
+                                        </td>
+                                        <td class="mini-grid-headerCell" style="text-align:center;">
+                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">财产损失（/万元）</div>
+                                        </td>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="mini-grid-cell" style="text-align:center;">
+                                            <div class="mini-grid-cell-inner  mini-grid-cell-nowrap" id="dieCount"></div>
+                                        </td>
+                                        <td class="mini-grid-cell" style="text-align:center;">
+                                            <div class="mini-grid-cell-inner  mini-grid-cell-nowrap" id="casualtyCount"></div>
+                                        </td>
+                                        <td class="mini-grid-cell" style="text-align:center;">
+                                            <div class="mini-grid-cell-inner  mini-grid-cell-nowrap" id="propertyLossCount"></div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis"></i>
+                <div class="layui-timeline-content layui-text">
+                    <div class="layui-timeline-title">
+                        <h3 class="layui-timeline-title">处警</h3>
+                        <ul class="left-ul">
+                            <li>时间：<span id="dealcall_time"></span></li>
+
+                        </ul>
+                        <ul class="right-ul">
+                            <li style="list-style-type: none;border-left:#ccc solid 1px;">
+                                <table class="mini-grid-table" cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <td class="mini-grid-headerCell" style="text-align:center;">
+                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">启动预案名称</div>
+                                        </td>
+                                        <td class="mini-grid-headerCell" style="text-align:center;">
+                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">启动时间</div>
+                                        </td>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="case_list">
+                                    <tr>
+                                        <td class="mini-grid-cell" style="text-align:center;">
+                                            <div class="mini-grid-cell-inner  mini-grid-cell-nowrap" id="case_start_name"></div>
+                                        </td>
+                                        <td class="mini-grid-cell" style="text-align:center;">
+                                            <div class="mini-grid-cell-inner  mini-grid-cell-nowrap" id="case_start_time"></div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <table class="mini-grid-table" cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <td class="mini-grid-headerCell" style="text-align:center;">
+                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">相关危化品</div>
+                                        </td>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="danger_list">
+                                    <tr>
+                                        <td class="mini-grid-cell" style="text-align:center;">
+                                            <div class="mini-grid-cell-inner  mini-grid-cell-nowrap"></div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li class="layui-timeline-item">
+                <i class="layui-icon layui-timeline-axis"></i>
+                <div class="layui-timeline-content layui-text">
+                    <div class="layui-timeline-title">
+                        <h3 class="layui-timeline-title">处置完成</h3>
+                        <ul class="left-ul">
+                            <li>时间：<span id="complete_time">{{detail.completeTime}}</span></li>
+                        </ul>
+                        <ul class="right-ul">
+                            <li style="list-style-type: none;">
+                                处警状态：  <span id="case_status">{{detail.handleEndInfo}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<script src="../../../lib/jquery/jquery.min.js"></script>
+<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- 自定义js -->
+<script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+<!-- JQ 表单序列化 -->
+<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+<script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+<!--公共js-->
+<script src="../../../js/common/CommonEnum.js"></script>
+<script src="../../../js/common/ecs-util.js"></script>
+<script src="../../../js/common/ecs-env.js"></script>
+<!--layUI表格-->
+<script src="../../../lib/layui-2.3.0/layui.js"></script>
+<script src="../../../lib/layui-2.3.0/layui.all.js"></script>
+<!-- 弹窗 -->
+<script src="../../../lib/layer/layer.js"></script>
+<script src="../../../lib/miniui/miniui.js"></script>
+<script src="../../../js/common/moment.min.js"></script>
+<script src="../../../lib/vue/vue.min.js"></script>
+<!--页面逻辑-->
+<script src="../../../js/ap/AutoHandlingCommon/EventFlow.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+</body>
+
+</html>

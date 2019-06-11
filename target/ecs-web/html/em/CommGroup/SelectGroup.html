@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="content-type" content="text/html;charset=utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+		<title>应急通讯组维护</title>
+		<meta name="keywords">
+		<meta name="description">
+		<link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
+		<link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
+		<link rel="stylesheet" href="../../../css/common/animate.css" />
+		<link rel="stylesheet" href="../../../css/common/font.css" />
+		<link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" href="../../../css/common/common.css" />
+		<link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+		<link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+		<link rel="stylesheet" href="../../../css/em/CommGroup/index.css" />
+
+	</head>
+
+	<body>
+		<div class="main-content">
+			<div class="box box-main">
+				<div class="box-header">
+					<i class="title-vertical"></i>
+					<div class="box-title text-color">
+						应急通讯组维护(PCITC_ECS V1.0_20181114)
+					</div>
+				</div>
+				<div  style="width: 370px;">
+					
+						<!--左侧主体 start-->
+						<div style="height: 250px; overflow: auto;">
+							<input name="enterpriseCode" style="width: 90%;" id="enterpriseCode" class="mini-treeselect" multiSelect="false" textField="orgSname" valueField="orgCode" parentField="porgCode" checkRecursive="true" showFolderCheckBox="false" expandOnLoad="true" showRadioButton="false" />
+
+							<ul id="commGroupsType" expandOnLoad="true" autoCheckParent="true" onbeforenodeselect="page.logic.beforenodeselect" class="mini-tree"  showCheckBox="true" style="width:90%;" showTreeIcon="true" textField="groupNameAndCount" idField="id">
+							</ul>
+						</div>
+				
+
+				</div>
+				<div class="main-footer__dialog">
+					<div class="row">
+						<div class="text-center">
+							<button type="button" class="btn btn-primary" id="btnSave"><i class="icon-save"></i>
+                    保 存
+                </button>&nbsp;&nbsp;
+							<button type="button" class="btn btn-close btnClose"><i class="icon-close"></i> 关 闭
+                </button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 全局js -->
+		<script src="../../../lib/jquery/jquery.min.js"></script>
+		<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+		<!-- 自定义js -->
+		<script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+		<!-- JQ 表单序列化 -->
+		<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+		<script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+		<!--公共js-->
+		<script src="../../../js/common/CommonEnum.js"></script>
+		<script src="../../../js/common/ecs-util.js"></script>
+		<script src="../../../js/common/ecs-env.js"></script>
+		<!-- 弹窗 -->
+		<script src="../../../lib/miniui/miniui.js"></script>
+		<script src="../../../lib/layer/layer.js"></script>
+		<!--页面逻辑-->
+		<script src="../../../js/em/CommGroup/SelectGroup.js"></script>
+	</body>
+
+</html>

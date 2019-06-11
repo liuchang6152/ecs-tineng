@@ -1,0 +1,42 @@
+/*头部*/
+.title{
+    height: 40px;
+    line-height: 40px;
+    border-left: 3px solid #0b93d9;
+    margin-left: 3px;
+    padding-left: 5px;
+    font-size: 16px;
+}
+.rightClose{
+    position: absolute;
+    right: 0;
+    top: 30%;
+}
+
+/*列表样式*/
+.list{
+   position: relative;
+    border-bottom: 1px solid #b1b1b1;
+}
+.nsa{
+    display: block;
+    position: relative;
+    height: 75px;
+    padding: 10px 0 0 10px;
+}
+.nsDeta{
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+}
+.nsPhone button {
+    width: 100px;
+}
+.nsPhone{
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    margin-left: -50px;
+    z-index: 2;
+}
+

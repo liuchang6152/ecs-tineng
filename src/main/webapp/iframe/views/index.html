@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>应急指挥</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../layuiadmin/style/admin.css" media="all">
+</head>
+
+<body class="layui-layout-body">
+  <div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+      <div class="layui-header">
+        <!-- 头部区域 -->
+        <ul class="layui-nav layui-layout-left">
+          <li class="layui-nav-item layadmin-flexible" lay-unselect>
+            <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+              <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+          <li class="layui-nav-item" lay-unselect>
+            <a href="javascript:;" layadmin-event="refresh" title="刷新">
+              <i class="layui-icon layui-icon-refresh-3"></i>
+            </a>
+          </li>
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="javascript:;" layadmin-event="theme">
+              <i class="layui-icon layui-icon-theme"></i>
+            </a>
+          </li>
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="javascript:;" layadmin-event="note">
+              <i class="layui-icon layui-icon-note"></i>
+            </a>
+          </li>
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="javascript:;" title="手动处警" onclick="HandAlarm();" id="HandAlarm">
+              <i class="layui-icon layui-icon-add-1"></i>
+            </a>
+          </li>
+          <li id="missCall" style="display:none;" class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="javascript:;" title="未接来电" onclick="miessCall();">
+              <i class="layui-icon layui-icon-notice"></i><span class="layui-badge" id="callNum">0</span>
+            </a>
+          </li>
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="javascript:;">
+              <cite id="userTeam"></cite>
+            </a>
+          </li>
+          <li class="layui-nav-item" lay-unselect>
+            <a href="javascript:;">
+              <i class="layui-icon layui-icon-user"></i>
+              <cite id="userName"></cite>
+            </a>
+            <dl class="layui-nav-child">
+              <!-- <dd><a href="javascript:;">个人信息</a></dd>
+               <dd><a href="javascript:;">修改密码</a></dd>
+               <dd><a href="javascript:;">个人偏好</a></dd>
+               <dd><a href="javascript:;">版本信息</a></dd>
+               <dd><a href="javascript:;">帮助指南</a></dd> -->
+              <dd><a id="closeNs" href="javascript:;">注销</a></dd>
+            </dl>
+          </li>
+          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+            <a href="javascript:;" layadmin-event="fullscreen">
+              <i class="layui-icon layui-icon-screen-full"></i>
+            </a>
+          </li>
+          <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-unselect>
+            <a href="javascript:;" layadmin-event="more"><i class="layui-icon layui-icon-more-vertical"></i></a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 侧边菜单 -->
+      <div class="layui-side layui-side-menu">
+        <div class="layui-side-scroll">
+          <div class="layui-logo" lay-href="home/console.html">
+            <span>消防指挥系统</span>
+          </div>
+          <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu"
+            lay-filter="layadmin-system-side-menu">
+            <li data-name="home" class="layui-nav-item">
+              <a href="javascript:;" lay-tips="应急值守" lay-direction="2">
+                <i class="layui-icon layui-icon-home"></i>
+                <cite>应急值守</cite>
+              </a>
+              <dl class="layui-nav-child">
+                <dd data-name="console">
+                  <a lay-href="../../html/edd/MsgSchedul/VehicleStatus.html">中队值守</a>
+                </dd>
+              </dl>
+            </li>
+            <li data-name="template" class="layui-nav-item">
+              <a href="javascript:;" lay-tips="接警" lay-direction="2">
+                <i class="layui-icon layui-icon-template"></i>
+                <cite>接警</cite>
+              </a>
+              <dl class="layui-nav-child">
+                <dd data-name="console">
+                  <a href="#" onclick="OpenHO()">手动接警</a>
+                </dd>
+                <dd data-name="console">
+                  <a href="#" onclick="HandAlarm()">手动处警</a>
+                </dd>
+              </dl>
+            </li>
+            <li data-name="app" class="layui-nav-item">
+              <a href="javascript:;" lay-tips="警情调度" lay-direction="2">
+                <i class="layui-icon layui-icon-app"></i>
+                <cite>警情调度</cite>
+              </a>
+              <dl class="layui-nav-child">
+                <dd data-name="console">
+                  <a lay-href="../../html/em/MsgSend/index.html?PageModel=0">应急通知发送</a>
+                </dd>
+                <dd data-name="console">
+                  <a lay-href="../../html/em/MsgTrack/index.html?PageModel=0">应急通知跟踪</a>
+                </dd>
+                <dd data-name="console">
+                  <a lay-href="../../html/ac/InitMeeting/index.html">音频会议</a>
+                </dd>
+                <dd data-name="console">
+                  <a lay-href="../../html/bc/AddressBook/Index.html">通讯录</a>
+                </dd>
+                <dd data-name="console">
+                  <a lay-href="../../html/ap/VideoSurveillance/Index.html">视频监控</a>
+                </dd>
+              </dl>
+            </li>
+            <li data-name="app" class="layui-nav-item">
+              <a href="javascript:;" lay-tips="警情历史" lay-direction="2">
+                <i class="layui-icon layui-icon-app"></i>
+                <cite>警情历史</cite>
+              </a>
+              <dl class="layui-nav-child">
+                <dd data-name="console">
+                  <a lay-href="../../html/ap/FireAlarm/Index.html">历史记录查询</a>
+                </dd>
+                <dd data-name="console">
+                  <a lay-href="../../html/em/VoiceResearch/Index.html">录音查询</a>
+                </dd>
+                <dd data-name="console">
+                  <a lay-href="../../html/ac/MeetingRecord/index.html">会议记录</a>
+                </dd>
+              </dl>
+
+            </li>
+            <li data-name="app" class="layui-nav-item">
+              <a href="javascript:;" lay-tips="应急查询" lay-direction="2">
+                <i class="layui-icon layui-icon-app"></i>
+                <cite>应急查询</cite>
+              </a>
+              <dl class="layui-nav-child">
+                <dd data-name="console">
+                  <a lay-href="../../html/rtt/Team/query.html">应急队伍查询</a>
+                </dd>
+                <dd data-name="console">
+                  <a lay-href="../../html/rtt/EmrgMtrl/query.html">应急物资查询</a>
+                </dd>
+                <dd data-name="console">
+                  <a lay-href="../../html/rtt/Expert/query.html">应急专家查询</a>
+                </dd>
+                <dd data-name="console">
+                  <a lay-href="../../html/rtt/MSDS/query.html">危化品信息</a>
+                </dd>
+                <dd data-name="console">
+                  <a lay-href="../../html/rtt/EmergencyPlanForAP/Index.html">应急预案查询</a>
+                </dd>
+              </dl>
+            </li>
+            <li data-name="set" class="layui-nav-item">
+              <a id="ECS_DEV_RCWH" href="javascript:;" lay-tips="日常维护" lay-direction="2">
+                <i class="layui-icon layui-icon-set"></i>
+                <cite>日常维护</cite>
+              </a>
+              <dl class="layui-nav-child">
+                <dd>
+                  <a lay-href="../../html/bc/User/index.html">应急联系人维护</a>
+                </dd>
+                <dd>
+                  <a lay-href="../../html/bc/Org/index.html">组织机构</a>
+                </dd>
+                <dd>
+                  <a lay-href="../../html/bc/MsgDuty/index.html">企业职务维护</a>
+                </dd>
+                <dd class="">
+                  <a href="javascript:;">工厂模型配置<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd data-name="console">
+                      <a lay-href="../../html/bc/RiskArea/index.html">安全风险区</a>
+                    </dd>
+                    <dd data-name="console">
+                      <a lay-href="../../html/bc/OptlRiskZone/index.html">作业风险区</a>
+                    </dd>
+                    <dd data-name="console">
+                      <a lay-href="../../html/bc/RiskAnlsObj/index.html">风险分析对象</a>
+                    </dd>
+                  </dl>
+                </dd>
+                <dd>
+                  <a id="ECS_DEV_ZBBWH" lay-href="../../html/edd/MsgSchedul/Index.html">值班表维护</a>
+                </dd>
+                <dd>
+                  <a lay-href="../../html/edd/PresentJeeves/index.html">占道维护</a>
+                </dd>
+                <dd>
+                  <a lay-href="../../html/rtt/VideoSettings/Index.html">视频配置</a>
+                </dd>
+                <dd class="">
+                  <a href="javascript:;">通讯组维护<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd data-name="console">
+                      <a lay-href="../../html/em/CommGroup/index.html">通讯组维护</a>
+                    </dd>
+                    <dd data-name="console">
+                      <a lay-href="../../html/em/CommGroup/CommGroupAllot.html">通讯组分配</a>
+                    </dd>
+                  </dl>
+                </dd>
+                <dd class="">
+                  <a href="javascript:;">应急队伍维护<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd data-name="console">
+                      <a lay-href="../../html/rtt/ConstitutionConfig/index.html">应急建制</a>
+                    </dd>
+                    <dd data-name="console">
+                      <a lay-href="../../html/rtt/Team/index.html">应急队伍</a>
+                    </dd>
+                    <dd data-name="console">
+                      <a lay-href="../../html/rtt/Vehicle/index.html">应急车辆</a>
+                    </dd>
+                    <dd data-name="console">
+                      <a lay-href="../../html/rtt/Personnel/index.html">应急处置人员</a>
+                    </dd>
+                    <dd data-name="console">
+                      <a lay-href="../../html/rtt/VehicleMaintain/Index.html">应急车辆类型</a>
+                    </dd>
+                    <dd data-name="console">
+                      <a lay-href="../../html/rtt/TeamDuty/index.html">中队责任配置</a>
+                    </dd>
+                    <dd data-name="console">
+                      <a lay-href="../../html/em/Device/index.html">应急设备维护</a>
+                    </dd>
+                    <dd data-name="console">
+                      <a lay-href="../../html/em/TeamDeviceConfig/index.html">设备联动配置</a>
+                    </dd>
+                  </dl>
+                </dd>
+                <dd class="">
+                  <a href="javascript:;">应急物资维护<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd data-name="console">
+                      <a lay-href="../../html/rtt/MtrlStorage/index.html">应急物资存放点配置</a>
+                    </dd>
+                    <dd data-name="console">
+                      <a lay-href="../../html/rtt/EmrgMtrl/index.html">应急物资配置</a>
+                    </dd>
+                  </dl>
+                </dd>
+                <dd>
+                  <a lay-href="../../html/rtt/EmergencyPlan/index.html">应急预案维护<span class="layui-nav-child"></span></a>
+                </dd>
+                <dd class="">
+                  <a href="javascript:;">危化品信息维护<span class="layui-nav-more"></span></a>
+                  <dl class="layui-nav-child">
+                    <dd data-name="console">
+                      <a lay-href="../../html/rtt/MSDS/index.html">危化品信息</a>
+                    </dd>
+                    <dd data-name="console">
+                      <a lay-href="../../html/rtt/MSDS/MSDSDeploy.html">危化品配置</a>
+                    </dd>
+                    <dd data-name="console">
+                      <a lay-href="../../html/rtt/MSDS/MSDSFrimAtb.html">危化品属性管理</a>
+                    </dd>
+                  </dl>
+                </dd>
+                <dd data-name="console">
+                  <a lay-href="../../html/rtt/EmergencyEquipment/Index.html">应急装备</a>
+                </dd>
+                <dd class="">
+                  <a lay-href="../../html/rtt/FireUnits/index.html">相关消防单位<span class="layui-nav-child"></span></a>
+                </dd>
+                <dd class="">
+                  <a lay-href="../../html/rtt/MedicalInstitution/index.html">医疗机构<span
+                      class="layui-nav-child"></span></a>
+                </dd>
+                <dd data-name="console">
+                  <a lay-href="../../html/rtt/Expert/index.html">应急专家</a>
+                </dd>
+                <dd data-name="console">
+                  <a lay-href="../../html/ap/AcceptWarningConfig/index.html">接警单元配置</a>
+                </dd>
+              </dl>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- 页面标签 -->
+      <div class="layadmin-pagetabs" id="LAY_app_tabs">
+        <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
+        <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
+        <div class="layui-icon layadmin-tabs-control layui-icon-down">
+          <ul class="layui-nav layadmin-tabs-select" lay-filter="layadmin-pagetabs-nav">
+            <li class="layui-nav-item" lay-unselect>
+              <a href="javascript:;"></a>
+              <dl class="layui-nav-child layui-anim-fadein">
+                <dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
+                <dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
+                <dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
+              </dl>
+            </li>
+          </ul>
+        </div>
+        <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+          <ul class="layui-tab-title" id="LAY_app_tabsheader">
+            <li lay-id="home/console.html" lay-attr="home/console.html" class="layui-this"><i
+                class="layui-icon layui-icon-home"></i></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 主体内容 -->
+      <div class="layui-body" id="LAY_app_body">
+        <div class="layadmin-tabsbody-item layui-show">
+          <iframe id="home" src="" frameborder="0" class="layadmin-iframe"></iframe>
+        </div>
+      </div>
+
+      <!-- 辅助元素，一般用于移动设备下遮罩 -->
+      <div class="layadmin-body-shade" layadmin-event="shade"></div>
+    </div>
+  </div>
+
+  <script src="../../lib/jquery/jquery.min.js"></script>
+  <script src="../layuiadmin/layui/layui.js"></script>
+  <script src="../../lib/layer/layer.js"></script>
+  <script src="../../js/common/ecs-util.js"></script>
+  <script src="../../js/common/ecs-env.js"></script>
+  <script src="../../lib/miniui/miniui.js"></script>
+
+  <object ID="IPB_OCX" classid="clsid:F7E498B1-D704-4D4D-B83C-F1AAB767CE5A" width="0" height="0">
+  </object>
+
+  <object ID="TransferManager" classid="clsid:765A8867-24AE-4621-9022-04EC14612986" width="0" height="0">
+  </object>
+
+  <script>
+    var name = localStorage.getItem('userName'); //用户名
+    var pwd = localStorage.getItem('password'); //用户密码
+    var result = JSON.parse(localStorage.getItem('result')); //用户信息
+    console.log(result)
+    if (!name) {
+      window.location.href = '../../home/home.html';
+    };
+
+    $('#userName').text(name); //用户名
+    userCode = name;
+    if (result)
+      $('#userTeam').text(result.teamName); //支队名
+
+
+    var homeUrl;
+    if (result != null) {
+      homeUrl = ECS.api.bcUrl + '/login?userUid=' + result.result;//注销
+    } else {
+      homeUrl = ECS.api.bcUrl + '/login?userUid=' + '';//注销
+    }
+    $('#closeNs').click(function () {
+      layer.confirm('确定注销该用户吗？', {
+        btn: ['确定', '取消']
+      }, function () {
+        $.ajax({
+          url: homeUrl,
+          type: "get",
+          dataType: "json",
+          xhrFields: {
+            withCredentials: true
+          },
+          contentType: "application/json;charset=utf-8",
+          success: function (res) { //(res.result)
+            console.log(res);
+            if (res.isSuccess) {
+              localStorage.removeItem("userName");
+              localStorage.removeItem('password');
+              localStorage.removeItem('result');
+              layer.msg(res.message, {
+                time: 1000
+              }, function () {
+                window.location.href = '../../home/home.html'
+              });
+
+            } else {
+              layer.msg(res.message)
+            }
+          },
+          error: function (res) {
+            console.log(res);
+          }
+        })
+
+
+      }, function (index) {
+        layer.close(index)
+      });
+
+    });
+    layui.config({
+      base: '../layuiadmin/' //静态资源所在路径
+    }).extend({
+      index: 'lib/index' //主入口模块
+    }).use('index');
+    //$('#LAY-system-side-menu a').hide();
+
+    var loginInfoUrl = ECS.api.apUrl + '/event/getIPInfo';
+    var ip = '';
+    var netIP = '';
+    var firelayer = null;
+    var aoPage = null;
+    var winStatus = true;
+    var userCode = '';
+    var currentNum = '';
+    var currentPcNum = '';
+    var callNum = '';
+    var numArr = [];
+    var station = '080';
+    var serverIp = '192.168.20.10';
+    var serverPort = '9800';
+    var ipb = document.getElementById("IPB_OCX");
+    var teamIPUrl = ECS.api.apUrl + '/fileAlarmChild/addTeamAndIp';
+
+    var websocket = null;
+    var teamUrl = ECS.api.apUrl + '/policeProcess/getUserTeamId';
+    var teamId = '';
+    var webSocketId = '';
+
+    var msgOCX = document.getElementById('TransferManager');
+    var HOstatus = false;
+    function initMsgOCX() {
+      var strIps = ipb.readLocalIp();
+      var ipArr = strIps.split('|');
+      if (teamFlag) {
+        for (var i = 0, len = ipArr.length; i < len; i++) {
+          if (ipArr[i].indexOf('192.168.') == -1) {
+            netIP = ipArr[i];
+          }
+        }
+      }
+      else {
+        netIP = ipArr[0];
+      }
+      $.ajax({
+        url: teamIPUrl,
+        type: "post",
+        data: { teamId: teamId, ip: netIP },
+        //contentType: "application/json;charset=utf-8",
+        success: function (data) {
+          if (!data.isSuccess) {
+            alert('保存IP地址失败');
+          }
+        }
+      });
+      msgOCX.sClearup();
+      msgOCX.sListen(9527, 5);
+    }
+
+    function sendOrder(teamIp, msg) {
+      if (typeof teamIp === 'string') {
+        msgOCX.cSendCase(teamIp, msg);
+      }
+      else if ($.isArray(teamIp)) {
+        for (var i = 0, len = teamIp.length; i < len; i++) {
+          msgOCX.cSendCase(teamIp[i], msg);
+        }
+      }
+    }
+
+    function sendFeedback(zhiduiIP, msg) {
+      msgOCX.cSendBack(zhiduiIP, msg);
+    }
+
+    jQuery.ET = {
+      collection: {},
+      Init: function (params) {
+        var json;
+        if (typeof (params) == "object") {
+          if (Object.prototype.toString.call(params).toLowerCase() != "[object object]" && params.length) {
+            return [];
+          }
+          json = params;
+        } else if (typeof (params) == "string") {
+          json = JSON.parse(params);
+          if (!json) return [];
+        }
+        this.collection = json.collection;
+      },
+      toObjectArr: function (params) {
+        this.Init(params);
+        var returnArr = [];
+        $(this.collection.items).each(function () {
+          var o = {};
+          $(this.data).each(function () {
+            if ($.trim(this.name).length > 0)
+              o[this.name] = this.value;
+          });
+          $(this.links).each(function () {
+            if ($.trim(this.rel).length > 0) o[this.rel] = this.href;
+          });
+          returnArr.push(o);
+        });
+        return returnArr;
+      },
+      getPageInfo: function (params) {
+        this.Init(params);
+        var returnArr = [];
+        $(this.collection.page).each(function () {
+          var o = {};
+          $(this.data).each(function () {
+            if ($.trim(this.name).length > 0)
+              o[this.name] = this.value;
+          });
+          returnArr.push(o);
+        });
+        return returnArr;
+      },
+      toCollectionJson: function (_object) {
+        var json = {
+          "collection": {
+            "templates": [{
+              "data": []
+            }]
+          }
+        };
+        for (var item in _object) {
+          json.collection.templates[0].data.push({
+            "name": item,
+            "value": _object[item]
+          });
+        }
+        return json;
+      },
+      getObjectTemplate: function (params) {
+        var o = {};
+        if (this.collection.hasOwnProperty("templates")) {
+          $(this.collection.templates[0].data).each(function () {
+            if ($.trim(this.name).length > 0)
+              o[this.name] = this.value;
+          });
+          return o;
+        }
+        this.Init(params);
+        return this.getObjectTemplate();
+      }
+    };
+
+    $(function () {
+      init();
+      initMsgOCX();
+      var appCode = 'ECS_DEV';
+      var propertyCode = 'ECS_DEV_fjcs';
+      var resourceHost = 'http://10.238.255.101:31801/ResourceService'
+      $.ajax({
+        global: false,
+        type: "GET",
+        url: resourceHost + '/apps/' + appCode + '/properties/' + propertyCode + '/propertyValues?userCode=' +
+          userCode,
+        data: {},
+        contentType: "application/json;charset=utf-8",
+        dataType: "text",
+        async: true,
+        success: function (res) {
+          if (res != '') {
+            var info = $.ET.toObjectArr(res);
+            $(info).each(function (i, item) {
+              $("#" + item.value).show();
+            });
+            $('#LAY-system-side-menu').show();
+          }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          layer.msg("获取菜单失败");
+        }
+      });
+    });
+
+    //支队标识 支队为true
+    var teamFlag = false;
+    function init() {
+      $.ajax({
+        async: false,
+        url: teamUrl,
+        type: 'GET',
+        success: function (result) {
+          if (result && result.isSuccess && result.result && result.result.teamId) {
+            //0是支队，1不是支队
+            if (result.result.teamConstitution == 0) {
+              teamFlag = true;
+              initIBP();
+              $('#missCall').show();
+              $('#home').attr('src', '../../html/edd/MsgSchedul/IndexShow.html');
+            } else {
+              $('#home').attr('src', '../../html/edd/MsgSchedul/VehicleStatus.html');
+              $('#LAY-system-side-menu a').hide();
+            }
+
+            teamId = result.result.teamId;
+            // $('#userTeam').text(result.result.teamName);
+          } else {
+            layer.msg('获取队伍信息失败，请联系系统管理员', {
+              time: 5000
+            });
+          }
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      });
+    }
+
+    function getLoginInfo() {
+      var strIps = ipb.readLocalIp();
+      var res;
+      $.ajax({
+        async: false,
+        url: loginInfoUrl,
+        type: 'GET',
+        data: {
+          'seatIp': strIps
+        },
+        success: function (result) {
+          res = result;
+        },
+        error: function (err) {
+
+        }
+      });
+      return res;
+    }
+
+    var count = 0;
+
+    function loginIBP(phoneNum, pcNum, account, pwd) {
+      dispose();
+      var initResult = ipb.pbx_init();
+      if (initResult != 200) {
+        layer.msg('坐席客户端初始化失败，请刷新重试', {
+          time: 5000
+        });
+        return;
+      }
+      ipb.pbx_setNumber(phoneNum);
+      ipb.pbx_setLocalNumber(pcNum);
+      var loginResult = ipb.pbx_login(account, pwd, serverIp, serverPort);
+      if (loginResult == 200) {
+        setFree();
+        closeMeeting();
+        layer.msg('坐席' + phoneNum + '登录成功', {
+          time: 5000
+        });
+        return;
+      }
+      while (loginResult != 200) {
+        if (count >= 10) {
+          layer.msg('坐席' + phoneNum + '登录失败，请联系系统管理员', {
+            time: 5000
+          });
+          return;
+        }
+        count++;
+        loginIBP(phoneNum, pcNum, account, pwd);
+      }
+    }
+
+    function initIBP() {
+      var loginInfo = getLoginInfo();
+      if (loginInfo == null || loginInfo == undefined || !loginInfo.isSuccess) {
+        layer.msg('获取坐席信息失败，请联系系统管理员', {
+          time: 5000
+        });
+        return;
+      }
+      currentNum = loginInfo.result.callPhone;
+      currentPcNum = loginInfo.result.callPhone2;
+      numArr.push(loginInfo.result.callPhone);
+      numArr.push(loginInfo.result.callPhone2);
+      ip = loginInfo.result.seatIP;
+      loginIBP(currentNum, currentPcNum, loginInfo.result.phoneExchangeAccount, loginInfo.result.phoneExchangePWD);
+    }
+
+    function startRecord(callerNumber, businessId, callinFlag) {
+      if (businessId == undefined || businessId == null) {
+        $.ajax({
+          async: false,
+          url: ECS.api.apUrl + '/fileAlarmChild/getNotFinnished',
+          type: 'GET',
+          contentType: "application/json;charset=utf-8",
+          dataType: "json",
+          success: function (result) {
+            var recordRes;
+            if (callinFlag) {
+              recordRes = ipb.pbx_StartRecordForED(currentPcNum + '', result + '', '');
+            }
+            else {
+              recordRes = ipb.pbx_StartRecord(callerNumber + '', result + '', '');
+            }
+            if (recordRes != 200) {
+              alert('开始录音失败');
+            }
+          },
+          error: function (result) {
+            alert('获取事件Id失败，不能开始录音');
+          }
+        });
+      }
+      else {
+        var recordRes;
+        if (callinFlag) {
+          recordRes = ipb.pbx_StartRecordForED(currentPcNum, businessId, '');
+        }
+        else {
+          recordRes = ipb.pbx_StartRecord(callerNumber, businessId, '');
+        }
+        if (recordRes != 200) {
+          alert('开始录音失败');
+        }
+      }
+    }
+
+    function getRecords(startTime, endTime, callInNo, calledNo, pageindex, pagesize) {
+      var count = ipb.pbx_QueryRecordCount(startTime, endTime, callInNo, calledNo);
+      if (count == -1) {
+        var pageData = {
+          pageIndex: 0,
+          pageSize: 10,
+          total: 0,
+          data: []
+        };
+        return pageData;
+      }
+      var res = ipb.pbx_QueryRecordList(startTime, endTime, callInNo, calledNo, pageindex, pagesize);
+      res = JSON.parse(res);
+      var pageData = {
+        pageIndex: pageindex,
+        pageSize: pagesize,
+        total: count,
+        data: res.array
+      };
+      return pageData;
+    }
+
+    function getRecordsForP(businessId) {
+      var res = ipb.pbx_QueryRecordForP(businessId, '');
+      res = JSON.parse(res);
+      return res.array;
+    }
+
+    var downloadMask;
+    var filepath = '';
+    function recordDownload(starttime, endtime, filename, vruid, streamid, downloadPath) {
+      if (downloadPath == '' || downloadPath == undefined || downloadPath == null) {
+        downloadPath = 'D:/' + filename.replace(/\|/g, '') + '.wav';
+      }
+      //添加遮罩
+      downloadMask = layer.open({
+        type: 1,
+        offset: 'auto',
+        id: 'layerDemo' + 'auto',
+        area: ['420px', '240px'],
+        content: '<div style="text-align:center;padding:10%;"><i class="layui-icon layui-icon-loading layui-icon layui-anim layui-anim-rotate layui-anim-loop" style="font-size: 50px"></i></div>',
+        btn: '取消下载',
+        btnAlign: 'c',
+        closeBtn: 0,
+        yes: function (index) {
+          ipb.pbx_RecordDownloadCannel();
+          layer.close(index);
+        },
+        title: '录音文件下载'
+      });
+      filepath = downloadPath;
+      ipb.pbx_RecordDownload(starttime, endtime, filename, vruid, streamid, downloadPath);
+    }
+
+    function call(phoneNum, win) {
+      if (isPhoneAvailable(phoneNum)) {
+        phoneNum = station + phoneNum;
+      }
+      var res = ipb.sp_makecall(replaceNotNum(phoneNum));
+      if (res != 200) {
+        layer.msg('呼叫失败，请稍后再试');
+        return;
+      }
+      winStatus = false;
+      if (win) {
+        win();
+      } else {
+        layer.open({
+          type: 1,
+          offset: 'auto',
+          id: 'layerDemo' + 'auto',
+          area: ['420px', '240px'],
+          content: '<div style="text-align:center;padding-top:60px;">' + "正在呼叫电话" + phoneNum + '</div>',
+          btn: '挂断电话',
+          btnAlign: 'c',
+          shade: 0,
+          closeBtn: 0,
+          yes: function () {
+            hangup();
+            layer.closeAll();
+          },
+          title: '拨打电话'
+        });
+      }
+    };
+
+    function callNs(phoneNum, win) {
+      if (isPhoneAvailable(phoneNum)) {
+        phoneNum = station + phoneNum;
+      }
+      var res = ipb.sp_makecall(replaceNotNum(phoneNum));
+      if (res != 200) {
+        layer.msg('呼叫失败，请稍后再试');
+        return;
+      }
+      winStatus = false;
+      if (win) {
+        win();
+      } else {
+        showMsgBox(phoneNum);
+      }
+    }
+
+    function showMsgBox(phoneNum) {
+      layer.open({
+        type: 1,
+        offset: 'auto',
+        id: 'layerDemo' + 'auto',
+        area: ['420px', '240px'],
+        content: '<div style="text-align:center;padding-top:60px;">' + "正在呼叫电话" + phoneNum + '</div>',
+        btn: '挂断电话',
+        btnAlign: 'c',
+        shade: 0,
+        closeBtn: 0,
+        yes: function (index) {
+          hangup();
+          layer.close(index);
+        },
+        title: '拨打电话'
+      });
+    }
+
+    function hangup() {
+      var code = ipb.sp_hangup();
+      winStatus = true;
+    }
+
+    function answer() {
+      var code = ipb.sp_answer();
+      if (code != 200) {
+        return;
+      }
+      winStatus = false;
+    }
+
+    function meeting(phoneArr) {
+      var phoneStr = getPhoneStr(phoneArr);
+      if (phoneStr != '') {
+        ipb.pbx_meeting(phoneStr);
+      }
+    }
+
+    function closeMeeting() {
+      ipb.pbx_closemeeting();
+    }
+
+    //iFlag：<!--flag:0开始发言,1结束发言-->
+    function meetCtrl(number, iFlag) {
+      var numberStr = getPhoneStr(number);
+      if (numberStr != '') {
+        var numberArr = numberStr.split(',');
+        for (var i = 0, len = numberArr.length; i < len; i++) {
+          ipb.pbx_MeetCtrl(numberArr[i], iFlag);
+        }
+      }
+    }
+
+    function meetAdd(number) {
+      var numberStr = getPhoneStr(number);
+      if (numberStr != '') {
+        var numberArr = numberStr.split(',');
+        for (var i = 0, len = numberArr.length; i < len; i++) {
+          ipb.pbx_meetAdd(numberArr[i]);
+        }
+      }
+    }
+
+    function makecall(number) {
+      var numberStr = getPhoneStr(number);
+      if (numberStr != '') {
+        var numberArr = numberStr.split(',');
+        for (var i = 0, len = numberArr.length; i < len; i++) {
+          ipb.pbx_makecall(numberArr[i]);
+        }
+      }
+    }
+
+    function teamcall(phoneArr) {
+      var phoneStr = getPhoneStr(phoneArr);
+      if (phoneStr != '') {
+        ipb.pbx_teamcall(phoneStr);
+      }
+    }
+
+    function closeTeamcall() {
+      ipb.pbx_closeteam();
+    }
+
+    function sendvox(phoneArr, content) {
+      var phoneStr = getPhoneStr(phoneArr);
+      if (phoneStr != '') {
+        ipb.pbx_sendvox(phoneStr, content);
+      }
+    }
+
+    function transfer(destNumber) {
+      if (isPhoneAvailable(destNumber)) {
+        destNumber = station + destNumber;
+      }
+      var res = ipb.pbx_transfer(replaceNotNum(destNumber));
+      if (res != 200) {
+        layer.msg('呼叫失败，请重试');
+        return;
+      }
+      showMsgBox(destNumber);
+      aoPage.page.logic.afterTransfer();
+    }
+
+    function sleep(d) {
+      for (var t = Date.now(); Date.now() - t <= d;);
+    }
+
+    function setFree() {
+      sleep(1000);
+      //status：状态，0 空闲 1忙碌      
+      for (var i = 0, len = numArr.length; i < len; i++) {
+        ipb.pbx_madeBusy(numArr[i], 0);
+      }
+    }
+
+    function setBusy() {
+      sleep(1000);
+      //status：状态，0 空闲 1忙碌      
+      for (var i = 0, len = numArr.length; i < len; i++) {
+        ipb.pbx_madeBusy(numArr[i], 1);
+      }
+    }
+
+    function getStatus() {
+      return ipb.pbx_getAngentStatus();
+    }
+
+    function dispose() {
+      var res = ipb.pbx_Logout();
+      //需要多次cleanup，才能完成资源的回收清理
+      ipb.pbx_cleanup();
+      ipb.pbx_cleanup();
+      ipb.pbx_cleanup();
+      msgOCX.sClearup();
+    }
+
+    window.onbeforeunload = function (e) {
+      dispose();
+    }
+
+    function resetAnswerStatus() {
+      winStatus = true;
+    }
+
+    function getPhoneStr(phoneArr) {
+      var phoneStr = '';
+      if (typeof phoneArr === 'string') {
+        if (phoneArr == '') {
+          alert('电话号码不能为空');
+          return '';
+        }
+        if (isPhoneAvailable(phoneArr)) {
+          phoneStr += station + phoneArr;
+        } else {
+          var num = replaceNotNum(phoneArr);
+          phoneStr += num;
+        }
+        return phoneStr;
+      } else if ($.isArray(phoneArr)) {
+        if (phoneArr.length == 0) {
+          alert('电话号码不能为空');
+          return '';
+        }
+        for (var i = 0, len = phoneArr.length; i < len; i++) {
+          if (phoneArr[i] == '') {
+            alert('电话号码不能为空');
+            return '';
+          }
+          if (isPhoneAvailable(phoneArr[i])) {
+            phoneStr += station + phoneArr[i] + ',';
+          } else {
+            phoneStr += replaceNotNum(phoneArr[i]) + ',';
+          }
+        }
+        phoneStr = phoneStr.substring(0, phoneStr.length - 1);
+        return phoneStr;
+      }
+      else {
+        alert('电话号码不正确');
+      }
+    }
+
+    function isPhoneAvailable(phone) {
+      var myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+      if (!myreg.test(phone)) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    function replaceNotNum(phoneNum) {
+      phoneNum = phoneNum + '';
+      return phoneNum.replace(/[^0-9]/ig, '');
+    }
+
+    var currentLayer;
+
+    function layerOpen(url, eventId, callback, params) {
+      params = $.extend({
+        width: '90%',
+        height: '95%',
+        closeBtn: 1,
+        readonly: false
+      }, params);
+      layer.open({
+        type: 2,
+        closeBtn: params.closeBtn,
+        area: [params.width, params.height],
+        skin: 'new-class',
+        shadeClose: false,
+        title: false,
+        content: url,
+        success: function (layero, index) {
+          currentLayer = window[layero.find('iframe')[0]['name']];
+          if (currentLayer.page.logic.setData) {
+            currentLayer.page.logic.setData(eventId, params.readonly);
+          }
+        },
+        end: function () {
+          if (callback) {
+            callback();
+          }
+        }
+      })
+    }
+
+    function OpenHO() {
+      HOstatus = true;
+      var openUrl = '../../html/ap/FireAlarm/HO.html';
+      layerOpen(openUrl, '', function () {
+        HOstatus = false;
+      }, {
+          closeBtn: 0
+        });
+    }
+
+    var pagestatus = 0;
+
+    function HandAlarm() {
+      if (pagestatus == 1) {
+        return false;
+      }
+
+
+
+      var eventUrl = ECS.api.apUrl + '/fileAlarmChild/getPoliceEventList';
+      $.ajax({
+        url: eventUrl + '?seatIp=' + ip + Math.random(),
+        type: "GET",
+        success: function (data) {
+
+          if (data.length == 0) {
+            layer.msg("无处警信息");
+
+          } else if (data.length == 1) {
+
+            var openUrl = '../../html/ap/FiremanGo/Index.html?r=' + Math.random();
+            open(openUrl, data[0].eventId, function () {
+              pagestatus = 0;
+            }, {
+                closeBtn: 0
+              });
+          } else {
+            var openUrl = '../../html/ap/FireAlarm/AlarmDispatchingIndex.html';
+            open(openUrl, data, function () {
+              pagestatus = 0;
+            }, {
+                height: '410px',
+                width: '60%',
+                closeBtn: 1
+              });
+          }
+        },
+        error: function (e) {
+          console.log(e);
+        }
+      })
+
+      pagestatus = 1;
+    }
+    loadCallNum();
+
+    function loadCallNum() {
+      var callsUrl = ECS.api.apUrl + '/fileAlarmChild/getMissedCallsCount?r=' + Math.random();
+      $.get(callsUrl, function (res) {
+        var num = res;
+        $("#callNum").val(num);
+        $("#callNum").text(num);
+
+
+
+      });
+    }
+    //未接来电
+    function miessCall() {
+      var openUrl = '../../html/em/MissedCalls/index.html?r=' + Math.random();
+      open(openUrl, '', function () {
+        loadCallNum();
+      }, {
+          height: '520px',
+          width: '25%',
+          closeBtn: 1
+        });
+    }
+
+    function open(url, data, callback, params, before) {
+      params = $.extend({
+        width: '90%',
+        height: '95%',
+        closeBtn: 1
+      }, params);
+      layer.open({
+        type: 2,
+        closeBtn: params.closeBtn,
+
+        area: [params.width, params.height],
+        skin: 'new-class',
+        shadeClose: false,
+        title: false,
+        content: url,
+        success: function (layero, index) {
+          var body = layer.getChildFrame('body', index);
+          currentLayer = window[layero.find('iframe')[0]['name']];
+          if (before) {
+            before();
+          }
+          currentLayer.page.logic.setData(data);
+        },
+        end: function () {
+          if (callback) {
+            callback();
+          }
+        }
+      })
+    }
+  </script>
+
+  <script language="javascript" for="TransferManager" event="evtCase(strService)" type="text/javascript">
+    if (!teamFlag) {
+      var arr = strService.split('|');
+      var eventId = arr[0];
+      var detachmentIP = arr[1];
+      var batchId = arr[2];
+      firelayer = layer.open({
+        type: 2,
+        closeBtn: 0,
+        area: ['90%', '95%'],
+        skin: 'new-class',
+        shadeClose: false,
+        title: false,
+        content: '../../html/ap/FiremanGo/task.html' + '?eventId=' + eventId + '&teamId=' + teamId +
+          '&batchId=' + batchId + '&detachmentIP=' + detachmentIP
+      })
+    }
+  </script>
+
+  <script language="javascript" for="TransferManager" event="evtBack(strService)" type="text/javascript">
+    currentLayer.page.logic.initTab1();
+    currentLayer.page.logic.renderer();
+  </script>
+
+  <script language="javascript" for="TransferManager" event="evtClientSendSuccee(strIp,strPack)" type="text/javascript">
+    if (teamFlag) {
+      currentLayer.page.logic.rendererSendSuccess(strPack);
+    }
+    else {
+      layer.closeAll();
+    }
+  </script>
+
+  <script language="javascript" for="TransferManager" event="evtClientSendFail(strIp,strPack)" type="text/javascript">
+    if (teamFlag) {
+      currentLayer.page.logic.rendererSendFail(strPack);
+    }
+  </script>
+
+  <script language="javascript" for="TransferManager" event="evtSocketErr(errCode,errMsg)" type="text/javascript">
+    alert(errMsg + ',请联系系统管理员');
+  </script>
+
+  <script language="javascript" for="IPB_OCX" event="evtDownSchedule(schedule)" type="text/javascript">
+    if (schedule == 100) {
+      //filepath ['420px', '240px']
+      layer.close(downloadMask);
+      layer.open({
+        type: 1,
+        title: false,
+        closeBtn: 0,
+        shadeClose: true,
+        area: ['426px', '50px'],
+        content: '<div style="text-align:center;padding-top:2px;"><object id="MediaPlayer" width="420" height="45" classid="CLSID:6BF52A52-394A-11d3-B153-00C04F79FAA6" type="application/x-oleobject">'
+          + '<param name="ShowPositionControls" value="0" />'
+          + '<param name="AutoStart" value="1" />'
+          + '<param name="EnableContextMenu" value="0">'
+          + '<param name="URL" value=' + filepath + '>'
+          + '</object></div>'
+      });
+    }    
+  </script>
+
+  <script language="javascript" for="IPB_OCX" event="evtCallIn(number,callType)" type="text/javascript">
+    if (winStatus && !HOstatus) {
+      winStatus = false;
+      callNum = callType;
+      firelayer = layer.open({
+        type: 2,
+        closeBtn: 0,
+        area: ['90%', '97%'],
+        skin: 'new-class',
+        shadeClose: false,
+        title: false,
+        content: '../../html/ap/FireAlarm/AO.html',
+        success: function (layero, index) {
+          aoPage = window[layero.find('iframe')[0]['name']];
+          if (aoPage.page.logic.setData2) {
+            aoPage.page.logic.setData2({
+              masterCallNum: number,
+              ip: ip
+            });
+          }
+        },
+        end: function () {
+
+        }
+      })
+    }
+  </script>
+
+  <script language="javascript" for="IPB_OCX" event="evtEarAnswer()" type="text/javascript">
+    if (callNum == currentPcNum) {
+      aoPage.page.logic.Start(true);
+    }
+  </script>
+
+  <script language="javascript" for="IPB_OCX" event="evtEarHangUp()" type="text/javascript">
+    if (callNum == currentPcNum) {
+      aoPage.page.logic.hangup();
+    }
+  </script>
+
+  <script language="javascript" for="IPB_OCX" event="evtAnswer(number,callType)" type="text/javascript">
+    if (currentNum == callType) {
+      aoPage.page.logic.Start(false);
+      aoPage.page.logic.AnswerSuccess();
+    }
+  </script>
+
+  <script language="javascript" for="IPB_OCX" event="evtLoginErr()" type="text/javascript">
+    layer.msg('坐席登录失败，请重新登录', function () {
+      window.opener = null;
+      window.open(' ', '_self', ' ');
+      window.close();
+    });
+  </script>
+
+  <script language="javascript" for="IPB_OCX" event="evtCallLost()" type="text/javascript">
+    winStatus = true;
+    setFree();
+    closeMeeting();
+    loadCallNum();
+    layer.close(firelayer);
+  </script>
+
+  <script language="javascript" for="IPB_OCX" event="evtCallDisConnect(number,callType)" type="text/javascript">
+    // winStatus = true;
+    // layer.close(firelayer);  
+  </script>
+
+  <script language="javascript" for="IPB_OCX" event="evtAnswerSuccee(tel)" type="text/javascript">
+    aoPage.page.logic.AnswerSuccess();
+  </script>
+
+  <script language="javascript" for="IPB_OCX" event="evtAnswerFail()" type="text/javascript">
+
+  </script>
+
+  <script language="javascript" for="IPB_OCX" event="evtMeetingRecord()" type="text/javascript">
+    currentLayer.page.logic.startMeetingRecord();
+  </script>
+
+  <script language="javascript" for="IPB_OCX" event="evtCallOutConnected(calloutNumber)" type="text/javascript">
+    startRecord(currentPcNum, '');
+  </script>
+
+  <script language="javascript" for="IPB_OCX" event="evtMeetingStatusChange(number,callType)" type="text/javascript">
+    currentLayer.page.logic.setStatus(number, callType);
+  </script>
+</body>
+
+</html>

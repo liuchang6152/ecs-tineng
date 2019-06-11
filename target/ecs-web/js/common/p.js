@@ -1,0 +1,1 @@
+var ok={name:"static response",value:"it is ok."};

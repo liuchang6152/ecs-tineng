@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查看应急预案</title>
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../lib/jquery.validate-1.16/jquery.validate.css" />
+    <link rel="stylesheet" href="../../../css/common/font.css" />
+    <link rel="stylesheet" href="../../../css/common/animate.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../css/common/common.css" />
+    <link rel="stylesheet" href="../../../lib/iCheck/all.css" />
+    <link rel="stylesheet" href="../../../css/ap/AutomaticMonitoring/index.css" />
+</head>
+<style>
+    .main-header{
+        height: 45px;
+        line-height: 45px;
+    }
+    #emergencyPlanName{
+        font-weight: bold;
+        color: #505050;
+        margin-left: 30px;
+        text-align: left;
+    }
+    .leftNav-body{
+        width: 170px;
+        float: left;
+    }
+    .rightBody{
+        margin-left: 180px;
+        padding-left: 10px;
+        min-height: 250px;
+        border-left: 1px solid #cfcfcf;
+    }
+    #fileList a{
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style>
+<body class="mb__20" style="overflow:hidden;">
+<div class="main-content__dialog">
+    <div id="head_title">
+        <div class="main-header ml__10">
+            <i class="title-vertical"></i>
+            <span id="title-main" style="color:#505050;"></span>
+            <div class="pull-right">
+                <a href="javascript:;" class="btn btn-close btn-sm" style="display:none;" id="btnClose2" title="关闭">关 闭</a>
+                <a href="javascript:;" class="btn btn-close btn-sm" style="display:none;" id="btnClose" title="取消">取 消</a>
+                <a href="javascript:;" class="btn btn-primary btn-sm" style="display:none;" id="btnSave" title="确认">确 认</a>&nbsp;&nbsp;
+            </div>
+        </div>
+        <div class="split-line" style="margin-bottom:0px;"></div>
+    </div>
+    <div class="col-xs-12 pb__15" id="main-content" style="height:400px;overflow-y:auto;">
+        <div class="tab-content">
+            <div class="tab-pane" style="display: block;">
+                <div class="row mt__10">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label class="control-label col-xs-12" style="text-align:left;font-weight:bold;font-size:14px;color:#505050;" id="MsDsPlanName"></label>
+                        </div>
+                    </div>
+                    <div class="col-xs-6"  style="font-size:14px;text-align:right;">
+                        <span>企业名称：</span>
+                        <span id="orgSname"></span>
+                    </div>
+                </div>
+                <div class="split-line"></div>
+                <div class="row mt__15">
+                    <div class="col-xs-6">
+                        <div style="margin-left:15px;">
+                            <div class="control-label" style="font-size:14px;color:#a5aaae;">
+                                危化品中文名
+                            </div>
+                            <div id="msdsChineseName" style="color:#505050;"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="control-label" style="font-size:14px;color:#a5aaae;">
+                            危化品英文名
+                        </div>
+                        <div id="msdsEnglishName" style="color:#505050;"></div>
+                    </div>
+                </div>
+                <div class="row mt__15">
+                    <div class="col-xs-6">
+                        <div style="margin-left:15px;">
+                            <div class="control-label" style="font-size:14px;color:#a5aaae;">
+                                化学品别名
+                            </div>
+                            <div id="msdsAliasName" style="color:#505050;"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="control-label" style="font-size:14px;color:#a5aaae;">
+                            CAS No
+                        </div>
+                        <div id="casno" style="color:#505050;"></div>
+                    </div>
+                </div>
+                <div class="row mt__15">
+                    <div class="col-xs-6">
+                        <div style="margin-left:15px;">
+                            <div class="control-label" style="font-size:14px;color:#a5aaae;">
+                                物料编码
+                            </div>
+                            <div id="materialCode" style="color:#505050;"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="control-label" style="font-size:14px;color:#a5aaae;">
+                            危险性类别
+                        </div>
+                        <div id="riskTypeName" style="color:#505050;"></div>
+                    </div>
+                </div>
+                <div class="row mt__15">
+                    <div class="col-xs-12">
+                        <div style="margin-left:15px;">
+                            <div class="control-label" style="font-size:14px;color:#a5aaae;">
+                                附件
+                            </div>
+                            <div id="fileList"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--动态子属性 填充 start-->
+                <div  id="dymic_data"></div>
+                <!--动态子属性 填充 end-->
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="main-footer__dialog"></div>
+</body>
+<script src="../../../lib/jquery/jquery.min.js"></script>
+<!-- JQ 表单序列化 -->
+<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+<script src="../../../lib/layer/layer.js"></script>
+<script src="../../../js/common/CommonEnum.js"></script>
+<script src="../../../js/common/ecs-util.js"></script>
+<script src="../../../js/common/ecs-env.js"></script>
+<script src="../../../lib/miniui/miniui.js"></script>
+<script src="../../../js/rtt/MSDS/detail.js"></script>
+</html>
+

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../lib/jquery.validate-1.16/jquery.validate.css">
+    <link rel="stylesheet" href="../../../css/common/font.css">
+    <link rel="stylesheet" href="../../../css/common/animate.css">
+    <link rel="stylesheet" href="../../../css/common/common.css">
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../lib/iCheck/all.css">
+    <style>
+        label.has-error{white-space:normal;height:auto;}
+    </style>
+</head>
+<body style="overflow:hidden;">
+<div class="main-content__dialog">
+    <div class="main-header__dialog">
+        <i class="title-vertical"></i>
+        <span id="title-main"></span>
+        <i class="icon-close fr btnClose" aria-hidden="true" title="关闭"></i>
+    </div>
+    <div class="box box-main mt__45 mb__10 pt__5">
+                <!--列表数据 start-->
+                <div id="datagrid" class="mini-datagrid"  allowResize="true" idField="teamPointId" emptyText="数据为空，<a href='javascript:page.logic.newRow()' id='add_one'>增加一条</a>" showEmptyText="true" style="height:345px;" virtualColumns="true" allowCellValid="true">
+                    <div property="columns">
+                        <div name="action" width="100" headerAlign="center" align="center" renderer="page.logic.onActionRenderer" cellStyle="padding:0;">操作</div>
+                        <div field="teamName" width="80" headerAlign="center" align="center" allowSort="true" vtype="required">
+                            队伍名称<span style="margin-left:10px;color:red;">*</span>
+                            <input property="editor" class="mini-textbox" required="true" style="width:100%;"/>
+                        </div>
+                        <div field="teamTypeId" width="80" headerAlign="center" align="center" allowSort="true" renderer="page.logic.team_type_text" vtype="required">
+                            队伍类型<span style="margin-left:10px;color:red;">*</span>
+                            <input property="editor" textField="NAME" valueField="ID" required="true" class="mini-combobox" style="width:100%;" data="page.data.team_type_dt"/>
+                        </div>
+                        <div field="teamLvlId" width="80" headerAlign="center" align="center" allowSort="true" renderer="page.logic.team_lv_text" vtype="required">
+                            队伍级别<span style="margin-left:10px;color:red;">*</span>
+                            <input property="editor" textField="NAME" valueField="ID" class="mini-combobox" required="true" style="width:100%;" data="page.data.team_level_dt"/>
+                        </div>
+                        <div field="personCount" width="50" headerAlign="center" align="center" allowSort="true" vtype="required">
+                            人数<span style="margin-left:10px;color:red;">*</span>
+                            <input property="editor" class="mini-spinner" minValue="0" value="" style="width:100%;"/>
+                        </div>
+                        <div field="vehicleCount" width="50" headerAlign="center" align="center" allowSort="true" vtype="required">
+                            车辆数<span style="margin-left:10px;color:red;">*</span>
+                            <input property="editor" class="mini-spinner" minValue="0" value="" style="width:100%;"/>
+                        </div>
+                        <div field="boatCount" width="50" headerAlign="center" align="center" allowSort="true" vtype="required">
+                            船舶数<span style="margin-left:10px;color:red;">*</span>
+                            <input property="editor" class="mini-spinner" minValue="0" value="" style="width:100%;"/>
+                        </div>
+                        <div field="ownerName" width="65" headerAlign="center" align="center" allowSort="true" vtype="required">
+                            负责人<span style="margin-left:10px;color:red;">*</span>
+                            <input property="editor" class="mini-textbox" required="true" style="width:100%;"/>
+                        </div>
+                        <div field="ownerContact" headerAlign="center" align="center" allowSort="true" vtype="required" onvalidation="page.logic.mobile_test">
+                            联系方式<span style="margin-left:10px;color:red;">*</span>
+                            <input property="editor" class="mini-textbox" required="true" onvalidation="page.logic.mobile_test"  style="width:100%;"/>
+                        </div>
+                    </div>
+                </div>
+                <!--列表数据 end-->
+    </div>
+    <div class="main-footer__dialog">
+        <div class="row">
+            <div class="text-center">
+                <button type="button" class="btn btn-close btnClose">
+                    <i class="icon-close"></i> 关 闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../../lib/jquery/jquery.min.js"></script>
+<!-- JQ 表单序列化 -->
+<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+<script src="../../../lib/layer/layer.js"></script>
+<script src="../../../lib/miniui/miniui.js"></script>
+<!-- 表单验证 -->
+<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../lib/iCheck/icheck.js"></script>
+<script src="../../../lib/jquery.validate-1.16/jquery.validate.js"></script>
+<script src="../../../lib/jquery.validate-1.16/jquery.validate.extend.js"></script>
+<script src="../../../lib/jquery.validate-1.16/localization/messages_zh_CN.js"></script>
+<script src="../../../js/common/CommonEnum.js"></script>
+<script src="../../../js/common/ecs-util.js"></script>
+<script src="../../../js/common/ecs-env.js"></script>
+<script src="../../../js/gis/GisPoints/StaticTeam.js"></script>
+</html>

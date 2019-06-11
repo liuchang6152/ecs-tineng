@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-control" content="no-cache">
+	<meta http-equiv="Cache" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+	<title>医疗机构清单</title>
+	<meta name="keywords">
+	<meta name="description">
+	<link rel="stylesheet" href="../../../css/common/animate.css" />
+	<link rel="stylesheet" href="../../../css/common/font.css" />
+	<link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="../../../css/common/common.css" />
+	<link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+	<link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+	<link rel="stylesheet" href="../../../css/bc/SystemRegister/index.css" />
+	<style>
+		.checkbox-enabled {
+			background: #f0f0f0;
+			cursor: default;
+			border: #6666 solid 1px;
+			cursor: not-allowed;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="main-content">
+		<div class="box box-main">
+			<div class="box-body">
+				<!-- <div class="mini-tabs" style="width:100%;" activeIndex="0" id="tabs"> -->
+				<div>
+					<form id="searchForm" onsubmit="return false;" class="form-inline">
+						<div class="form-group">
+							<label class="control-label">名称：</label>
+							<div class="control-inline">
+								<input id="name" name="name" type="text" class="form-control width__150 mr__20" maxlength="200"
+									id="name">
+							</div>
+						</div>
+						<div class="form-group">
+							<a href="#" class="btn btn-primary btn-sm" id="btnQuery" title="查询"><i class="icon-search"></i> 查询</a>
+						</div>
+						<div class="form-group">
+							<input type="checkbox" id="isSelect" class="minimal" checked="checked" disabled="disabled"><span
+								style="font-size: 11pt;">已勾选</span></input>
+						</div>
+
+
+						<div class="form-group">
+							<a href="#" class="btn btn-primary btn-sm" id="btnSave" title="保存"><i class="icon-search"></i> 保存</a>
+						</div>
+						<div class="form-group">
+							<a href="#" class="btn btn-primary btn-sm" id="btnDelete" title="删除"><i class="icon-search"></i> 删除</a>
+						</div>
+						<div class="form-group">
+							<a href="#" class="btn btn-primary btn-sm" id="btnGive" title="放弃"><i class="icon-search"></i> 放弃</a>
+						</div>
+						<div class="form-group">
+							<a href="#" class="btn btn-primary btn-sm" id="btnEdit" title="编辑"><i class="icon-search"></i> 进入编辑状态</a>
+						</div>
+						<div class="form-group">
+							<a href="#" class="btn btn-primary btn-sm" id="btnEd" title="编辑"><i class="icon-search"></i>模拟点击</a>
+						</div>
+
+					</form>
+					<!--表1：此表展示所有业务数据；-->
+					<div id="datagrid" class="mini-datagrid" idField="gisPointForID" multiSelect="false" pageSizeWidth="60"
+						frozenstartcolumn="0" frozenendcolumn="1" allowCellSelect="true" allowCellEdit="true" selectOnLoad="true"
+						onlyCheckSelection="true" showPager="true" style="height:490px;">
+						<div property="columns">
+							<div type="indexcolumn" field="gisID" headerAlign="center" align="center" allowResize="false" width="35">
+								序号</div>
+							<div type="checkcolumn" field="isDisabled" allowResize="false" width="35" id="head_checkbox"></div>
+							<div field="institutionName" headerAlign="center" align="center">名称</div>
+							<div field="typeName" headerAlign="center" align="center">
+								分类</div>
+							<div field="galleryeul" headeralign="center" align="center">病床数</div>
+							<div field="contactPhone" headerAlign="center" align="center">电话</div>
+						</div>
+					</div>
+					<!--表2：某个点关联的所有数据或者当前选中的结果集合-->
+					<div id="datagrid2" class="mini-datagrid" idField="gisPointForID" multiSelect="false" pageSizeWidth="60"
+						frozenstartcolumn="0" frozenendcolumn="1" allowCellSelect="true" allowCellEdit="true" selectOnLoad="false"
+						onlyCheckSelection="true" showPager="true" style="height:490px;">
+						<div property="columns">
+							<div type="indexcolumn" field="gisID" headerAlign="center" align="center" allowResize="false" width="35">
+								序号</div>
+							<div type="checkcolumn" field="id" allowResize="false" width="35"></div>
+							<div field="institutionName" headerAlign="center" align="center">名称
+							</div>
+							<div field="typeName" headerAlign="center" align="center">
+								分类</div>
+							<div field="galleryeul" headeralign="center" align="center">病床数</div>
+							<div field="contactPhone" headerAlign="center" align="center">电话</div>
+						</div>
+					</div>
+					<!--表4：初始化展示的（所有点关联的所有数据）-->
+					<div id="datagrid4" class="mini-datagrid" idField="gisPointForID" multiSelect="false" pageSizeWidth="60"
+						frozenstartcolumn="0" frozenendcolumn="1" allowCellSelect="true" allowCellEdit="false" selectOnLoad="false"
+						style="height:490px;" onselect="OnGrid2Select">
+						<div property="columns">
+							<div type="indexcolumn" field="survVideoId" headerAlign="center" align="center" allowResize="false"
+								width="35">
+								序号</div>
+							<div type="checkcolumn" field="id" allowResize="false" width="35"></div>
+							<div field="institutionName" headerAlign="center" align="center">名称</div>
+							<div field="typeName" headerAlign="center" align="center">
+								分类</div>
+							<div field="galleryeul" headeralign="center" align="center">病床数</div>
+							<div field="contactPhone" headerAlign="center" align="center">电话</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<!-- 全局js -->
+	<script src="../../../lib/jquery/jquery.min.js"></script>
+	<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+	<!-- 自定义js -->
+	<script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+	<!-- JQ 表单序列化 -->
+	<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+	<script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+	<!--公共js-->
+	<script src="../../../js/common/CommonEnum.js"></script>
+	<script src="../../../js/common/ecs-util.js"></script>
+	<script src="../../../js/common/ecs-env.js"></script>
+	<!--miniUI表格-->
+	<script src="../../../lib/miniui/miniui.js"></script>
+	<!-- 弹窗 -->
+	<script src="../../../lib/layer/layer.js"></script>
+
+	<script src="../../../js/gis/GisSurface/JSLINQ-vsdoc.js" type="text/javascript"></script>
+	<script src="../../../js/gis/GisSurface/JSLINQ.js" type="text/javascript"></script>
+	<!--跨页多选组件-->
+	<script src="../../../js/gis/GisPoints/PageSelection.js" type="text/javascript"></script>
+	<!--页面逻辑-->
+	<script src="../../../js/gis/GisPoints/medical.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		window.addEventListener('message', function (ev) {
+			ev = ev || event; //获取事件对象
+			var strfun = ev.data;
+			if (strfun != null && strfun != undefined) {
+				eval(strfun);
+			}
+		})
+
+		//点默认初始化，动态数据的某个单条数据，返回给父窗口相应的gis点id;
+		function OnGrid2Select(e) {
+			if (!isTriggerEdit && gisId < 0) {
+				setTimeout(function () {
+					if (grid4.getSelecteds().length == 1) {
+						var url = "GetGisId(" + e.record.gisID + ")";
+						window.parent.postMessage(url, '*');
+					}
+				}, 500);
+			}
+		}
+		//点默认初始化，静态数据的某个单条数据，返回给父窗口相应的gis点id;
+		// function OnGrid2Select2(e){
+		//     if(!isTriggerEdit && gisId<0){
+		//         setTimeout(function(){
+		//             if(grid3.getSelecteds().length==1){
+		//                 var url = "GetGisId("+e.record.gisId+")";
+		//                 window.parent.postMessage(url, '*');
+		//             }
+		//         },500);
+		//     }
+		// }
+		// //静态数据 列表 点名称的长度校验
+		// function onLimitLength(e, le) {
+		//     var valID = mini.get(e.id);
+		//     var value = valID.getValue()
+		//     var len = value.length;
+		//     if (len > parseInt(le)) {
+		//         valID.setValue(value.substring(0, le));
+		//     }
+		// }
+	</script>
+</body>
+
+</html>

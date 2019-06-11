@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+    <title>音频会议-发起会议</title>
+    <meta name="keywords">
+    <meta name="description">
+    <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
+    <link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
+    <link rel="stylesheet" href="../../../css/common/animate.css" />
+    <link rel="stylesheet" href="../../../css/common/font.css" />
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../css/common/common.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+    <style>
+        .btn{
+            width: auto;
+            min-width: 75px;
+        }
+        .box-main > .box-body{min-height:577px;}
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="box box-main">
+            <div class="box-header">
+                <i class="title-vertical"></i>
+                <div class="box-title text-color">
+                    音频会议-发起会议
+                    <div class="box-tools pull-right">
+                        <a id="btnAdd" href="#" class="btn btn-primary btn-sm"><i class="icon-add"></i>
+                            人员选择</a>
+                        <a id="btnDel" href="#" class="btn btn-danger btn-sm"><i class="icon-delete"></i>
+                            删除</a>
+                        <a id="btnInit" href="#" class="btn btn-success btn-sm"><i class="icon-send"></i>
+                            发起会议</a>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <form id="AddOrEditModal" onsubmit="return false;" class="form-inline form">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label ">会议主题：</label>
+                                <div class="control-inline">
+                                    <input name="meetingTheme" id="meetingTheme" class="mini-textbox" emptyText="请输入" maxlength="200"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label ">选择会议类型：</label>
+                                <div class="control-inline">
+                                    <input name="meetingType" id="meetingType" class="mini-combobox" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <div class="form-group">
+                                <label class="control-label ">接警事件选择：</label>
+                                <div class="control-inline">
+                                    <input name="eventId" id="eventId" class="mini-combobox" enabled="false" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="control-label ">会议简介：</label>
+                                <div class="control-inline">
+                                    <input name="meetingAbstract" id="meetingAbstract" maxlength="200" class="form-control" style="resize: none;width: 945px;font-size: 12px;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div id="datagrid" class="mini-datagrid" multiSelect="true" onlyCheckSelection="true" allowCellEdit="true"
+                    showpager="false" oncellbeginedit="page.logic.onCellbeginedit">
+                    <div property="columns">
+                        <div type="checkcolumn"></div>
+                        <div type="indexcolumn" headerAlign="center" align="center" width="35">序号</div>
+                        <div field="userName" width="50" headerAlign="center" align="center">人员</div>
+                        <div field="userMobile" width="50" headerAlign="center" align="center">手机号</div>
+                        <div field="userPhone" width="50" headeralign="center" align="center">座机号</div>
+                        <div type="checkboxcolumn" field="mark" trueValue="0" falseValue="1" width="50" headerAlign="center">拨打座机</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 全局js -->
+    <script src="../../../lib/jquery/jquery.min.js"></script>
+    <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- 自定义js -->
+    <script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+    <!-- JQ 表单序列化 -->
+    <script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+    <script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+    <!--公共js-->
+    <script src="../../../js/common/CommonEnum.js"></script>
+    <script src="../../../js/common/ecs-util.js"></script>
+    <script src="../../../js/common/ecs-env.js"></script>
+    <!-- 弹窗 -->
+    <script src="../../../lib/miniui/miniui.js"></script>
+    <script src="../../../lib/layer/layer.js"></script>
+    <!--页面逻辑-->
+    <script src="../../../js/ac/InitMeeting/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+    <title>消息发送</title>
+    <meta name="keywords">
+    <meta name="description">
+    <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
+    <link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
+    <link rel="stylesheet" href="../../../css/common/animate.css" />
+    <link rel="stylesheet" href="../../../css/common/font.css" />
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../css/common/common.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+    <link rel="stylesheet" href="../../../css/em/VoiceResearch/MeetingDetail.css" />
+</head>
+
+<body>
+    <div class="main-content">
+        <div class="box box-main">
+            <div class="box-header">
+                <i class="title-vertical"></i>
+                <div class="box-title text-color">
+                    音频会议-会议查看
+                    <label id="event" class="ml__50" style="font:bold 150%;color: red;"></label>
+                    <div class="box-tools pull-right">
+                        <!-- <a id="btnNewMsg" href="#" class="btn btn-primary btn-sm">新消息</a>
+                        <a id="btnMsgTrack" href="#" class="btn btn-danger btn-sm">已发送</a> -->
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="mini-splitter" style="width:100%;height: 500px;">
+                    <div id="left_tree" size="20%">
+                        <div class="mini-splitter" vertical="true" showCollapseButton="true" style="width:100%;height:100%;">
+                            <div size="40%">
+                                <div class="mini-fit">
+                                    <label class="title">会议简介</label>
+                                  
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mini-fit">
+                                    <label class="title">警情信息</label>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div  style="width:100%;height:100%;">
+                            <div size="40%">
+                                    <div class="form-group pull-left">
+                                           <label>音频开始时间：2019-01-08 20:00:00</label>
+                                           <label>音频持续时间：12分50秒</label>
+                                        </div>
+                                   
+                                    <div class="form-group pull-right">
+                                        <a id="btnSend" href="#" class="btn btn-primary btn-sm">全员静音</a>
+                                        <a id="btnSend" href="#" class="btn btn-primary btn-sm">全员取消静音</a>
+                                        <a id="btnSend" href="#" class="btn btn-primary btn-sm">会议解散</a>
+                                        <a id="btnSend" href="#" class="btn btn-primary btn-sm">人员添加</a>
+                                    </div>
+                                  
+                                    <div class="form-group pull-left">
+                                        <div class="row-fluid selectorDiv">
+                                             
+                                        <ul>
+                                            <li class="span3">
+                                               
+                                                    <input id='1' type='checkbox' value="5">
+                                                    <label for='1'>Option 1</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='2' type='checkbox'>
+                                                    <label for='2'>Option 2</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='3' type='checkbox'>
+                                                    <label for='3'>Option 3</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='4' type='checkbox'>
+                                                    <label for='4'>Option 4</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='5' type='checkbox'>
+                                                    <label for='5'>Option 5</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='6' type='checkbox'>
+                                                    <label for='6'>Option 6</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='7' type='checkbox'>
+                                                    <label for='7'>Option 7</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='8' type='checkbox'>
+                                                    <label for='8'>Option 8</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='9' type='checkbox'>
+                                                    <label for='9'>Option 9</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='10' type='checkbox'>
+                                                    <label for='10'>Option 10</label>
+                                            </li>
+                                            <li class="span3">
+                                               
+                                                    <input id='1' type='checkbox'>
+                                                    <label for='1'>Option 1</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='2' type='checkbox'>
+                                                    <label for='2'>Option 2</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='3' type='checkbox'>
+                                                    <label for='3'>Option 3</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='4' type='checkbox'>
+                                                    <label for='4'>Option 4</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='5' type='checkbox'>
+                                                    <label for='5'>Option 5</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='6' type='checkbox'>
+                                                    <label for='6'>Option 6</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='7' type='checkbox'>
+                                                    <label for='7'>Option 7</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='8' type='checkbox'>
+                                                    <label for='8'>Option 8</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='9' type='checkbox'>
+                                                    <label for='9'>Option 9</label>
+                                            </li>
+                                            <li class="span3">
+                                                    <input id='10' type='checkbox'>
+                                                    <label for='10'>Option 10</label>
+                                            </li>
+                                          </ul>
+                                          
+                                        </div>
+                                    </div>
+                                  
+                                  
+                               
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 全局js -->
+    <script src="../../../lib/jquery/jquery.min.js"></script>
+    <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- 自定义js -->
+    <script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+    <!-- JQ 表单序列化 -->
+    <script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+    <script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+    <!--公共js-->
+    <script src="../../../js/common/CommonEnum.js"></script>
+    <script src="../../../js/common/ecs-util.js"></script>
+    <script src="../../../js/common/ecs-env.js"></script>
+    <!-- 弹窗 -->
+    <script src="../../../lib/miniui/miniui.js"></script>
+    <script src="../../../lib/layer/layer.js"></script>
+    <!--页面逻辑-->
+    <script src="../../../js/em/VoiceResearch/MeetingDetail.js" type="text/javascript"></script>
+    <script src="../../../js/em/VoiceResearch/context.js" type="text/javascript"></script>
+
+
+    <script>
+        $(".span3").change(function(){
+       
+          
+
+        });
+    </script>
+</body>
+
+</html>

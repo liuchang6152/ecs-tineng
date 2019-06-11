@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+    <title>应急通知发送</title>
+    <meta name="keywords">
+    <meta name="description">
+    <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
+    <link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
+    <link rel="stylesheet" href="../../../css/common/animate.css" />
+    <link rel="stylesheet" href="../../../css/common/font.css" />
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../css/common/common.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+    <link rel="stylesheet" href="../../../css/em/MsgSend/index.css" />
+    <style>
+        .box-main > .box-body{min-height:577px;}
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+        <div class="box box-main">
+            <div class="box-header">
+                <i class="title-vertical"></i>
+                <div class="box-title text-color">
+                    应急通知发送
+                    <label id="event" class="ml__50" style="font:bold 150%;color: red;"></label>
+                    <div class="box-tools pull-right">
+                        <button id="btnNewMsg" href="#" class="btn btn-primary btn-sm">新消息</button>
+                        <button id="btnMsgTrack" href="#" class="btn btn-danger btn-sm">已发送</button>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="mini-splitter" style="width:100%;height:500px;">
+                    <div id="left_tree" size="20%">
+                        <div class="mini-splitter" vertical="true" showCollapseButton="true"
+                            style="width:100%;height:100%;">
+                            <div size="40%">
+                                <div class="mini-fit">
+                                    <label class="title">个人通讯组选择</label>
+                                    <ul id="userGroups" class="mini-tree" showTreeIcon="true" textField="groupName"
+                                        idField="commGroupid" contextMenu="#treeMenu">
+                                    </ul>
+                                    <ul id="treeMenu" class="mini-contextmenu" onbeforeopen="page.logic.onBeforeOpen"
+                                        style="display:none;">
+                                        <li name="remove" onclick="page.logic.onRemoveNode"><i
+                                                class="icon-disable text-danger mr__10"></i>删除个人通讯组</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mini-fit">
+                                    <label class="title">公共通讯组选择</label>
+                                    <input name="enterpriseCode" id="enterpriseCode" class="mini-treeselect"
+                                        multiSelect="false" textField="orgSname" valueField="orgCode"
+                                        parentField="porgCode" checkRecursive="true" showFolderCheckBox="false"
+                                        expandOnLoad="true" showRadioButton="false" />
+                                    <ul id="commGroupsType" class="mini-tree" showTreeIcon="true"
+                                        textField="groupNameAndCount" idField="id">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="mini-splitter" vertical="true" style="width:100%;height:100%;">
+                            <div size="40%">
+                                <form id="sendForm" onsubmit="return false;" class="form-inline form">
+                                    <div class="form-group">
+                                        <label class="control-label">发送方式</label>
+                                        <span style="margin-left:10px;color:red;">*</span>
+                                        <input id="msg" type="checkbox" name="sendType" value="1" checked="checked" />
+                                        <label class="control-label" for="msg">短信</label>
+                                        <input id="voice" type="checkbox" name="sendType" value="2" />
+                                        <label class="control-label" for="voice">群呼</label>
+                                    </div>
+                                    <div class="form-group ml__50">
+                                        <label class="control-label">反馈方式</label>
+                                        <input id="feedbackType" name="feedbackType" class="mini-combobox"
+                                            valueField="key" textField="value" style="display:inline-block;"
+                                            enabled="false" />
+                                    </div>
+                                    <div class="form-group pull-right">
+                                        <button id="btnSend" href="#" class="btn btn-primary btn-sm"><i
+                                                class="icon-send mr__5"></i>发送</button>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <div class="form-group dropdown">
+                                        <label class="control-label">信息编辑</label>
+                                        <i class="icon-bell" style="color:#1c9ed7;margin-left: 10px;" id="dropdownMenu1"
+                                            data-toggle="dropdown"></i>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="1" href="#">气象信息</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="2" href="#">事故信息</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="3" href="#">预案信息</a>
+                                            </li>
+                                            <li role="presentation">
+                                                <a role="menuitem" tabindex="4" href="#">危化品信息</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="form-group pull-right">
+                                        <input id="day" type="radio" name="msgType" value="1" checked="checked"
+                                            disabled="disabled" />
+                                        <label class="control-label" for="day">日常调度</label>
+                                        <input id="em" type="radio" name="msgType" value="2" disabled="disabled" />
+                                        <label class="control-label" for="em">应急事件</label>
+                                    </div>
+                                    <textarea class="form-control" id="autoMsg" rows="5"
+                                        style="resize: none;width: 100%;font-size: 12px;" maxlength="70"></textarea>
+                                </form>
+                            </div>
+                            <div>
+                                <div class="mini-tabs" activeIndex="0" plain="false">
+                                    <div title="通知人员清单">
+                                        <form id="searchForm" onsubmit="return false;" class="form-inline">
+                                            <div class="form-group">
+                                                <label class="control-label">对象姓名</label>
+                                                <div class="control-inline">
+                                                    <input name="userName" id="userName" type="text"
+                                                        class="form-control width__120 mr__10" maxlength="200"
+                                                        placeholder="输入姓名" />
+                                                </div>
+                                                <button href="#" class="btn btn-primary btn-sm" id="btnQuery"><i
+                                                        class="icon-search"></i>
+                                                    查询</button>
+                                            </div>
+                                            <div class="pull-right">
+                                                <button href="#" class="btn btn-primary btn-sm" id="btnSave"><i
+                                                        class="icon-save"></i>
+                                                    保存为个人组</button>
+                                                <button href="#" class="btn btn-delete btn-sm" id="btnDel"><i
+                                                        class="icon-delete"></i>
+                                                    删除</button>
+                                                <button href="#" class="btn btn-primary btn-sm" id="btnAdd"><i
+                                                        class="icon-add"></i>
+                                                    添加人员
+                                                </button>
+                                            </div>
+                                        </form>
+                                        <div id="datagrid" class="mini-datagrid" multiSelect="true" showPager="false"
+                                            frozenstartcolumn="0" frozenendcolumn="1" onlyCheckSelection="true" allowCellEdit="true"
+                                            style="height:210px;max-width: 1024px;" ondrawcell='page.logic.onDrawcell'>
+                                            <div property="columns">
+                                                <div type="indexcolumn" headerAlign="center" align="center">序号</div>
+                                                <div type="checkcolumn" allowResize="false"></div>
+                                                <div field="orgs" headerAlign="center" align="center">组织机构</div>
+                                                <div field="groupName" headerAlign="center" align="center">组名称</div>
+                                                <div field="userCode" headerAlign="center" align="center">编码</div>
+                                                <div field="userName" headerAlign="center" align="center">姓名</div>
+                                                <div field="userMobile" headerAlign="center" align="center">电话</div>
+                                                <div field="userPhone" headerAlign="center" align="center">固定电话
+                                                </div>
+                                                <div field="dutyNames" headerAlign="center" align="center">职务</div>
+                                                <div type="checkboxcolumn" field="mark" trueValue="1" falseValue="0" width="50" headerAlign="center">群呼座机</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div title="临时通知人员清单(选中时发送)">
+                                        <form id="tempSearchForm" onsubmit="return false;" class="form-inline">
+                                            <div class="form-group">
+                                                <label class="control-label">姓名</label>
+                                                <div class="control-inline">
+                                                    <input name="tempUserName" id="tempUserName" type="text"
+                                                        class="form-control width__120 mr__10" maxlength="200"
+                                                        placeholder="输入姓名" />
+                                                </div>
+                                                <button href="#" class="btn btn-primary btn-sm" id="btnTempQuery"><i
+                                                        class="icon-search"></i>
+                                                    查询</button>
+                                            </div>
+                                            <div class="pull-right">
+                                                <button class="btn btn-primary btn-sm" id="btnTempAdd"><i
+                                                        class="icon-add"></i>
+                                                    添加临时人员
+                                                </button>
+                                            </div>
+                                        </form>
+                                        <div id="tempDatagrid" class="mini-datagrid" multiSelect="true"
+                                            frozenstartcolumn="0" frozenendcolumn="1" showPager="false" onlyCheckSelection="true" allowCellEdit="true"
+                                            style="height:210px;max-width: 1024px;" ondrawcell='page.logic.onDrawcell'>
+                                            <div property="columns">
+                                                <div type="indexcolumn" headerAlign="center" align="center">序号</div>
+                                                <div type="checkcolumn" allowResize="false"></div>
+                                                <div headerAlign="center" align="center"
+                                                    renderer="page.logic.rendererOperate" width="30">操作
+                                                </div>
+                                                <div field="privatePersonName" headerAlign="center" align="center">姓名
+                                                </div>
+                                                <div field="privatePersonMobile" headerAlign="center" align="center">电话
+                                                </div>
+                                                <div field="privatePersonPhone" headerAlign="center" align="center">固定电话
+                                                </div>
+                                                <div type="checkboxcolumn" field="mark" trueValue="1" falseValue="0" width="50" headerAlign="center">群呼座机</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 全局js -->
+    <script src="../../../lib/jquery/jquery.min.js"></script>
+    <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- 自定义js -->
+    <script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+    <!-- JQ 表单序列化 -->
+    <script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+    <script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+    <!--公共js-->
+    <script src="../../../js/common/CommonEnum.js"></script>
+    <script src="../../../js/common/ecs-util.js"></script>
+    <script src="../../../js/common/ecs-env.js"></script>
+    <!-- 弹窗 -->
+    <script src="../../../lib/miniui/miniui.js"></script>
+    <script src="../../../lib/layer/layer.js"></script>
+    <!--页面逻辑-->
+    <script src="../../../js/em/MsgSend/index.js"></script>
+</body>
+
+</html>

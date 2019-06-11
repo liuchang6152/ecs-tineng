@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+    <title>应急车辆</title>
+    <meta name="keywords">
+    <meta name="description">
+    <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
+    <link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
+    <link rel="stylesheet" href="../../../css/common/animate.css" />
+    <link rel="stylesheet" href="../../../css/common/font.css" />
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../css/common/common.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+</head>
+<body>
+<div class="main-content__dialog">
+    <div class="main-header__dialog">
+        <i class="title-vertical"></i>
+        <span id="title-main"></span>
+        <i class="icon-close fr btnClose" title="关闭" aria-hidden="true"></i>
+    </div>
+    <div class="box box-main mt__45 ml__15 mr__15 pt__30">
+        <div id="personnel" class="mini-datagrid" style="display: none;">
+            <div property="columns">
+                <div type="indexcolumn" headerAlign="center" align="center" allowResize="false" width="35">序号</div>
+                <div field="orgNames" headerAlign="center" align="center" width="130">企业名称</div>
+                <div field="teamName" headerAlign="center" align="center">所属救援队伍</div>
+                <div field="userLvlName" headerAlign="center" align="center">行政级别</div>
+                <div field="personnelName" headeralign="center" align="center" allowResize="false" width="50">姓名</div>
+                <div field="personnelBirthday" headerAlign="center" align="center" allowResize="false" width="90" renderer="ECS.util.DateRender">出生日期</div>
+                <div field="personnelSexName" headeralign="center" align="center" allowResize="false" width="50">性别</div>
+                <div field="personnelJob" headeralign="center" align="center" renderer="page.logic.show_job">职务</div>
+                <div field="personnelNature" headeralign="center" align="center">员工性质</div>
+                <div field="teamTypeName" headeralign="center" align="center">人员类别</div>
+                <div field="personnelWorkStatusName" headeralign="center" align="center" allowResize="false" width="60">状态</div>
+                <div field="personnelPhone" headeralign="center" align="center" allowResize="false" width="90">座机号</div>
+                <div field="personnelMobile" headeralign="center" align="center" allowResize="false" width="90">手机号</div>
+                <div field="crtUserName" headeralign="center" align="center" allowResize="false" width="90">登记人</div>
+                <div field="crtUserDept" headeralign="center" align="center" width="100">登记部门</div>
+                <div field="crtDate" headeralign="center" renderer="ECS.util.DateRender" align="center" allowResize="false" width="90">登记时间</div>
+            </div>
+        </div>
+
+        <div id="vehicleNum" class="mini-datagrid" style="display: none;">
+            <div property="columns">
+                <div type="indexcolumn" headerAlign="center" align="center" width="35">序号</div>
+                <div field="orgName" name="orgName" align="center" headerAlign="center">企业名称</div>
+                <div field="teamName" name="teamName" headerAlign="center" align="center">所属应急队伍</div>
+                <div field="vehicleName" name="vehicleName" headerAlign="center" align="center">车辆名称</div>
+                <div field="vehiclePlateNumber" name="vehiclePlateNumber" align="center" headerAlign="center">车牌号码</div>
+                <div field="vehicleCode" name="vehicleCode" align="center" headerAlign="center">车牌编号</div>
+                <div field="exAgentName" name="exAgentName" align="center" headerAlign="center">灭火剂类型</div>
+                <div field="poactionStatusEnumName" name="poactionStatusEnumName" align="center" headerAlign="center">出警状态</div>
+                <div field="vehicleBigName" name="vehicleBigName" align="center" headerAlign="center">车辆大类</div>
+                <div field="vehicleSmallName" name="vehicleSmallName" align="center" headerAlign="center">车辆小类</div>
+                <div field="vehicleAllattributes" name="vehicleAllattributes" align="center" headerAlign="center">车辆详细属性</div>
+                <div field="vehicleManager" name="vehicleManager" align="center" headerAlign="center">负责人</div>
+                <div field="vehicleMobile" name="vehicleMobile" align="center" headerAlign="center">联系电话</div>
+                <div field="vehicleFactory" name="vehicleFactory" align="center" headerAlign="center">生产厂家</div>
+                <div field="crtUserName" name="crtUserName" align="center" headerAlign="center">登记人</div>
+                <div field="crtUserDept" name="crtUserDept" align="center" headerAlign="center">登记部门</div>
+                <div field="crtDate" name="crtDate" align="center" headerAlign="center" width="150" renderer="ECS.util.DateRender">登记时间</div>
+                <div field="vehicleTypeEnumName" name="vehicleTypeEnumName" headeralign="center" align="center">企内/外</div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- 全局js -->
+    <script src="../../../lib/jquery/jquery.min.js"></script>
+    <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- 自定义js -->
+    <script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+    <!-- JQ 表单序列化 -->
+    <script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+    <script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+    <!--公共js-->
+    <script src="../../../js/common/CommonEnum.js"></script>
+    <script src="../../../js/common/ecs-util.js"></script>
+    <script src="../../../js/common/ecs-env.js"></script>
+    <!--miniuiUI表格-->
+    <script src="../../../lib/miniui/miniui.js"></script>
+    <!--页面逻辑-->
+    <script src="../../../js/rtt/Team/showNum.js"></script>
+</body>
+</html>

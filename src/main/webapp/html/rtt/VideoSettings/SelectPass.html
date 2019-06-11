@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+	<title>通道号选择</title>
+	<meta name="keywords" />
+	<meta name="description" />
+	<link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
+	<link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
+	<link rel="stylesheet" href="../../../css/common/animate.css" />
+	<link rel="stylesheet" href="../../../css/common/font.css" />
+	<link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="../../../css/common/common.css" />
+	<link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+	<link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+	<link rel="stylesheet" href="../../../css/bc/User/index.css" />
+	<style>
+		.box-main>.main-body {
+			min-height: 577px;
+		}
+
+		#btnToggle {
+			right: -5px;
+		}
+		.position{
+			position: relative;
+			height: 25px;
+			line-height: 25px;
+			padding-left: 20px;
+		}
+		.itemInput{
+			position: absolute;
+			left: 0;
+			top: 3px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="main-content">
+		<div class="box box-main">
+			<div class="box-header">
+				<i class="title-vertical"></i>
+				<div class="box-title text-color">
+					通道号选择(PCITC_ECS V1.0_20190416)
+				</div>
+			</div>
+			<div class="main-body">
+				<div class="leftNav-body pt__10" style="height:100%;overflow-y:auto;padding-top: 16px;">
+					<!--左侧菜单 start-->
+					<div class="box-title text-color" style="font-size: 14px">
+						集成组织机构
+					</div>
+					<div class="mini-fit" style="height:430px; overflow-y: auto;">
+						<ul id="tree1" class="mini-tree"
+							style="width:100%;" showTreeIcon="true" textField="name" idField="id" parentField="pId" resultAsTree="false"></ul>
+							
+						</ul>
+					</div>
+					<!--左侧菜单 end-->
+				</div>
+				<div class="btn-toggle"></div>
+				<div class="box-body" style="height:577px;">
+					<!--右侧主体 start-->
+					<div class="box-title text-color" style="font-size: 14px">
+						摄像头清单
+					</div>
+					<div id="filesDataView" style="width:100%;height:100%;overflow:auto;display:none;">
+						<div id="filesView" class="filesView"></div>
+					</div>
+					<!--右侧主体 end-->
+				</div>
+			</div>
+		</div>
+		<div class="main-footer__dialog">
+			<div class="row">
+				<div class="text-center">
+					<button type="button" class="btn btn-primary" id="btnSave"><i class="icon-save"></i>
+						保 存
+					</button>&nbsp;&nbsp;
+					<button type="button" class="btn btn-close btnClose"><i class="icon-close"></i> 关 闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 全局js -->
+	<script src="../../../lib/jquery/jquery.min.js"></script>
+	<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+	<!-- 自定义js -->
+	<script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+	<!-- JQ 表单序列化 -->
+	<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+	<script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+	<!--公共js-->
+	<script src="../../../js/common/CommonEnum.js"></script>
+	<script src="../../../js/common/ecs-util.js"></script>
+	<script src="../../../js/common/ecs-env.js"></script>
+	<!-- 弹窗 -->
+	<script src="../../../lib/layer/layer.js"></script>
+	<script src="../../../lib/miniui/miniui.js"></script>
+	<!--页面逻辑-->
+	<script src="../../../js/rtt/VideoSettings/SelectPass.js"></script>
+</body>
+
+</html>
+

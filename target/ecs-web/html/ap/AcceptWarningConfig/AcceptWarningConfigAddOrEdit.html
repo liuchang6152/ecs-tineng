@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>接警相关配置新增/编辑</title>
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../lib/jquery.validate-1.16/jquery.validate.css" />
+    <link rel="stylesheet" href="../../../css/common/font.css" />
+    <link rel="stylesheet" href="../../../css/common/animate.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../css/common/common.css" />
+    <link rel="stylesheet" href="../../../css/ap/AcceptWarningConfig/index.css" />
+</head>
+<body style="overflow:hidden;">
+<div class="main-content__dialog">
+    <div class="main-header__dialog">
+        <i class="title-vertical"></i>
+        <span id="title-main"></span>
+        <i class="icon-close fr btnClose" title="关闭" aria-hidden="true"></i>
+    </div>
+    <div class="box box-main mt__45 mb__55 pt__30">
+        <form id="AddOrEditModal" class="form-horizontal">
+            <input type="hidden" name="ruleConfigID" id="ruleConfigID" />
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label col-xs-4">企业名称：</label>
+                        <div class="col-xs-6">
+                            <select name="enterpriseID" id="enterpriseID" class="form-control"></select>
+                        </div>
+                        <span class="span-required">*</span>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label col-xs-4">合并级别：</label>
+                        <div class="col-xs-6">
+                            <select name="equalLvl" id="equalLvl" class="form-control">
+                                <option value="2">企业</option>
+                                <option value="3">二级单位</option>
+                                <option value="4">安全风险区</option>
+                            </select>
+                        </div>
+                        <span class="span-required">*</span>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label col-xs-4">推送类型：</label>
+                        <div class="col-xs-6">
+                            <select name="pushType" id="pushType" class="form-control">
+                                <option value="1">全坐席推送</option>
+                                <option value="2">轮循推送</option>
+                            </select>
+                        </div>
+                        <span class="span-required">*</span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="main-footer__dialog">
+        <div class="row">
+            <div class="text-center">
+                <button type="button" class="btn btn-primary" id="btnSave"><i class="icon-save mr__5"></i>保 存</button>&nbsp;&nbsp;
+                <button type="button"  class="btn btn-close btnClose" id="btnClose"><i class="icon-close mr__5"></i>关 闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../../lib/jquery/jquery.min.js"></script>
+<!-- JQ 表单序列化 -->
+<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+<script src="../../../lib/layer/layer.js"></script>
+<!-- 表单验证 -->
+<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../lib/jquery.validate-1.16/jquery.validate.js"></script>
+<script src="../../../lib/jquery.validate-1.16/jquery.validate.extend.js"></script>
+<script src="../../../lib/jquery.validate-1.16/localization/messages_zh_CN.js"></script>
+<script src="../../../js/common/CommonEnum.js"></script>
+<script src="../../../js/common/ecs-util.js"></script>
+<script src="../../../js/common/ecs-env.js"></script>
+<script src="../../../lib/miniui/miniui.js"></script>
+<!--页面逻辑 byww-->
+<script src="../../../js/ap/AcceptWarningConfig/AcceptWarningConfigAddOrEdit.js"></script>
+</html>

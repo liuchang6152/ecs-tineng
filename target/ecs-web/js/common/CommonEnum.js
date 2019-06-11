@@ -1,0 +1,1 @@
+var InUseEnum={No:0,Yes:1};var PageModelEnum={NewAdd:1,Edit:2,View:3,Delete:4,Details:5};var PageLoadMode={Refresh:1,Reload:2,None:3};

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人员选择</title>
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../css/common/font.css" />
+    <link rel="stylesheet" href="../../../css/common/animate.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../css/common/common.css" />
+    <link rel="stylesheet" href="../../../lib/iCheck/all.css" />
+    <link href="../../../lib/select2/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../../css/rtt/EmrgMtrl/index.css" />
+</head>
+<body style="overflow: hidden;">
+<div class="main-content__dialog">
+    <div class="main-header__dialog">
+        <i class="title-vertical"></i>
+        <span id="title-main"></span>
+        <i class="icon-close fr btnClose" title="关闭" aria-hidden="true"></i>
+    </div>
+    <div class="box box-main mt__45 mb__55 pt__30">
+        <div class="searchbox">
+            员工搜索: &nbsp;&nbsp;&nbsp;<input type="text" name="sourceType" class="mini-textbox" id="key" onenter="page.logic.search()">
+            <a href="#" class="btn btn-primary btn-sm" title="查询" onclick="page.logic.search()"><i class="icon-search mr__5"></i> 查询</a>
+        </div>
+        <div class="container col-xs-5">
+            <ul id="tree1" class="mini-tree"
+                showTreeIcon="true" textField="showStr" valueField="zid" resultAsTree="false"
+                onbeforenodeselect="page.logic.beforenodeselect" ondrawnode="page.logic.onDrawNode">
+            </ul>
+        </div>
+        <div class="col-xs-1" style="margin-top: 60px;">
+            <input class="btn btn-success btn-xs" id="add" type="button" value=">>" title="添加" />
+            <input class="btn btn-success btn-xs" id="remove" type="button" value="<<" title="移除" />
+        </div>
+        <form id="AddOrEditModal" class="form-horizontal">
+                <div class="container col-xs-5" id="grid2">
+                    <p></p>
+                    <input type="hidden" id="userName" name="userName" />
+                    <input type="hidden" id="userID" name="userID" />
+                    <input type="hidden" id="ownerContact" name="ownerContact" />
+                </div>
+        </form>
+    </div>
+    <div class="main-footer__dialog">
+        <div class="row">
+            <div class="text-center">
+                <button type="button" class="btn btn-primary" id="btnSave"><i class="icon-save"></i> 保 存</button>&nbsp;&nbsp;
+                <button type="button"  class="btn btn-close btnClose"><i class="icon-close"></i> 关 闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../../../lib/jquery/jquery.min.js"></script>
+<!-- JQ 表单序列化 -->
+<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+<script src="../../../lib/layer/layer.js"></script>
+<!-- 表单验证 -->
+<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+<!--<script src="../../../lib/iCheck/icheck.js"></script>-->
+<!--<script src="../../../lib/jquery.validate-1.16/jquery.validate.extend.js"></script>-->
+<script src="../../../js/common/CommonEnum.js"></script>
+<script src="../../../js/common/ecs-util.js"></script>
+<script src="../../../js/common/ecs-env.js"></script>
+<script src="../../../lib/miniui/miniui.js"></script>
+<script src="../../../js/rtt/EmrgMtrl/SelectOwner.js"></script>
+</html>
+

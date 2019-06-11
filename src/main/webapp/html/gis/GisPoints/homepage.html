@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <script src="../../../lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript">
+        //默认加载
+        function turn() {
+            var url = "page.logic.check_point(1139)";
+            var iframe = document.getElementById("crossFrame");
+            var win = iframe.contentWindow;
+            win.postMessage(url, '*');
+        }
+        //查询点关联的某一类型的数据
+        function onGisPoint(){
+            var url = "page.logic.check_point(1139)";//进行查询
+            var iframe = document.getElementById("crossFrame");
+            var win = iframe.contentWindow;
+            win.postMessage(url, '*');
+        }
+        //是否保存
+        function save() {
+            var url = "page.logic.save(1139)";
+            var iframe = document.getElementById("crossFrame");
+            var win = iframe.contentWindow;
+            win.postMessage(url, '*');
+        }
+        //是否删除
+        function delAll(){
+            var url = "page.logic.deletes(1139)";
+            var iframe = document.getElementById("crossFrame");
+            var win = iframe.contentWindow;
+            win.postMessage(url, '*');
+        }
+        //是否进入编辑状态
+        function IntoEdit(){
+                //退出编辑
+            if($("#Button5").attr("isEdit")=="true"){
+                var url = "page.logic.IntoEdit(0,1139)";
+                $("#Button5").attr("isEdit","false");
+            }else{
+                //进入编辑
+                var url = "page.logic.IntoEdit(1,1139)";
+                $("#Button5").attr("isEdit","true");
+            }
+            var iframe = document.getElementById("crossFrame");
+            var win = iframe.contentWindow;
+            win.postMessage(url, '*');
+        }
+        function refresh(){
+            var url = "page.logic.refresh_page()";
+            var iframe = document.getElementById("crossFrame");
+            var win = iframe.contentWindow;
+            win.postMessage(url, '*');
+        }
+        //接收数据
+        window.onmessage=function (ev) {
+            ev=ev||event;//获取事件对象
+            var strfun=ev.data;
+            if (strfun !=null && strfun !=undefined){
+                eval(strfun);
+            }
+        }
+        //获取某个gis点id;
+        function GetGisId(gisID){
+            console.log("得到的某个gis点id:",gisID);
+        }
+        //是否删除成功
+        function isDelete(status){
+            console.log(status);    //-1表示删除失败；1表示删除成功
+        }
+        //是否放弃
+        function give_up(){
+            var url = "page.logic.give_up()";
+            var iframe = document.getElementById("crossFrame");
+            var win = iframe.contentWindow;
+            win.postMessage(url, '*');
+        }
+        //是否退出保存；
+        function isSave(n,point_dt){
+             //n若为-1，表示当前不愿退出保存；n若为1，表示当前愿意退出保存；
+             console.log("父窗口是否拿到子窗口传来的值：",n);
+             //返回来的gis点的数据；
+             if(point_dt){
+                 console.log("父窗口拿到的点集合数据：",point_dt);
+             }
+        }
+    </script>
+</head>
+<body>
+<input id="Button1" type="button" value="默认加载" onclick="turn()" />
+<input id="Button2" type="button" value="查询" onclick="onGisPoint()" />
+<input id="Button3" type="button" value="保存" onclick="save()" />
+<input id="Button4" type="button" value="删除" onclick="delAll()" />
+<input id="Button5" type="button" value="编辑" onclick="IntoEdit()"  isEdit="false" />
+<input id="Button6" type="button" value="放弃" onclick="give_up()" />
+<iframe id="crossFrame" src="DynamicIndex.html" scrolling="no" width="100%" height="530px"></iframe>
+</body>
+</html>

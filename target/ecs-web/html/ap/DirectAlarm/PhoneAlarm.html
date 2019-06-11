@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+    <title>电话接警</title>
+    <meta name="keywords" />
+    <meta name="description" />
+    <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
+    <link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
+    <link rel="stylesheet" href="../../../css/common/animate.css" />
+    <link rel="stylesheet" href="../../../css/common/font.css" />
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../css/common/common.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../css/ap/AutomaticMonitoring/index.css" />
+</head>
+<body style="overflow-y:scroll;">
+<div class="main-content">
+    <div class="box box-main">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-xs-7">
+                    <form id="AddOrEditModal" class="form-horizontal">
+                        <p class="title" style="padding:10px;">警情评估信息：
+                            <a href="#" class="btn btn-primary btn-sm pull-right" id="btnAccept" title="开始受理">开始受理</a>
+                        </p>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">预警等级：</label>
+                                    <div class="col-xs-8">
+                                        <select name="riskRankId" id="riskRankId" class="form-control"></select>
+                                    </div>
+                                    <span class="span-required">*</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">事故等级：</label>
+                                    <div class="col-xs-8">
+                                        <select name="eventLvlId" id="eventLvlId" class="form-control"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">事故大类：</label>
+                                    <div class="col-xs-8">
+                                        <select name="accidentCategoryId" id="accidentCategoryId" class="form-control"></select>
+                                    </div>
+                                    <span class="span-required">*</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">事故小类：</label>
+                                    <div class="col-xs-8">
+                                        <select name="accidentTypeId" id="accidentTypeId" class="form-control">
+                                            <option value="-1">请选择</option>
+                                        </select>
+                                    </div>
+                                    <span class="span-required">*</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">人员受伤：</label>
+                                    <div class="col-xs-8">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="casualtyCount" id="casualtyCount" maxlength="9" onblur="this.value=this.value.replace(/\D/g,'')" />
+                                            <span class="input-group-addon">人</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">人员死亡：</label>
+                                    <div class="col-xs-8">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="dieCount" id="dieCount" maxlength="9" onblur="this.value=this.value.replace(/\D/g,'')" />
+                                            <span class="input-group-addon">人</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">财产损失：</label>
+                                    <div class="col-xs-8">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="propertyLossCount" id="propertyLossCount" maxlength="9" onblur="this.value=this.value.replace(/[^\-?\d.]/g,'')" />
+                                            <span class="input-group-addon">万元</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">报警电话：</label>
+                                    <div class="col-xs-8">
+                                        <input type="tel" name="mobileOrPhone" id="mobileOrPhone" class="form-control" readonly />
+                                    </div>
+                                    <span class="span-required">*</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-2" style="padding-left: 0;">报警人信息：</label>
+                                    <div class="col-xs-10">
+                                        <input type="text" name="alertsPersonInfo" id="alertsPersonInfo" maxlength="200" class="form-control" />
+                                    </div>
+                                    <span class="span-required">*</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-1 ml__20">位置：</label>
+                                    <div class="col-xs-11 address">
+                                        <textarea class="form-control" name="eventAddress" id="eventAddress" rows="3" maxlength="200" readonly="readonly" style="resize: none;width: 100%;font-size: 12px;"></textarea>
+                                    </div>
+                                    <span class="span-required">*</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-1 ml__20" style="padding-left: 0;">警情摘要：</label>
+                                    <div class="col-xs-11 address">
+                                        <textarea class="form-control" name="eventSummary" id="eventSummary" rows="3" disabled style="resize: none;width: 100%;font-size: 12px;"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="title">补充信息：</p>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <div class="col-xs-11 ml__15">
+                                        <textarea class="form-control" name="information" id="information" rows="3" maxlength="200" style="resize: none;width: 100%;font-size: 12px;"></textarea>
+                                    </div>
+                                    <i class="icon-warn font__18 text-danger mt__20 mr__15 fr" id="infoList">
+                                        <ul id="nav_submenu"></ul>
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row mt__15">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary" id="btnAlarm" disabled><i class="icon-save"></i>
+                                <span>接 警</span>
+                            </button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-close" id="btnCancle" disabled><i class="icon-close"></i> 取 消
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-5" style="border-left: 1px solid #ccc;">
+                    <div class="alert alert-warning">报警时天气：温度：35℃ 湿度：45% 风向：西南 风速：3m/s</div>
+                    <iframe style="width:100%; height: 470px;" id="iframe_map"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 全局js -->
+<script src="../../../lib/jquery/jquery.min.js"></script>
+<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- 自定义js -->
+<script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+<!-- JQ 表单序列化 -->
+<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+<script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+<!-- 表单验证 -->
+<script src="../../../lib/jquery.validate-1.16/jquery.validate.js"></script>
+<script src="../../../lib/jquery.validate-1.16/jquery.validate.extend.js"></script>
+<script src="../../../lib/jquery.validate-1.16/localization/messages_zh_CN.js"></script>
+<!--公共js-->
+<script src="../../../js/common/CommonEnum.js"></script>
+<script src="../../../js/common/ecs-util.js"></script>
+<script src="../../../js/common/ecs-env.js"></script>
+<!-- 弹窗 -->
+<script src="../../../lib/layer/layer.js"></script>
+<script src="../../../lib/miniui/miniui.js"></script>
+<!--页面逻辑 by weiwan-->
+<script src="../../../js/ap/DirectAlarm/PhoneAlarm.js"></script>
+
+</body>
+</html>

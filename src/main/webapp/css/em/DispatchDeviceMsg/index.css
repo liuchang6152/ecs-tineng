@@ -1,0 +1,59 @@
+/*树形菜单*/
+.mini-menuitem-inner {
+    padding-left: 10px;
+}
+.box-main .main-body{
+    position: relative;
+    min-height: 300px;
+    overflow: hidden;
+}
+.box-main .main-body .box-body {
+    background: #fff;
+    padding: 10px 15px;
+    /*margin-left: 280px;*/
+    min-height: 520px;
+}
+.leftNav-body{
+    padding: 10px 10px 9999px;
+    height:100%;
+    overflow-y:auto;
+    float: left;
+    text-align: center;
+    background-color: #f6f7f9;
+    -webkit-box-shadow: 1px 2px 5px #888888;
+    -moz-box-shadow: 1px 2px 5px #888888;
+    box-shadow: 1px 2px 5px #888888;
+    width: 280px;
+    margin-bottom:-9999px;
+}
+/*tab切换 title*/
+.mini-tab{border-radius: 0;}
+.mini-tab-text{padding:4px 6px 4px 6px;}
+.mini-tab-active{border-color:#aed0ea;}
+.mini-tab-active{background-color:#deedf7;color:#2779aa;}
+.mini-tabs-bodys{border-color:#aed0ea;}
+.mini-tabs-scrollCt{border:none;background:#fff;}
+.mini-tabs-bodys{border-top:1px solid #aed0ea;}
+#custom{
+    display: none;
+}
+#onDevisce,
+#offDevice{
+    cursor: pointer;
+}
+.titleBar{
+    clear: both;
+    line-height: 35px;
+    height: 45px;
+    margin-bottom: 10px;
+    padding: 10px 0 0 10px;
+}
+.deviceTit{
+    border-top: 1px solid #ccc;
+    padding: 10px 0 0 10px;
+    clear: both;
+    line-height: 30px;
+}
+.btn{
+    width: auto;
+}

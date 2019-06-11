@@ -1,0 +1,123 @@
+.box-main .main-body{
+    position: relative;
+    min-height: 300px;
+    overflow: hidden;
+}
+.box-main .main-body .box-body {
+    background: #fff;
+    padding: 16px;
+    margin-left: 202px;
+    border-radius: 5px;
+    height:auto;
+}
+.leftNav-body{
+    float: left;
+    text-align: center;
+    background-color: #f6f7f9;
+    -webkit-box-shadow: 1px 2px 5px #888888;
+    -moz-box-shadow: 1px 2px 5px #888888;
+    box-shadow: 1px 2px 5px #888888;
+    width: 200px;
+    padding-top: 20px;
+    padding-bottom:9999px;
+    margin-bottom:-9999px;
+}
+.subNav{
+    line-height: 35px;
+    font-weight: bold;
+}
+.navContent{
+    line-height: 25px;
+    color: #768a99;
+    cursor: pointer;
+}
+.navContent .active{
+    font-weight: bold;
+}
+.btn-toggle{
+    position: absolute;
+    left: 185px;
+    top: 100px;
+    width: 17px;
+    cursor: pointer;
+    height: 103px;
+    background:url("../../../images/common/treeHide.png") no-repeat center center;
+}
+.remark{
+    padding-left: 70px;
+    font-size: 10px;
+    color: #a7b1b9;
+}
+/*风险区域*/
+#treeSeclect{
+    position: relative;
+}
+.mainSelect{
+    display: none;
+    position: absolute;
+    top: 32px;
+    left: 15px;
+    right: 15px;
+    height: 180px;
+    overflow: hidden;
+    background: #fff;
+    -webkit-box-shadow: 1px 1px 5px rgba(0,0,0,.3);
+    -moz-box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+    z-index:1001;
+}
+.mainSelect .main-header{
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    background: #ecf2f5;
+    padding: 0 15px 0 0;
+}
+.main-header .title-vertical {
+    display: inline-block;
+    float: left;
+    width: 3px;
+    height: 15px;
+    background: #45c8dc;
+    margin: 5px;
+}
+.main-header .btn{
+    width: 50px;
+    height: 24px;
+    padding: 0;
+    margin: 2px 5px;
+    font-size: 10px;
+}
+.mainSelect p{
+    padding:5px 0px;
+    display: table;
+}
+.mainSelect .main-left{
+    width: 50%;
+    float: left;
+    height: 150px;
+    padding: 10px 20px;
+    overflow-y: scroll;
+    border-right: 1px solid #ccc;
+}
+.main-left .active{
+    color: #e02222;
+}
+.mainSelect .main-right{
+    width: 50%;
+    float: right;
+    height: 150px;
+    padding: 10px 20px;
+    overflow-y: scroll;
+}
+.mainSelect .main-right .icon-close{
+    cursor: pointer;
+}
+.main-right p span
+{
+    white-space: nowrap;
+    width: 230px;
+    float: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

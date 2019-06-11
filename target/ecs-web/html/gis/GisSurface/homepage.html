@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <script src="../../../lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript">
+        function turn() {
+            var url = "page.logic.typeClickLoad(1,0)";
+            //$("#crossFrame")[0].contentWindow.page.logic.typeClickLoad(1, 0);
+            var iframe = document.getElementById("crossFrame");
+            var win = iframe.contentWindow;
+            win.postMessage(url, '*');
+        }
+        function onGisSurface() {
+            var url = "page.logic.gisSurfaceClickLoad(2,110,1)";
+            var iframe = document.getElementById("crossFrame");
+            var win = iframe.contentWindow;
+            win.postMessage(url, '*');
+        }
+        function save() {
+            var url = "page.logic.save(2,110)";
+            var iframe = document.getElementById("crossFrame");
+            var win = iframe.contentWindow;
+            win.postMessage(url, '*');
+        }
+
+        //新文页面需要调用的方法
+        //接收数据
+        window.onmessage=function (ev) {
+            ev=ev||event;//获取事件对象
+            var strfun=ev.data;
+            if (strfun !=null && strfun !=undefined){
+                eval(strfun);
+            }
+        }
+        //是否退出保存；
+        function isSave(n){
+            //alert(n);
+            console.log("父窗口是否拿到子窗口传来的值：",n);
+            // console.log(n==-1)
+        }
+        //面属性业务数据 反向映射多个面ID方法
+        function getArrGisSurfaceIds(arrGisSurfaceIds) {
+            //alert(arrGisSurfaceIds);
+        }
+
+    </script>
+</head>
+<body>
+<input id="Button1" type="button" value="默认加载" onclick="turn()" />
+<input id="Button2" type="button" value="查询" onclick="onGisSurface()" />
+<input id="Button3" type="button" value="保存" onclick="save()" />
+<iframe id="crossFrame" src="DynamicIndex.html" scrolling="no" width="100%" height="600px"></iframe>
+</body>
+</html>

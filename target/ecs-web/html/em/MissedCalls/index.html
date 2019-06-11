@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+    <title>未接来电</title>
+    <meta name="keywords">
+    <meta name="description">
+    <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
+    <link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
+    <link rel="stylesheet" href="../../../css/common/animate.css" />
+    <link rel="stylesheet" href="../../../css/common/font.css" />
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+    <link rel="stylesheet" href="../../../css/common/common.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../css/em/MissedCalls/index.css" />
+</head>
+
+<body>
+    <p class="title"><i class='icon-phone'></i>接警未接来电查询</p>
+    <div class="tabbable" id="main">
+        <!-- Only required for left/right tabs -->
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#tab1" data-toggle="tab">最新未接来电（{{total}}）</a>
+            </li>
+            <li>
+                <a href="#tab2" data-toggle="tab">未接来电历史纪录（{{untotal}}）</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+             <div class="nsPhone">
+                 <button type="button" @click='page.logic.dialPhone' class="btn btn-success dropdown-toggle">呼叫</button>
+             </div>
+            <div class="tab-pane active" id="tab1">
+               
+                <div class="list" v-for="item in items">
+                    <a href="#" class="list-group-item nsa" @click='page.logic.phone(item)' style="height: auto;height: 75px">
+                        <p v-if="item.ringName" class="list-group-item-heading"> 
+                            <i class="icon-user"></i>机主姓名：{{item.ringName}}
+                        </p>
+                        <p class="list-group-item-text">
+                            <i class="icon-mobile"></i>报警电话：{{item.ringUpNumber}}
+                        </p>
+                        <p class="list-group-item-text nsDeta">
+                            报警时间：{{item.phoneIn}}
+                        </p>
+                    </a>
+                </div>
+
+            </div>
+            <div class="tab-pane" id="tab2">
+                <div v-for="item in itemAll" class="list">
+                    <a href="#" class="list-group-item nsa" @click='page.logic.phone(item)'  style="height: auto;height: 75px">
+                        <p v-if="item.ringName" class="list-group-item-heading">
+                            <i class="icon-user"></i>机主姓名：{{item.ringName}}
+                        </p>
+                        <p class="list-group-item-text">
+                            <i class="icon-mobile"></i>报警电话：{{item.ringUpNumber}}
+                        </p>
+                        <div class="list-group-item-text nsDeta"> 
+                            <p>报警时间：{{item.phoneIn}}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 全局js -->
+    <script src="../../../lib/jquery/jquery.min.js"></script>
+    <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+    <!-- 自定义js -->
+
+    <!-- JQ 表单序列化 -->
+
+    <!--公共js-->
+    <script src="../../../js/common/CommonEnum.js"></script>
+    <script src="../../../lib/vue/vue.min.js"></script>
+    <script src="../../../js/common/ecs-util.js"></script>
+    <script src="../../../js/common/ecs-env.js"></script>
+    <!-- 弹窗 -->
+    <!--<script src="../../../lib/miniui/miniui.js"></script>-->
+    <!--<script src="../../../lib/layer/layer.js"></script>-->
+
+    <!--页面逻辑-->
+    <script src="../../../js/em/MissedCalls/index.js"></script>
+
+</body>
+
+</html>

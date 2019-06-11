@@ -1,0 +1,9 @@
+.panel-content{
+    background: #e7e7e7;
+    height: 250px;
+    overflow-y: scroll;
+    line-height: 22px;
+}
+ol{
+    list-style: decimal;
+}

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+    <title>自动接警</title>
+    <meta name="keywords" />
+    <meta name="description" />
+    <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
+    <link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
+    <link rel="stylesheet" href="../../../css/common/animate.css" />
+    <link rel="stylesheet" href="../../../css/common/font.css" />
+    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="../../../css/common/common.css" />
+    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+    <link rel="stylesheet" href="../../../css/ap/AutomaticMonitoring/index.css" />
+</head>
+<body>
+<div class="main-content">
+    <div class="box box-main">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-xs-7" style="border-right: 1px solid #ccc;height: 600px;overflow-y: scroll;overflow-x: hidden">
+                    <form id="AddOrEditModal" class="form-horizontal">
+                        <p class="title" style="padding:10px;">警情评估信息：
+                            <a href="#" class="btn btn-primary btn-sm pull-right" id="btnAccept" title="开始受理">开始受理</a>
+                        </p>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">预警等级：</label>
+                                    <div class="col-xs-8">
+                                        <select name="riskRankId" id="riskRankId" class="form-control"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">事故等级：</label>
+                                    <div class="col-xs-8">
+                                        <select name="eventLvlId" id="eventLvlId" class="form-control"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">事故大类：</label>
+                                    <div class="col-xs-8">
+                                        <select name="accidentCategoryId" id="accidentCategoryId" class="form-control"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">事故小类：</label>
+                                    <div class="col-xs-8">
+                                        <select name="accidentTypeId" id="accidentTypeId" class="form-control"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">人员受伤：</label>
+                                    <div class="col-xs-8">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="casualtyCount" id="casualtyCount" maxlength="9" />
+                                            <span class="input-group-addon">人</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">人员死亡：</label>
+                                    <div class="col-xs-8">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="dieCount" id="dieCount" maxlength="9" />
+                                            <span class="input-group-addon">人</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">财产损失：</label>
+                                    <div class="col-xs-8">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="propertyLossCount" id="propertyLossCount" maxlength="9" />
+                                            <span class="input-group-addon">万元</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">报警电话：</label>
+                                    <div class="col-xs-8">
+                                        <input type="tel" name="callPhone" id="callPhone" class="form-control" maxlength="10" onblur="this.value=this.value.match(/[0-9-()（）]{7,18}/)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-2" style="padding-left: 0px;">报警人信息：</label>
+                                    <div class="col-xs-10">
+                                        <input type="text" name="alertsPersonInfo" id="alertsPersonInfo" class="form-control" maxlength="200" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-1 ml__20">位置：</label>
+                                    <div class="col-xs-11 address">
+                                        <textarea class="form-control" name="eventAddress" id="eventAddress" rows="3" maxlength="200" style="resize: none;width: 100%;font-size: 12px;"></textarea>
+                                    </div>
+                                    <span class="span-required">*</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-2" style="margin-left: -45px;">警情摘要：</label>
+                                    <div class="control-label col-xs-10 text-danger remark">
+                                        <b>接警信息：</b><span class="eventSummary"></span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="title">实时监测报警情况：</p>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-4">企业名称：</label>
+                                    <div class="col-xs-8">
+                                        <select name="enterpriseId" id="enterpriseId" class="form-control" disabled></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="alarm" class="mini-datagrid" idField="alarmID" showPager="false" style="display: inline-flex;">
+                            <div property="columns">
+                                <div field="orgNameLvl2" align="center" headerAlign="center">事发单位</div>
+                                <div field="address" align="center" headerAlign="center" renderer="page.logic.adressDetail">具体位置</div>
+                                <div field="siteName" headerAlign="center" align="center" renderer="page.logic.siteName">应急监测点</div>
+                                <div field="alertsLogMaxLvlName" headerAlign="center" align="center">报警极值</div>
+                                <div field="monitorValue" headerAlign="center" align="center">实时值</div>
+                                <div field="bjCause" headerAlign="center" align="center">报警区间</div>
+                                <div field="alertsLogStartTime" headerAlign="center" align="center" width="120" renderer="ECS.util.DateTimeRender">报警时间</div>
+                                <div field="siteNumber" headerAlign="center" align="center">位号</div>
+                            </div>
+                        </div>
+                        <p class="title">补充信息：</p>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <div class="col-xs-11 ml__15">
+                                        <textarea class="form-control" name="information" id="information" rows="3" maxlength="200" style="resize: none;width: 100%;font-size: 12px;"></textarea>
+                                    </div>
+                                    <i class="icon-warn font__18 text-danger mt__20 mr__15 fr" id="infoList">
+                                        <ul id="nav_submenu"></ul>
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="title">发送及反馈情况：</p>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label class="control-label col-xs-2" style="margin-left: -45px;">接警信息：</label>
+                                    <div class="control-label col-xs-10 remark text-danger eventSummary"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="feedback" class="mini-datagrid" idField="feedbackID" showPager="false" style="display: inline-flex;">
+                            <div property="columns">
+                                <div field="userName" align="center" headerAlign="center">接警通知人员</div>
+                                <div field="sendType" align="center" headerAlign="center">通知类型</div>
+                                <div field="userMobile" headerAlign="center" align="center">通知方式</div>
+                                <div field="isFeedBack" headerAlign="center" align="center">接收状态</div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row mt__15">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary" id="btnAlarm"><i class="icon-save"></i>
+                                <span>接 警</span>
+                            </button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-close" id="btnCancle"><i class="icon-close"></i> 取 消
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-5">
+                    <div class="alert alert-warning">报警时天气：温度：35℃&nbsp;&nbsp;湿度：45%&nbsp;&nbsp;风向：西南&nbsp;&nbsp;风速：3m/s</div>
+                    <iframe style="width:100%; height: 550px;" id="iframe_map"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 全局js -->
+<script src="../../../lib/jquery/jquery.min.js"></script>
+<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- 自定义js -->
+<script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+<!-- JQ 表单序列化 -->
+<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+<script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+<!-- 表单验证 -->
+<script src="../../../lib/jquery.validate-1.16/jquery.validate.js"></script>
+<script src="../../../lib/jquery.validate-1.16/jquery.validate.extend.js"></script>
+<script src="../../../lib/jquery.validate-1.16/localization/messages_zh_CN.js"></script>
+<!--公共js-->
+<script src="../../../js/common/CommonEnum.js"></script>
+<script src="../../../js/common/ecs-util.js"></script>
+<script src="../../../js/common/ecs-env.js"></script>
+<!-- 弹窗 -->
+<script src="../../../lib/layer/layer.js"></script>
+<script src="../../../lib/miniui/miniui.js"></script>
+<!--页面逻辑 by weiwan-->
+<script src="../../../js/ap/AutomaticMonitoring/index.js"></script>
+
+</body>
+</html>
