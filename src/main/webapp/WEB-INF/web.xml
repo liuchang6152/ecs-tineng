@@ -39,7 +39,7 @@
         </init-param>
         <init-param>
             <param-name>serverName</param-name>
-            <param-value>http://yjzh.promace.pcitc.com</param-value>
+            <param-value>http://yjzh.promace.pcitc.com:8080</param-value>
         </init-param>
     </filter>
     <filter-mapping>
@@ -55,7 +55,7 @@
         </init-param>
         <init-param>
             <param-name>serverName</param-name>
-            <param-value>http://yjzh.promace.pcitc.com</param-value>
+            <param-value>http://yjzh.promace.pcitc.com:8080</param-value>
         </init-param>
     </filter>
     <filter-mapping>

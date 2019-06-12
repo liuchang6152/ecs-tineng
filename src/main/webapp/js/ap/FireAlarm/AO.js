@@ -256,7 +256,6 @@ $(function () {
 				})
 			},
 			Start: function (flag) {
-				//TODO
 				if (!timeFlag) {
 					return;
 				}
@@ -264,9 +263,9 @@ $(function () {
 				if (flag) {
 					window.parent.answer();
 				}
-				$('#btnStart').css({'color':'#fff','background-color':'#2A72B5','border-color':'#2A72B5'});
+				$('#btnStart').css({ 'color': '#fff', 'background-color': '#2A72B5', 'border-color': '#2A72B5' });
 			},
-			AnswerSuccess: function () {
+			AnswerSuccess: function (flag) {
 				parent.setBusy();
 				var param = {
 					//TODO systemID
@@ -315,7 +314,9 @@ $(function () {
 							}, function () {
 
 							});
-							parent.startRecord('', eventId, true);
+							if (flag) {
+								parent.startRecord('', eventId, true);
+							}
 						} else {
 							$('#btnStart').attr('disabled', false);
 							layer.msg(result.message);
@@ -427,6 +428,8 @@ $(function () {
 			},
 			getMobileOrPhone: function () {
 				$.ajax({
+					//必须用同步，接口慢，异步操作后续会报错
+					async: false,
 					url: mobileOrPhoneUrl + "?mobileOrPhone=" + page.data.param.masterCallNum,
 					type: "get",
 					dataType: "json",

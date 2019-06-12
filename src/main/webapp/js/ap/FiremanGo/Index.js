@@ -518,7 +518,7 @@ $(function () {
 										if (data1.isSuccess) {
 											// zhongIP,eventId|zhiIP|batch
 											parent.sendOrder(data1.result, jsonData.eventId + '|' + parent.netIP + '|' + data.result + '|' + teamID);
-											layer.msg('下达成功');
+											//layer.msg('下达成功');
 										}
 										else {
 											alert(data1.message);

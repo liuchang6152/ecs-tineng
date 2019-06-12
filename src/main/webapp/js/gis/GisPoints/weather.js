@@ -29,6 +29,53 @@ $(function () {
 		table: {},
 		//绑定事件和逻辑
 		bindUI: function () {
+			//点击显示隐藏
+			// $('#main').bind('click',function(){
+			// 	$('#show').slideToggle(500,function(){
+			// 		console.log(11)
+			// 	});
+			// 	// console.log($('#show').css('display'))
+			// 	// if ($('#show').css('display')) {
+
+			// 	// }
+			// });
+			$('#main').toggle(function(){
+				$('#show').slideToggle(500);
+				$('.degree').hide(500);
+				$('.wind').hide(500);
+				$('.user').hide(500);
+				
+			},function(){
+				$('#show').slideToggle(500);
+				$('.degree').show(500);
+				$('.wind').show(500);
+				$('.user').show(500);
+			});
+
+				var num = 0;
+				function goLeft() {
+					//750是根据你给的尺寸，可变的
+					if (num == -750) {
+						num = 0;
+					}
+					num -= 1;
+					$(".content").css({
+						left: num
+					})
+				}
+				//设置滚动速度
+				var timer = setInterval(goLeft, 20);
+				//设置鼠标经过时滚动停止
+				$("#main").hover(function () {
+						clearInterval(timer);
+					},
+					function () {
+						timer = setInterval(goLeft, 20);
+					})
+
+
+
+
 			$("#searchForm")[0].reset();
 			//搜索栏中input不允许输入空格
 			$('input').keydown(function(e) {
