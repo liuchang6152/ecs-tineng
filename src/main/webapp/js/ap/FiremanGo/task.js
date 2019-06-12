@@ -100,6 +100,7 @@ var vm = new Vue({
                 result = $.parseJSON(result);
                 if (result.isSuccess) {
                     parent.sendFeedback(self.getQueryString('detachmentIP'),'');
+                    self.closeLayer();
                 } else {
                     layer.msg(result.message);
                 }
