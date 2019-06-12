@@ -90,6 +90,8 @@ $(function () {
                     mini.get("enterpriseCode").disable();    //二级单位设置为不可用；
                     mini.get("drtDeptCode").disable();    //二级单位设置为不可用；
                     mini.get("expireDate").disable();     //日期
+                    page.logic.cbxStoreType();    //存放点类型
+                    page.logic.cbxRepoType();     //储备库分类
                 }
                 $.ajax({
                     url: getSingleUrl + "/" + data.emrgMtrlID + "?now=" + Math.random(),
@@ -111,13 +113,18 @@ $(function () {
                         $("#crtDate").val(ECS.util.timestampToHour(data.crtDate));
                         page.logic.initMesUnit(data.mesUnit);//计量单位
                         $("input[name=drtDeptCode]").val(data.drtDeptCode);
-                        //存放点类型
-                        var storeType_opiton = $('<option value="'+data.storeType+'">'+data.storeTypeName+'</option>');
-                        $("#storeType").append(storeType_opiton);
-                        //储备库分类  repoType
-                        var repoType_opiton = $('<option value="'+data.repoType+'">'+data.repoTypeName+'</option>');
-                        $("#repoType").append(repoType_opiton);
+                        // //存放点类型
+                        // var storeType_opiton = $('<option value="'+data.storeType+'">'+data.storeTypeName+'</option>');
+                        // $("#storeType").append(storeType_opiton);
+                        // //储备库分类  repoType
+                        // var repoType_opiton = $('<option value="'+data.repoType+'">'+data.repoTypeName+'</option>');
+                        // $("#repoType").append(repoType_opiton);
                         //存放点名称  storageID
+
+                        $("#storeType").val(data.storeType);
+                        $("#repoType").val(data.repoType);
+
+
                         var storageID_opiton = $('<option value="'+data.storageID+'">'+data.storageName+'</option>');
                         $("#storageID").append(storageID_opiton);
 
