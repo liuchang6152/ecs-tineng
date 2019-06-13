@@ -27,7 +27,7 @@ $(function () {
         },
         bindUI: function () {
              $.ajax({//获取安全风险区编码
-                 url: ECS.api.bcUrl + '/riskArea/getRiskAreaCode',
+                 url: ECS.api.bcUrl + '/riskArea/getRiskAreaCode?typeID=2',
                  async: false,
                  type: 'GET',
                  data: '',

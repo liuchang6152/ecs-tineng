@@ -92,7 +92,8 @@ $(function () {
                 if(e.row.isPickup==1){
                     return e.row.isPickupName;
                 }else{
-                    return '<span style="color:#9fc747">'+e.row.isPickupName+'</span>';
+                    console.log(e.row.isPickupName)
+                    return '<span style="color:#ff0000">'+e.row.isPickupName+'</span>';
                 }
             },
             /**
