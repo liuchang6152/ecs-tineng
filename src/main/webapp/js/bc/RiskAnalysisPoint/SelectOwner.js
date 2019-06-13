@@ -24,8 +24,8 @@ $(function () {
                         ownDetail[$("#grid2 p").eq(i).attr("id")]=$("#grid2 p").eq(i).attr("name");
                     }
                 }
-                parent.ownDetail=ownDetail;
-                window.pageLoadMode = PageLoadMode.None;
+                // parent.ownDetail=ownDetail;
+                // window.pageLoadMode = PageLoadMode.None;
                 page.logic.closeLayer(false);
             });
             $("#add").click(function () {
