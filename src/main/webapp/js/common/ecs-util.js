@@ -1560,10 +1560,10 @@ ECS.util.editRenderer = function (e) {
 
 //渲染数据
 ECS.util.renderer = function (e, dataSource, idField, textField) {
-    idField = idField === undefined ? 'key' : idField;
-    textField = textField === undefined ? 'value' : textField;
+    idField = idField == undefined ? 'key' : idField;
+    textField = textField == undefined ? 'value' : textField;
     for (var i = 0, len = dataSource.length; i < len; i++) {
-        if (dataSource[i][idField] === e.value) {
+        if (dataSource[i][idField] == e.value) {
             return dataSource[i][textField];
         }
     }
