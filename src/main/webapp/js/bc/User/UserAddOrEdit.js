@@ -48,10 +48,17 @@ $(function () {
              * 保存
              */
             save: function () {
+                console.log($('#userMobile').val())
+                 if (!$('#userMobile').val() && !$('#userPhone').val()) { //
+                     layer.msg('请输入手机号或者座机号');
+                     return;
+                 }
                 page.logic.formValidate();
                 if (!$('#AddOrEditModal').valid()) {
                     return;
                 }
+               
+                
                 // //校验出生日期
                 // if($("#userBirthday").find("input").val()==""){
                 //     layer.msg("请选择出生日期!");
@@ -363,14 +370,14 @@ $(function () {
                         orgID: {
                             required: true
                         },
-                        userMobile: {
-                            required: true,
-                            mobile:true
-                        },
-                        userPhone: {
-                            required: true,
-                            simplePhone:true
-                        },
+                        // userMobile: {
+                        //     required: true,
+                        //     mobile:true
+                        // },
+                        // userPhone: {
+                        //     required: true,
+                        //     simplePhone:true
+                        // },
                         userEmail: {
                             // required: true,
                            // email: /^\w+([-+.]\w+)*@\w+([-.]\\w+)*\.\w+([-.]\w+)*$/
