@@ -21,7 +21,6 @@ var enterpriseCode = "";    //企业节点编码；
 var drtDeptCode = "";       //二级单位节点编码；
 window.pageLoadMode = PageLoadMode.None;
 
-
 $(function () {
 	var page = {
 		//页面初始化
@@ -328,7 +327,8 @@ $(function () {
 				var nsCode = $('#enterpriseCode').val();
 				if ($('drtDeptCode').val()){
 					treeID =$('drtDeptCode').val();
-				}
+				};
+				
 				layer.open({
 					type: 2,
 					closeBtn: 0,
@@ -345,7 +345,8 @@ $(function () {
 							'title': title,
 							'riskAreaCode': nsCode,
 							'treeID': treeID,
-							'id': emrgEquipID
+							'id': emrgEquipID,
+							'orgCode': $('#drtDeptCode').val()
 						};
 						iframeWin.page.logic.setData(data, gridList);
 					},
