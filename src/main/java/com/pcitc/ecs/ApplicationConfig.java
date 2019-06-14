@@ -21,16 +21,16 @@ import java.io.File;
 @Component
 public class ApplicationConfig implements ApplicationListener {
 
-    @Value("${server_url:yjzh.shzb.promace.sinopec.com:443}")
+    @Value("${server_url}")
     private String serverUrl;
 
-    @Value("${server_ap_url:yjzh.shzb.promace.sinopec.com:444}")
+    @Value("${server_ap_url}")
     private String server_ap_url;
 
-    @Value("${hq_code:20000000}")
+    @Value("${hq_code}")
     private String hq_code;
 
-    @Value("${gisserver_url:10.238.120.60:81}")
+    @Value("${gisserver_url}")
     private String gisserver_url;
 
     //    @Value("${web_url}")
