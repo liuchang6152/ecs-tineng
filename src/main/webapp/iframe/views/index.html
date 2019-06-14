@@ -40,7 +40,7 @@
               <i class="layui-icon layui-icon-note"></i>
             </a>
           </li>
-          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+          <li id='manual' style="display:none;" class="layui-nav-item layui-hide-xs" lay-unselect>
             <a href="javascript:;" title="手动处警" onclick="HandAlarm();" id="HandAlarm">
               <i class="layui-icon layui-icon-add-1"></i>
             </a>
@@ -605,6 +605,7 @@
               teamFlag = true;
               initIBP();
               $('#missCall').show();
+              $('#manual').show();
               $('#home').attr('src', '../../html/edd/MsgSchedul/IndexShow.html');
             } else {
               $('#home').attr('src', '../../html/edd/MsgSchedul/VehicleStatus.html');
@@ -1283,7 +1284,7 @@
   <script language="javascript" for="IPB_OCX" event="evtAnswer(number,callType)" type="text/javascript">
     if (currentNum == callType) {
       aoPage.page.logic.Start(false);
-      aoPage.page.logic.AnswerSuccess();
+      aoPage.page.logic.AnswerSuccess(false);
     }
   </script>
 
@@ -1309,7 +1310,7 @@
   </script>
 
   <script language="javascript" for="IPB_OCX" event="evtAnswerSuccee(tel)" type="text/javascript">
-    aoPage.page.logic.AnswerSuccess();
+    aoPage.page.logic.AnswerSuccess(true);
   </script>
 
   <script language="javascript" for="IPB_OCX" event="evtAnswerFail()" type="text/javascript">

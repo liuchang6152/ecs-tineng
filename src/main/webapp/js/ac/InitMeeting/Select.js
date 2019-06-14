@@ -205,11 +205,7 @@ $(function () {
                     meetingRecordId: meetingRecordId,
                     meetingUserEntityList: []
                 }
-                var list = mini.get("datagrid").getSelecteds();
-                if (list.length == 0) {
-                    list = mini.get("datagrid").getData();
-
-                }
+                var list = mini.get("datagrid").getData();
                 if (list.length > 20) {
                     layer.msg('参会人员最多为20人');
                     return;
