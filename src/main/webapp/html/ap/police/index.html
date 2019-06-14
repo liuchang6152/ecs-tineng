@@ -28,12 +28,8 @@
     }
 
     .box-body .header {
-      padding: 10px;
+      padding: 5px;
       font-size: 16px;
-      border-bottom: 1px solid #e2e2e2;
-    }
-    .col-xs-12{
-      padding:10px;
     }
     #selects{
       display: none;
@@ -43,14 +39,17 @@
     }
     .box-tools{
       position: absolute;
-      top: 12rem;
+      top: 8rem;
       right: 2.2rem;
     }
     #btnMsgTrack,
     #btnNewMsg{
-      width: 12rem;
-      height: 7rem;
+      width: 15rem;
+      height: 9rem;
       font-size: 1.8rem;
+    }
+    .span-required{
+      color: #ff0000;
     }
   </style>
 </head>
@@ -71,10 +70,10 @@
           <button id="btnMsgTrack" href="#" class="btn btn-danger btn-sm">取消登记</button>
         </div>
         <p class='header'>位置信息：</p>
-        <div class="form-group">
-          <div class="row mt__10">
+        <div class="">
+          <div class="row">
             <div class="col-xs-3">
-              <div class="form-group">
+              <div class="">
                 <div class="col-xs-4 control-label">企业名称：</div>
                 <div class="col-xs-6">
                   <select name="orgId" id="orgId" class="form-control"></select>
@@ -82,9 +81,9 @@
                 <span class="span-required">*</span>
               </div>
             </div>
-            <div class="col-xs-6">
-              <div class="form-group">
-                <div class="col-xs-4 control-label">安全风险区域：
+            <div class="col-xs-5">
+              <div class="">
+                <div class="col-xs-5 control-label">安全风险区域：
                   <input id="msg" type="radio" name="sendType" value="1" checked="checked" />
                   <label class="control-label" for="msg">输入</label>
                   <input id="voice" type="radio" name="sendType" value="2" />
@@ -94,7 +93,7 @@
                     <input name="userName" id="userName" type="text" class="form-control" maxlength="200" placeholder="请输入" />
                 </div>
                 <div class="col-xs-4" id='selects'>
-                  <select name="systemId" id="systemId" class="form-control" style="width: 181px"></select>
+                  <select name="systemId" id="systemId" class="form-control" style="width: 13rem"></select>
                 </div>
                 <span class="span-required">*</span>
               </div>
@@ -102,9 +101,9 @@
           </div>
         </div>
         <p class='header'>警情登记：</p>
-        <div class="row mt__10">
+        <div class="row">
           <div class="col-xs-3">
-            <div class="form-group">
+            <div class="">
               <label class="control-label col-xs-4">事故大类：</label>
               <div class="col-xs-6">
                 <select name="accidentCategoryId" id="accidentCategoryId" class="form-control"></select>
@@ -113,7 +112,7 @@
             </div>
           </div>
           <div class="col-xs-3">
-            <div class="form-group">
+            <div class="">
               <label class="control-label col-xs-4">事故小类：</label>
               <div class="col-xs-6">
                 <select name="accidentTypeId" id="accidentTypeId" class="form-control">
@@ -124,7 +123,7 @@
             </div>
           </div>
           <div class="col-xs-3">
-            <div class="form-group">
+            <div class="">
               <label class="control-label col-xs-4">事故等级：</label>
               <div class="col-xs-6">
                 <select name="eventLvlName" id="riskRankId" class="form-control"></select>
@@ -135,17 +134,17 @@
         </div>
         <p class='header'>接警信息：</p>
         <div class="col-xs-12">
-          <div class="form-group">
+          <div class="">
             <div class="col-xs-10">
               <textarea class="form-control" name="eventAddress" id="eventAddress" rows="3"
-                style="resize: none;width: 100%;font-size: 12px;"></textarea>
+                style="resize: none;width: 100%;font-size: 12px;margin-left: 7.4rem;"></textarea>
             </div>
           </div>
         </div>
         <p class="header">警情通知：</p>
         <div class="col-xs-12">
-          <div class="form-group">
-            <div class="col-xs-10" style="width: 82%;height: 60px; margin-left: 16px;border: 1px solid #e2e2e2; border-radius: 4px;">
+          <div class="">
+            <div class="col-xs-10" style="width: 81%;margin-left: 8.5rem;height: 60px;border: 1px solid #e2e2e2; border-radius: 4px;">
               <span class='orgId'></span>
               <span class='systemId'></span>
               <span class='happen'>发生</span>
@@ -157,12 +156,12 @@
           </div>
         </div>
         <p class="header">通知对象：</p>
-        <div class="mini-splitter" style="width:100%;height:500px;">
+        <div class="mini-splitter" style="width:100%;height:300px;">
           <div id="left_tree" size="20%">
             <div class="mini-splitter" vertical="true" showCollapseButton="true" style="width:100%;height:100%;">
               <div size="100%">
                 <div class="mini-fit">
-                  <label class="title">选择通讯组</label>
+                  <label class="title" style="margin-left: 2rem;font-size: 1.4rem;">选择通讯组</label>
                   <ul id="userGroups" class="mini-tree" showTreeIcon="true" textField="value" idField="commGroupid"
                     contextMenu="#treeMenu" showCheckBox='true' _checkOnTextClick="true">
                   </ul>
@@ -179,7 +178,7 @@
             <div class="mini-splitter" vertical="true" showCollapseButton="true" style="width:100%;height:100%;">
               <div size="100%">
                 <div class="mini-fit">
-                  <label class="title">通知人员清单</label>
+                  <label class="title" style="margin-left: 2rem;font-size: 1.4rem;">通知人员清单</label>
                     <div id="datagrid" class="mini-datagrid" multiSelect="true" showPager="true" frozenstartcolumn="0" frozenendcolumn="1"
                       onlyCheckSelection="true" allowCellEdit="true" style="height:auto;" ondrawcell='page.logic.onDrawcell' pageSize='5'>
                       <div property="columns">
