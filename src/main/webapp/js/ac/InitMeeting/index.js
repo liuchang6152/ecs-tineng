@@ -122,10 +122,7 @@ $(function () {
                 }
 
                 data.person = [];
-                var users = mini.get('datagrid').getSelecteds();
-                if (users.length == 0) {
-                    users = mini.get('datagrid').getData();
-                }
+                var users = mini.get('datagrid').getData();
                 if (users.length == 0) {
                     layer.msg('请选择参会人员');
                     return;
