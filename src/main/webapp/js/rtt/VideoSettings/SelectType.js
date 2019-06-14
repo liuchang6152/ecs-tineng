@@ -79,7 +79,7 @@ $(function () {
 							});
 							console.log(newList[0].orgId)
 							var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
-							page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgCode', 'orgSname', false); //树形菜单
+							page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
 							$('#' + oPar).attr('disabled', 'disabled');
 
 						}
@@ -114,7 +114,7 @@ $(function () {
 							datalist.push({
 								id: el[key],
 								text: el[value],
-								code: el["orgCode"]
+								code: el["orgId"]
 							});
 						});
 						secordOrglist = datalist;
