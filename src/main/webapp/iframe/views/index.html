@@ -1284,7 +1284,7 @@
   <script language="javascript" for="IPB_OCX" event="evtAnswer(number,callType)" type="text/javascript">
     if (currentNum == callType) {
       aoPage.page.logic.Start(false);
-      aoPage.page.logic.AnswerSuccess();
+      aoPage.page.logic.AnswerSuccess(false);
     }
   </script>
 
@@ -1310,7 +1310,7 @@
   </script>
 
   <script language="javascript" for="IPB_OCX" event="evtAnswerSuccee(tel)" type="text/javascript">
-    aoPage.page.logic.AnswerSuccess();
+    aoPage.page.logic.AnswerSuccess(true);
   </script>
 
   <script language="javascript" for="IPB_OCX" event="evtAnswerFail()" type="text/javascript">
