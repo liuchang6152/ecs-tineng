@@ -105,7 +105,7 @@ $(function () {
                     var percent = file.percent;
                     ECS.util.show_percent(percent);     //展示进度条
                     if(percent==100){
-                        ECS.util.hide_percent();    //隐藏进度条
+                    //    ECS.util.hide_percent();    //隐藏进度条
                     }
                 });
                 uploader.bind('FileUploaded', function(uploader, file, responseObject) {

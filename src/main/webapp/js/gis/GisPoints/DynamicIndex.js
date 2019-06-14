@@ -255,7 +255,13 @@ $(function () {
             });
             
             $("#btnQuery3").click(function(){
-                page.logic.loadMSDSGrid(gisId);
+                var isSelectMSDS = $("#isSelectMSDS").prop("checked");
+                if(isSelectMSDS){
+                    page.logic.loadMSDSGrid(gisId,isTriggerEdit);
+                }else{
+                    page.logic.loadMSDSGrid(-1,isTriggerEdit);
+                }
+               
             }),
           
              //gis点动态数据：点击“已勾选”的复选框
@@ -274,7 +280,7 @@ $(function () {
                     page.logic.get_check(gisId,function(){
                         $("#datagridMSDS").show();                     //隐藏表1；
                         $("#datagridMSDS2").hide();    
-                        page.logic.loadMSDSGrid(-1);
+                        page.logic.loadMSDSGrid(-1,isTriggerEdit);
                     });
                 }
             }),
@@ -296,7 +302,7 @@ $(function () {
             aType_list:{"1":"消防栓","2":"消防站","3":"消防炮","4":"门口/出入口","5":"应急队伍点","6":"物资存放点"},
             aSelected_dt:[],                                                                     //保存不同类型的存储的数据；
             aStatic_dt:[],
-            aDymic_type:{"1":"实时监测点","2":"应急物资存放点","3":"应急队伍点","4":"应急装备存放点"},                   //gis点的动态类型数据；
+            aDymic_type:{"1":"实时监测点","2":"应急存放点","3":"应急队伍点","4":"应急装备存放点"},                   //gis点的动态类型数据；
             aDymic_init_dt:[]                                                                    //初始化，所有gis点关联的数据
         },
         //定义业务逻辑方法
@@ -760,13 +766,13 @@ $(function () {
                     //其它方式处理
                     //若是进入编辑状态，那么便用表2
                     if(isTriggerEdit){
-                        page.logic.loadMSDSGrid(gisId);
+                        page.logic.loadMSDSGrid(gisId,isTriggerEdit);
                         
                     }else{
-                        page.logic.loadMSDSGrid(gisId);
+                        page.logic.loadMSDSGrid(gisId,isTriggerEdit);
                     }
                 }else{
-                  page.logic.loadMSDSGrid();
+                  page.logic.loadMSDSGrid("",isTriggerEdit);
                 }
             },
             /*进入 or 退出 编辑状态 */
@@ -1066,7 +1072,7 @@ $(function () {
                             var result = eval("(" + dt + ")");
                             if (result.isSuccess) {
                                 page.logic.save_success(result.result);   //向父窗口返回保存成功提示；
-                                page.logic.loadMSDSGrid(gisId);
+                                page.logic.loadMSDSGrid(gisId,isTriggerEdit);
                             }
                         },
                         error: function (result) {
@@ -1134,13 +1140,16 @@ $(function () {
                 obj.setValue("");
             },
 
-            loadMSDSGrid:function(MSDSGISid){
+            loadMSDSGrid:function(MSDSGISid,isEdit){
              
                 var param = ECS.form.getData("searchFormMSDS");
                 var msdsGrid = mini.get("datagridMSDS");
                 var url  = ECS.api.rttUrl+"/msds/getMsdsGisInfo?enterprise="+ECS.sys.Context.SYS_ENTERPRISE_CODE;
                 if(MSDSGISid && MSDSGISid!=-1){
                     url = url + "&gisId="+MSDSGISid;
+                }
+                if(isEdit){
+                    url = url + "&isEdit="+1;
                 }
                 msdsGrid.set({
                     ajaxType:"get",

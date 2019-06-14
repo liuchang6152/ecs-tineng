@@ -40,7 +40,7 @@
               <i class="layui-icon layui-icon-note"></i>
             </a>
           </li>
-          <li class="layui-nav-item layui-hide-xs" lay-unselect>
+          <li id='manual' style="display:none;" class="layui-nav-item layui-hide-xs" lay-unselect>
             <a href="javascript:;" title="手动处警" onclick="HandAlarm();" id="HandAlarm">
               <i class="layui-icon layui-icon-add-1"></i>
             </a>
@@ -88,7 +88,7 @@
           </div>
           <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu"
             lay-filter="layadmin-system-side-menu">
-            <li data-name="home" class="layui-nav-item">
+            <!-- <li data-name="home" class="layui-nav-item">
               <a href="javascript:;" lay-tips="应急值守" lay-direction="2">
                 <i class="layui-icon layui-icon-home"></i>
                 <cite>应急值守</cite>
@@ -98,7 +98,7 @@
                   <a lay-href="../../html/edd/MsgSchedul/VehicleStatus.html">中队值守</a>
                 </dd>
               </dl>
-            </li>
+            </li> -->
             <li data-name="template" class="layui-nav-item">
               <a href="javascript:;" lay-tips="接警" lay-direction="2">
                 <i class="layui-icon layui-icon-template"></i>
@@ -259,7 +259,7 @@
                   <a href="javascript:;">应急物资维护<span class="layui-nav-more"></span></a>
                   <dl class="layui-nav-child">
                     <dd data-name="console">
-                      <a lay-href="../../html/rtt/MtrlStorage/index.html">应急物资存放点配置</a>
+                      <a lay-href="../../html/rtt/MtrlStorage/index.html">应急存放点配置</a>
                     </dd>
                     <dd data-name="console">
                       <a lay-href="../../html/rtt/EmrgMtrl/index.html">应急物资配置</a>
@@ -605,6 +605,7 @@
               teamFlag = true;
               initIBP();
               $('#missCall').show();
+              $('#manual').show();
               $('#home').attr('src', '../../html/edd/MsgSchedul/IndexShow.html');
             } else {
               $('#home').attr('src', '../../html/edd/MsgSchedul/VehicleStatus.html');
@@ -1283,7 +1284,7 @@
   <script language="javascript" for="IPB_OCX" event="evtAnswer(number,callType)" type="text/javascript">
     if (currentNum == callType) {
       aoPage.page.logic.Start(false);
-      aoPage.page.logic.AnswerSuccess();
+      aoPage.page.logic.AnswerSuccess(false);
     }
   </script>
 
@@ -1309,7 +1310,7 @@
   </script>
 
   <script language="javascript" for="IPB_OCX" event="evtAnswerSuccee(tel)" type="text/javascript">
-    aoPage.page.logic.AnswerSuccess();
+    aoPage.page.logic.AnswerSuccess(true);
   </script>
 
   <script language="javascript" for="IPB_OCX" event="evtAnswerFail()" type="text/javascript">

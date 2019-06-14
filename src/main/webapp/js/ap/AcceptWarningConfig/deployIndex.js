@@ -144,7 +144,7 @@ $(function () {
                     case 2:
                         baseModelCategory = "2";
                         baseDataID = initOrgID;
-                        $("#orgId").attr("disabled",true);
+                        // $("#orgId").attr("disabled",true);
                         $("#orgId").append('<option value="'+initOrgID+'" selected>'+initOrgName+'</option>');
                         $("#orgName").hide();
                         $("#areaName").hide();

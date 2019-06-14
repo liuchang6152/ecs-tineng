@@ -158,23 +158,14 @@ $(function () {
 			},
 
             setUrlK: function (ojson) {
-
 				var s = '', name, key;
-
 				for (var p in ojson) {
-
-					// if(!ojson[p]) {return null;} 
-
+					// if(!ojson[p]) {return null;}
 					if (ojson.hasOwnProperty(p)) { name = p };
-
 					key = ojson[p];
-
 					s += "&" + name + "=" + encodeURIComponent(key);
-
 				};
-
 				return s.substring(1, s.length);
-
 			},
             /**
              * 初始化表格
@@ -302,6 +293,9 @@ $(function () {
              onAddNode:function(e) {
                 var tree = mini.get("tree1");
                 var node = tree.getSelectedNode();
+                var parentNode = tree.getParentNode(node);
+                console.log(parentNode.orgName)
+                nsName = parentNode.orgName
                 console.log(node)
                  if(tree.getAncestors(node).length=="0"){
                      selectCode="";

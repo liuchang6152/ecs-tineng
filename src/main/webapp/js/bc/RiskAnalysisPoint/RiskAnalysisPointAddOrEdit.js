@@ -45,7 +45,22 @@ $(function () {
             mini.get("riskAnlsObjCode").disable();
         },
         bindUI: function () {
-            //保存
+        		$.ajax({ //获取安全风险区编码
+        			url: ECS.api.bcUrl + '/riskArea/getRiskAreaCode?typeID=5',
+        			async: false,
+        			type: 'GET',
+        			data: '',
+        			dataType: "text",
+        			contentType: "application/json;charset=utf-8",
+        			success: function (res) {
+        				console.log(res);
+        				$('#rapCode').val(res);
+        			},
+        			error: function (result) {
+        				layer.msg('请联系后台管理员！')
+        			}
+        		})
+        		//保存
             $('#btnSave').click(function () {
                 page.logic.save();
             });
@@ -523,11 +538,11 @@ $(function () {
                             required: true,
                             maxlength: 200
                         },
-                        // rapCode: {
-                        //     // required: true,
-                        //     maxlength: 200,
-                        //     ucode:/^[A-Za-z0-9]+$/
-                        // },
+                        rapCode: {
+                            required: true,
+                            maxlength: 200,
+                            ucode:/^[A-Za-z0-9]+$/
+                        },
                         highRiskLvl: {
                             required: true
                         },

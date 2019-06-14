@@ -101,9 +101,9 @@ $(function () {
                                 }, function () {
                                      grid.reload();
                                     //销毁uploader的实例对象；
-                                    if(uploader){
-                                        uploader.destroy();
-                                    }
+                                    //if(uploader){
+                                    //    uploader.destroy();
+                                    //}
                                 });
                             } else {
                                 result = JSON.parse(result)
