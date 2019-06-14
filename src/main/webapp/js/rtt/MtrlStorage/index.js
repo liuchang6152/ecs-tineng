@@ -361,8 +361,8 @@ $(function () {
                 return ECS.util.DateTimeRender(time_val);
             },
             //显示上传文件
-            show_upload: function (e) {
-                return '<a href="javascript:ECS.util.renderUploader_Page(\'' + e.row.enterpriseCode + '\',\'' + e.row.storageID + '\',\'' + e.row.storageName + '\',\'' + '3' + '\',\'' + '应急物资存放点配置附件上传' + '\')">上传附件</a>';
+            show_upload:function(e){
+                return '<a href="javascript:ECS.util.renderUploader_Page(\'' + e.row.enterpriseCode+'\',\''+e.row.storageID+'\',\''+e.row.storageName+'\',\''+'3'+'\',\''+'应急存放点配置附件上传'+'\')">上传附件</a>';
             },
             //企业、二级单位的联动菜单
             get_list: function (url, oPar, Pid, cb) {
@@ -651,7 +651,7 @@ $(function () {
              */
             add: function () {
                 var pageMode = PageModelEnum.NewAdd;
-                var title = "应急物资存放点新增";
+                var title = "应急存放点新增";
                 page.logic.detail(title, "", pageMode);
             },
             /**
@@ -661,7 +661,7 @@ $(function () {
             edit: function (riskAnlsObjID) {
                 var pageMode = PageModelEnum.Edit;
                 console.log(pageMode);
-                var title = "应急物资存放点编辑";
+                var title = "应急存放点编辑";
                 page.logic.detail(title, riskAnlsObjID, pageMode);
             },
             /**

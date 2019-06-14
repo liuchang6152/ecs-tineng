@@ -20,14 +20,6 @@ $(function () {
                 page.logic.save();
             });
             $(".btnClose").click(function () {
-                var ownDetail={};
-                if($("#grid2 p").length>0){
-                    for(var i=0;i<$("#grid2 p").length;i++){
-                        ownDetail[$("#grid2 p").eq(i).attr("id")]=$("#grid2 p").eq(i).attr("name");
-                    }
-                }
-                parent.ownDetail=ownDetail;
-                window.pageLoadMode = PageLoadMode.None;
                 page.logic.closeLayer(false);
             });
             $("#add").click(function () {
@@ -90,14 +82,14 @@ $(function () {
             moveAdd:function(){
                 var items = mini.get("tree1").getSelectedNode();
                 var hasitem=false;
-                var this_id=$("#grid2 p");
-                for(var i=0;i<$("#grid2 p").length;i++){
-                    if(items.userID==this_id[i].id){
-                        hasitem=true;
-                    }
+                for (var i = 0, len = $("#grid2 p").length;i <len;i++) {
+                    console.log($("#grid2 p")[i].innerText);
+                     if (items.value == $("#grid2 p")[i].innerText) {
+                         hasitem = true;
+                     }
                 }
                 if(!hasitem){
-                    $("#grid2").append("<p name='"+items.value+"' id='"+items.key+"'>"+items.value+"</p>");
+                    $("#grid2").append("<p name='"+items.value+"' key='"+items.key+"'>"+items.value+"</p>");
                 }
                 $("#grid2 p").click(function() {
                     $(this).siblings('p').removeClass('selected');
@@ -147,10 +139,13 @@ $(function () {
                 var ownDetail={};
                 if($("#grid2 p").length>0){
                     for(var i=0;i<$("#grid2 p").length;i++){
-                        ownDetail[$("#grid2 p").eq(i).attr("id")]=$("#grid2 p").eq(i).attr("name");
+                        ownDetail[$("#grid2 p").eq(i).attr("key")]=$("#grid2 p").eq(i).attr("name");
                     }
                 }
+                console.log(ownDetail)
+                // parent.ownDetail=ownDetail;
                 parent.ownDetail=ownDetail;
+                window.pageLoadMode = PageLoadMode.None;
                 page.logic.closeLayer(true);
             },
             /**

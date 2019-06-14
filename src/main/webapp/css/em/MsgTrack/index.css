@@ -30,3 +30,6 @@ form .mini-buttonedit.mini-datepicker{
     font-size: 16px;
     padding: 6px;
 }
+.mini-popup {
+    width: 200px !important;
+}
