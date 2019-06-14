@@ -4,6 +4,8 @@ var enjoyWorksUrl = ECS.api.rttUrl + '/expert/expertEnjoyWorks'; //擅长工作�
 var pageMode = PageModelEnum.Details;
 window.pageLoadMode = PageLoadMode.None;
 var initUserInfo={};
+parent.ownDetail = {};
+console.log(parent.ownDetail)
 $(function () {
     var index = parent.layer.getFrameIndex(window.name);//获取子窗口索引
     var page = {
@@ -152,7 +154,7 @@ $(function () {
              * 关闭弹出层
              */
             closeLayer: function (isRefresh) {
-                window.parent.pageLoadMode = window.pageLoadMode;
+                // window.parent.pageLoadMode = window.pageLoadMode;
                 parent.layer.close(index);
 
             }

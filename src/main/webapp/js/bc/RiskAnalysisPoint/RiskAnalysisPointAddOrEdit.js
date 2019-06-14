@@ -491,19 +491,22 @@ $(function () {
                     },
                     success: function (result) {
                         ECS.hideLoading();
-                        if (result.indexOf('collection') < 0) {
+                        var result = $.parseJSON(result);
+                        if (result.isSuccess) {
                             layer.msg("保存成功！",{time: 1000},function() {
                                 page.logic.closeLayer(true);
                             });
                         } else {
-                            layer.msg(result.collection.error.message);
+                            layer.msg(result.message);
+                            $('#btnSave').attr('disabled', true);
                         }
                     }, error: function (result) {
                         $('#btnSave').attr('disabled', false);
                         ECS.hideLoading();
                         var errorResult = $.parseJSON(result.responseText);
-                        layer.msg(errorResult.collection.error.message);
+                        layer.msg(errorResult.message);
                     }
+
                 });
             },
             /**

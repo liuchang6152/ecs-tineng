@@ -8,7 +8,7 @@ ECS.form = {};
 ECS.util = {};
 ECS.util.Base64 = {};
 ECS.sys = {};
-ECS.sys.LoginNameCookieName = 'LoginName';
+ECS.sys.LoginNameCookieName = 'username';
 ECS.sys.TokenCookieName = 'SYS_CONTEXT_TOKEN';
 ECS.sys.BearerStartName = "Bearer ";
 ECS.sys.ContextCipherText = '';
@@ -1919,18 +1919,21 @@ jQuery(document).bind("error", function (event, request, settings, data) { //ns�
     headers["ns"] = username;
     request.setRequestHeader("ns", username);
     settings.headers = headers;
-
 });
+
 ECS.sys.isHQ = function(code){
     return code === ECS.sys.hq_code;
 };
+
 ECS.sys.getTokenFromSYS = function () {
     return ECS.util.getCookie(ECS.sys.TokenCookieName);
 };
 
 // 从cookie中的
 ECS.sys.getLoginNameFromSYS = function () {
-    //由于所有主页面都有此问题，无法进行批处理，此方法所有页面都有调用，因此在这里中间加杂一段关于页面高度的设置，与此函数的获取账号毫无关系；---- by shuang yuan
+    //由于所有主页面都有此问题，无法进行批处理，此方法所有页面都有调用，
+    // 因此在这里中间加杂一段关于页面高度的设置，
+    // 与此函数的获取账号毫无关系；---- by shuang yuan
     //页面高度设置------start  2019.4.30
     if($(".box-header")){
         //获取页面的高度；

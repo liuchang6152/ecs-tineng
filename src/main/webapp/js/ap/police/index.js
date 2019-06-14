@@ -761,7 +761,7 @@ $(function () {
           async: false,
           type: 'POST',
           data: JSON.stringify(data),
-          dataType: "text",
+          dataType: "json",
           contentType: "application/json;charset=utf-8",
           beforeSend: function () {
             $('#btnSend').attr('disabled', 'disabled');
@@ -769,11 +769,16 @@ $(function () {
           },
           success: function (result) {
             ECS.hideLoading();
-            layer.msg(result, {
-              time: 1000
-            }, function () {
-              location.reload();
-            });
+            console.log(result); 
+            if (result.isSuccess) {
+              layer.msg(result.message, {
+                time: 1000
+              }, function () {
+                location.reload();
+              });
+            } else{
+              layer.msg(result.message);
+            }        
             if (sendType == 2 || sendType == 3) {
               var res = parent.sendvox(phoneNums, $.trim($('#autoMsg').val()));
               //alert(res);

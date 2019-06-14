@@ -2,25 +2,17 @@ package com.pcitc.ecs.filter;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.DefaultClaims;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.*;
 import org.jasig.cas.client.util.AssertionHolder;
+import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
-
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.security.PublicKey;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
-//import com.pcitc.ecs.utils.HttpConnection;
 
 /*
  * 权限过滤器
@@ -31,11 +23,9 @@ import java.util.Map;
  */
 @Component("authFilter")
 public final class AuthFilter implements Filter {
-//    @Value("${ip.aaa.web.login}")
-//    private String loginUrl;
-//    Logger logger = LogManager.getLogger(this.getClass());
-
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+//    @Value("${url_aaa}")
+//    private String loginUrl;
 
     /**
      * 初始化
@@ -44,13 +34,10 @@ public final class AuthFilter implements Filter {
      * @author dongsheng.zhao 2017-12-22
      */
     @Override
-    public void init(final FilterConfig filterConfig) throws ServletException {
-
-    }
+    public void init(final FilterConfig filterConfig) throws ServletException {  }
 
     /**
      * 权限过滤
-     *
      * @param request  请求
      * @param response 回复
      * @param chain    过滤链
@@ -62,60 +49,56 @@ public final class AuthFilter implements Filter {
         final HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         final HttpServletRequest req = (HttpServletRequest) request;
         final Cookie[] cookies = req.getCookies();
-//        if (cookies == null) {
-//            System.out.println("客户端已经禁用Cookie");
-//            throw new ServletException("客户端已经禁用Cookie");
-//            //httpServletResponse.sendRedirect(httpServletResponse.encodeURL(httpServletRequest.getRequestURL().toString()));
-//            //return;
-//        }
-//        HttpSession curSession = httpServletRequest.getSession();
 
+        // init variables
         String loginName = "<unknown>";
-        logger.info("<unknown>");
-        System.out.println("<unknown>");
-
-        String username_c="<from_cookie>";
+        String username_h = req.getHeader("username"); // from aaa gateway
+        String username_p = req.getParameter("userCode"); // from aaa portal url
+        String username_c="<unknown>";  //from cookie
         String tokenString = "<token>";
+        logger.info("user info init with <unknown> code");
 
-        if(cookies!=null && cookies.length>0){
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("username")) {
-                    username_c = cookie.getValue();
-                }
-                if (cookie.getName().equals("SYS_CONTEXT_TOKEN")) {
-                    tokenString = cookie.getValue();
-                }
-            }
-            //如果已经设置了token，跳过处理
-            if(!tokenString.equals("<token>")) {
-                chain.doFilter(request, response);
-                return;
-            }
-        }
-
-        String username_h = req.getHeader("username");
-        String username_p = req.getParameter("userCode");
-
-        if(!username_c.equals("<from_cookie>"))
-        {
-            loginName = username_c;
-            logger.info("username_c:" + username_c);
-//            System.out.println("username_c:" + username_c);
-        }
-        else if(username_h!=null && !username_h.isEmpty())
+        if(username_h!=null && !username_h.isEmpty())
         {
             loginName = username_h;
             logger.info("username_h:" + username_h);
-//            System.out.println("username_h:" + username_h);
         }
         else if(username_p!=null && !username_p.isEmpty()){
             loginName = username_p;
             logger.info("username_p:" + username_p);
-            System.out.println("username_p:" + username_p);
-//            Cookie token1 = new Cookie("username", username_p);
-//            token1.setPath("/");
-//            token1.setDomain("sinopec.com");
-//            httpServletResponse.addCookie(token1);
+        }
+        else if (AssertionHolder.getAssertion() != null && AssertionHolder.getAssertion().getPrincipal() != null) {
+            logger.info("通过CAS的API获得登陆账号");
+            loginName = AssertionHolder.getAssertion().getPrincipal().getName();
+            logger.info("loginName:"+ loginName);
+        }
+        else
+        {
+            if(cookies!=null && cookies.length>0){
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("username")) {
+                        username_c = cookie.getValue();
+                    }
+                    if (cookie.getName().equals("SYS_CONTEXT_TOKEN")) {
+                        tokenString = cookie.getValue();
+                    }
+                }
+                //如果已经设置了token，跳过处理
+                if(!tokenString.equals("<token>")) {
+                    chain.doFilter(request, response);
+                    return;
+                }
+                loginName = username_c;
+            }
+        }
+
+        if(loginName.equalsIgnoreCase("<unknown>"))
+        {
+            //httpServletResponse.sendRedirect("https://promace.pcitc.com:8443/cas/login");
+            httpServletResponse.setStatus(403);
+            return;
+        } else {
+            doCookie(loginName, httpServletResponse);
         }
 
 //         String saml_idp_token = httpServletRequest.getHeader("saml_idp_token");
@@ -137,22 +120,16 @@ public final class AuthFilter implements Filter {
 //        }
 //        logger.info("userCode=" + respond);
 //        String sid = cookies["JSESSIONID"].getValue();
-
-
-
-        //2019-5-9 移动到独立的函数里
-        //getIpAddress(httpServletRequest, httpServletResponse);
+//        2019-5-9 移动到独立的函数里
+//        getIpAddress(httpServletRequest, httpServletResponse);
 
 
              //通过CAS的API获得登陆账号
-         else if (AssertionHolder.getAssertion() != null && AssertionHolder.getAssertion().getPrincipal() != null) {
-             logger.info("通过CAS的API获得登陆账号");
-             loginName = AssertionHolder.getAssertion().getPrincipal().getName();
-             logger.info("loginName:"+ loginName);
-//             Cookie token2 = new Cookie("OK", "OK");
-//             token2.setPath("/");
-//             httpServletResponse.addCookie(token2);
-         } else {
+//         else if (AssertionHolder.getAssertion() != null && AssertionHolder.getAssertion().getPrincipal() != null) {
+//             logger.info("通过CAS的API获得登陆账号");
+//             loginName = AssertionHolder.getAssertion().getPrincipal().getName();
+//             logger.info("loginName:"+ loginName);
+//         } else {
 //             重新登录
 //                httpServletResponse.sendRedirect("https://promace.pcitc.com:8443/cas/login");
 //                return;
@@ -172,31 +149,9 @@ public final class AuthFilter implements Filter {
 //                        return;
 //                    }
 //                } catch (final Exception e) { }
-         }
-        Cookie token1 = new Cookie("username", loginName);
-        token1.setPath("/");
-//        token1.setDomain("sinopec.com");
-        httpServletResponse.addCookie(token1);
-        Cookie token2 = new Cookie("LoginName", loginName);
-        token2.setPath("/");
-        httpServletResponse.addCookie(token2);
-         //
-         HashMap<String, Object> map = new HashMap<String, Object>();
-         map.put("c","36560000");
-         //Claims cs = (Claims) map.put("c","36560000");
+         //}
 
-         //SysContext sc=GetSysContext(loginName,httpServletRequest);
-         String result = Jwts.builder()
-                 .setClaims(map)
-                 .setSubject(loginName)
-                 .setIssuedAt(new Date())
-                 .signWith(SignatureAlgorithm.HS256, "ecs_secret_key")
-                 .compact();
 
-         Cookie token = new Cookie("SYS_CONTEXT_TOKEN", result);
-         token.setPath("/");
-//       token.setHttpOnly(true);
-         httpServletResponse.addCookie(token);
 
 
  //        System.out.println(httpServletRequest.getRequestedSessionId());
@@ -217,6 +172,28 @@ public final class AuthFilter implements Filter {
  //                httpServletResponse.setHeader("SYS_CONTEXT",sc.toJsonStr());
  //                httpServletResponse.setHeader("SYS_CONTEXT_TOKEN",tokenstr);
          chain.doFilter(request, response);
+    }
+
+    private void doCookie(String loginName, HttpServletResponse httpServletResponse) {
+        Cookie token1 = new Cookie("username", loginName);
+        token1.setPath("/");
+        httpServletResponse.addCookie(token1);
+//        Cookie token2 = new Cookie("LoginName", loginName);
+//        token2.setPath("/");
+//        httpServletResponse.addCookie(token2);
+
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("c","20190611");
+        String result = Jwts.builder()
+                .setClaims(map)
+                .setSubject(loginName)
+                .setIssuedAt(new Date())
+                .signWith(SignatureAlgorithm.HS256, "ecs_secret_key")
+                .compact();
+
+        Cookie token = new Cookie("SYS_CONTEXT_TOKEN", result);
+        token.setPath("/");
+        httpServletResponse.addCookie(token);
     }
 
     /**
@@ -323,12 +300,4 @@ public final class AuthFilter implements Filter {
 //        }
 //        return ip;
 //    }
-
-    public String getUserCode(){
-        return "zhangjy3658";
-    }
-
-    public String getEnterpriseCode(){
-        return "E0000724";
-    }
 }

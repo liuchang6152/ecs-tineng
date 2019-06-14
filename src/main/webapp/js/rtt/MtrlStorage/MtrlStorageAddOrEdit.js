@@ -353,6 +353,7 @@ $(function () {
              * 初始化编辑数据
              */
             setData: function (data) {
+                mini.get("enterpriseCode").disable();//企业置灰
                 $('#title-main').text(data.title);
                 pageMode = data.pageMode;
                 
