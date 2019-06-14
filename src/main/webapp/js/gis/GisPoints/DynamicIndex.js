@@ -255,7 +255,13 @@ $(function () {
             });
             
             $("#btnQuery3").click(function(){
-                page.logic.loadMSDSGrid(gisId);
+                var isSelectMSDS = $("#isSelectMSDS").prop("checked");
+                if(isSelectMSDS){
+                    page.logic.loadMSDSGrid(gisId,isTriggerEdit);
+                }else{
+                    page.logic.loadMSDSGrid(-1,isTriggerEdit);
+                }
+               
             }),
           
              //gis点动态数据：点击“已勾选”的复选框
@@ -274,7 +280,7 @@ $(function () {
                     page.logic.get_check(gisId,function(){
                         $("#datagridMSDS").show();                     //隐藏表1；
                         $("#datagridMSDS2").hide();    
-                        page.logic.loadMSDSGrid(-1);
+                        page.logic.loadMSDSGrid(-1,isTriggerEdit);
                     });
                 }
             }),
@@ -760,13 +766,13 @@ $(function () {
                     //其它方式处理
                     //若是进入编辑状态，那么便用表2
                     if(isTriggerEdit){
-                        page.logic.loadMSDSGrid(gisId);
+                        page.logic.loadMSDSGrid(gisId,isTriggerEdit);
                         
                     }else{
-                        page.logic.loadMSDSGrid(gisId);
+                        page.logic.loadMSDSGrid(gisId,isTriggerEdit);
                     }
                 }else{
-                  page.logic.loadMSDSGrid();
+                  page.logic.loadMSDSGrid("",isTriggerEdit);
                 }
             },
             /*进入 or 退出 编辑状态 */
@@ -1066,7 +1072,7 @@ $(function () {
                             var result = eval("(" + dt + ")");
                             if (result.isSuccess) {
                                 page.logic.save_success(result.result);   //向父窗口返回保存成功提示；
-                                page.logic.loadMSDSGrid(gisId);
+                                page.logic.loadMSDSGrid(gisId,isTriggerEdit);
                             }
                         },
                         error: function (result) {
@@ -1134,13 +1140,16 @@ $(function () {
                 obj.setValue("");
             },
 
-            loadMSDSGrid:function(MSDSGISid){
+            loadMSDSGrid:function(MSDSGISid,isEdit){
              
                 var param = ECS.form.getData("searchFormMSDS");
                 var msdsGrid = mini.get("datagridMSDS");
                 var url  = ECS.api.rttUrl+"/msds/getMsdsGisInfo?enterprise="+ECS.sys.Context.SYS_ENTERPRISE_CODE;
                 if(MSDSGISid && MSDSGISid!=-1){
                     url = url + "&gisId="+MSDSGISid;
+                }
+                if(isEdit){
+                    url = url + "&isEdit="+1;
                 }
                 msdsGrid.set({
                     ajaxType:"get",
