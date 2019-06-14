@@ -4,6 +4,7 @@ var delLinkAll = ECS.api.rttUrl + "/msds/reset"; //删除
 var riskAreaTypeNameUrl = ECS.api.bcUrl + '/org/porgName'; //企业名称
 var loadUnitsUrl = ECS.api.rttUrl + "/msds/secunit"; //二级单位
 window.pageLoadMode = PageLoadMode.None; //页面模式
+var orgCode;
 var orglist = [];
 var secordOrglist = [];
 $(function () {
@@ -43,6 +44,7 @@ $(function () {
 		//定义业务逻辑方法
 		logic: {
 			enterprisechanged: function () {
+		
 				var enterprise = $("#enterpriseCode").val();
 				var secordUrl = riskAreaTypeNameUrl + "?isAll=false&orgPID=" + enterprise + "&orgLvl=3";
 				page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜
@@ -75,8 +77,9 @@ $(function () {
 									code: el["orgCode"]
 								});
 							});
+							console.log(newList[0].orgId)
 							var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
-							page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
+							page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgCode', 'orgSname', false); //树形菜单
 							$('#' + oPar).attr('disabled', 'disabled');
 
 						}
@@ -125,7 +128,11 @@ $(function () {
 							},
 						});
 					},
-				})
+				});
+				if (orgCode) {
+					// $("#drtDeptCode").val(orgCode);
+					$('#drtDeptCode').val(orgCode).trigger("change")
+				}
 			},
 			/**
 			 * 初始化表格
@@ -228,7 +235,8 @@ $(function () {
 			},
 
 			setData: function (data) {
-				console.log(data)
+				orgCode = data.orgCode;
+				console.log(orgCode)
 			},
 			//侧边栏菜单添加
 			load_Tree: function (cb) {
