@@ -171,6 +171,7 @@ $(function () {
                           $("#AddOrEditModal #orgLvlID").val(data.orgLvlID);
                       });
                       //上层名称
+                      
                       console.log(data)
                       if (data.name) {
                         mini.get("#porgCode").setValue(data.name);
