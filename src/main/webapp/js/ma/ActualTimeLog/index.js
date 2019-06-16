@@ -360,13 +360,12 @@ $(function(){
                 if(page.data.param["isFireAlarm"]=="-1"){
                     page.data.param["isFireAlarm"]="";
                 }
-                console.log(ECS.util.timestampToTimes(mini.get("alertsLogEndTime").getValue()))
-                if (isNaN(ECS.util.timestampToTimes(mini.get("alertsLogStartTime").getValue()))) {
+                if (!ECS.util.timestampToTimes(mini.get("alertsLogStartTime").getValue())) {
                     page.data.param['alertsLogStartTime'] = '';
                 }else{
                     page.data.param['alertsLogStartTime'] = ECS.util.timestampToTimes(mini.get("alertsLogStartTime").getValue());
                 }
-                if (isNaN(ECS.util.timestampToTimes(mini.get("alertsLogEndTime").getValue()))) {
+                if (!ECS.util.timestampToTimes(mini.get("alertsLogEndTime").getValue())) {
                     page.data.param['alertsLogEndTime'] = '';
                 }else{
                     page.data.param['alertsLogEndTime'] = ECS.util.timestampToTimes(mini.get("alertsLogEndTime").getValue());
