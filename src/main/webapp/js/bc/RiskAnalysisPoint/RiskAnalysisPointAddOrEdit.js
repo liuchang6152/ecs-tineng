@@ -494,7 +494,6 @@ $(function () {
                         // layer.msg(result,{time: 1000},function() {
                         //     page.logic.closeLayer(true);
                         // });
-                        var result = $.parseJSON(result);
                         if (result.isSuccess) {
                             layer.msg("保存成功",{time: 1000},function() {
                                 page.logic.closeLayer(true);
@@ -507,7 +506,6 @@ $(function () {
                         $('#btnSave').attr('disabled', false);
                         ECS.hideLoading();
                         // layer.msg(result);
-                        var errorResult = $.parseJSON(result.responseText);
                         layer.msg(errorResult.message);
                     }
 
