@@ -491,20 +491,24 @@ $(function () {
                     },
                     success: function (result) {
                         ECS.hideLoading();
-                        var result = $.parseJSON(result);
-                        if (result.isSuccess) {
-                            layer.msg("保存成功！",{time: 1000},function() {
-                                page.logic.closeLayer(true);
-                            });
-                        } else {
-                            layer.msg(result.message);
-                            $('#btnSave').attr('disabled', true);
-                        }
+                        layer.msg(result,{time: 1000},function() {
+                            page.logic.closeLayer(true);
+                        });
+                        // var result = $.parseJSON(result);
+                        // if (result.isSuccess) {
+                        //     layer.msg("保存成功",{time: 1000},function() {
+                        //         page.logic.closeLayer(true);
+                        //     });
+                        // } else {
+                        //     layer.msg(result.message);
+                        //     $('#btnSave').attr('disabled', true);
+                        // }
                     }, error: function (result) {
                         $('#btnSave').attr('disabled', false);
                         ECS.hideLoading();
-                        var errorResult = $.parseJSON(result.responseText);
-                        layer.msg(errorResult.message);
+                        layer.msg(result);
+                        // var errorResult = $.parseJSON(result.responseText);
+                        // layer.msg(errorResult.message);
                     }
 
                 });
