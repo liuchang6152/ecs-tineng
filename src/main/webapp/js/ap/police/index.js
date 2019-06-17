@@ -147,7 +147,7 @@ $(function () {
 
       },
       userName: function (menu_url, oPar) { //企业名称
-        page.logic.getComboSelect_s(menu_url, oPar, "orgCode", "orgName");
+        page.logic.getComboSelect_s(menu_url, oPar, "orgCode", "orgSname");
       },
       select_options: function (menu_url, oPar) { //安全风险区域
         page.logic.getComboSelect_s(menu_url, oPar, "riskCode", "riskName");
