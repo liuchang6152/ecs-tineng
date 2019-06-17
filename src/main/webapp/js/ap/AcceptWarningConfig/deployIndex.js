@@ -293,7 +293,7 @@ $(function () {
                     grid.load({"orgId":initOrgID });
                     return;
                 }
-                grid.load({"baseDataID":baseDataID,"baseModelCategory":baseModelCategory});
+                grid.load({"baseDataID":baseDataID,"baseModelCategory":baseModelCategory,"orgId":initOrgID });
             }
         }
     };
