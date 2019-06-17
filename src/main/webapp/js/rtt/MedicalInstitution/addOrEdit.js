@@ -116,7 +116,7 @@ $(function () {
                             required: true
                         },
                         contactPhone: {
-                            number: true
+                            simplePhone: true
                         },
                         galleryful: {
                             required: true,

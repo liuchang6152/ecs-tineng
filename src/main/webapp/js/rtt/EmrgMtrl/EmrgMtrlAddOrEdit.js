@@ -87,7 +87,7 @@ $(function () {
                     $("#storageID").attr('disabled','disabled');
                     $('#storeType').attr('disabled','disabled');
                     $('#repoType').attr('disabled','disabled');
-                    mini.get("enterpriseCode").disable();    //二级单位设置为不可用；
+                    mini.get("enterpriseCode").disable();    //企业设置为不可用；
                     mini.get("drtDeptCode").disable();    //二级单位设置为不可用；
                     mini.get("expireDate").disable();     //日期
                     page.logic.cbxStoreType();    //存放点类型

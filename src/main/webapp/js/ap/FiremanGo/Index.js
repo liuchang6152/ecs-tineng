@@ -523,6 +523,9 @@ $(function () {
 										else {
 											alert(data1.message);
 										}
+									},
+									error: function (e) {
+										layer.msg('获取中队登录信息失败，请重试');
 									}
 								});
 							}
@@ -776,6 +779,9 @@ $(function () {
 						else {
 							alert(data.message);
 						}
+					},
+					error: function (e) {
+						layer.msg('获取中队登录信息失败，请重试');
 					}
 				});
 			}
