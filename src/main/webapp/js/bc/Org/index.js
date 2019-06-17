@@ -293,9 +293,10 @@ $(function () {
              onAddNode:function(e) {
                 var tree = mini.get("tree1");
                 var node = tree.getSelectedNode();
-                var parentNode = tree.getParentNode(node);
-                console.log(parentNode.orgName)
-                nsName = parentNode.orgName
+                console.log(node)
+                // var parentNode = tree.getParentNode(node);
+                // console.log(parentNode.orgName)
+                nsName = node.orgName
                 console.log(node)
                  if(tree.getAncestors(node).length=="0"){
                      selectCode="";

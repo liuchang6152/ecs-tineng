@@ -356,21 +356,22 @@ $(function(){
             },
 			//搜索
 			search:function(showSort){
-				page.data.param=ECS.form.getData("searchForms");
+                page.data.param=ECS.form.getData("searchForms");
+                page.data.param.alertsLogStartTime = mini.get("alertsLogStartTime").getFormValue();
+                page.data.param.alertsLogEndTime = mini.get("alertsLogEndTime").getFormValue();
                 if(page.data.param["isFireAlarm"]=="-1"){
                     page.data.param["isFireAlarm"]="";
                 }
-                console.log(ECS.util.timestampToTimes(mini.get("alertsLogEndTime").getValue()))
-                if (isNaN(ECS.util.timestampToTimes(mini.get("alertsLogStartTime").getValue()))) {
-                    page.data.param['alertsLogStartTime'] = '';
-                }else{
-                    page.data.param['alertsLogStartTime'] = ECS.util.timestampToTimes(mini.get("alertsLogStartTime").getValue());
-                }
-                if (isNaN(ECS.util.timestampToTimes(mini.get("alertsLogEndTime").getValue()))) {
-                    page.data.param['alertsLogEndTime'] = '';
-                }else{
-                    page.data.param['alertsLogEndTime'] = ECS.util.timestampToTimes(mini.get("alertsLogEndTime").getValue());
-                }
+                // if (!ECS.util.timestampToTimes(mini.get("alertsLogStartTime").getValue())) {
+                //     page.data.param['alertsLogStartTime'] = '';
+                // }else{
+                //     page.data.param['alertsLogStartTime'] = ECS.util.timestampToTimes(mini.get("alertsLogStartTime").getValue());
+                // }
+                // if (!ECS.util.timestampToTimes(mini.get("alertsLogEndTime").getValue())) {
+                //     page.data.param['alertsLogEndTime'] = '';
+                // }else{
+                //     page.data.param['alertsLogEndTime'] = ECS.util.timestampToTimes(mini.get("alertsLogEndTime").getValue());
+                // }
                 
                 
                 page.data.param["orgName"]=$("#orgName").find("option:selected").attr("values");

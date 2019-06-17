@@ -298,6 +298,8 @@ $(function () {
              * 装置新增或者编辑详细页面
              */
             detail: function (title, msdsId, pageMode) {
+                // console.log(mini.get("orgId").getSelectedNode().orgId)
+                console.log(orgId);
                 layer.open({
                     type: 2,
                     closeBtn: 0,
