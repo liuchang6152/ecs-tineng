@@ -5,6 +5,7 @@ var delFileUrl = ECS.api.rttUrl + "/msds/deleteFile";              //删除附�
 var getSingleUrl = ECS.api.rttUrl + '/msds/findOne';                     //获取当前的编辑数据展示
 var riskAreaTypeNameUrl = ECS.api.bcUrl + '/org/porgName?orgLvl=2';              //企业名称
 var FileDownLoadUrl = ECS.api.rttUrl + "/structuredplanfile/downloadFile";   //下载接口
+var getMsdsTotalTypeUrl = ECS.api.rttUrl + "/msds/getMsdsTotalTypevalue";   //下载接口
 var orgId = "";                                                              //企业id的存储
 var msdsId = "";                                                             //危化品id
 var save_once = false;                                                      //确保保存一次；
@@ -318,6 +319,21 @@ $(function () {
                         mini.get("riskType").setValue("请选择");
                     });
                     page.logic.add_get_structure();                                         //渲染子属性列表结构
+
+                    $.ajax({
+                        url: getMsdsTotalTypeUrl + "?orgID=" + 30650700 + "&now=" + Math.random(),
+                        type: "get",
+                        async: true,
+                        dataType: "json",
+                        success: function (data) {
+                            //子属性列表渲染
+                            page.logic.render_childAttr_list(data);
+                        },
+                        error: function (result) {
+                            var errorResult = $.parseJSON(result.responseText);
+                            layer.msg(errorResult.collection.error.message);
+                        }
+                    });
                     return;
                 }
                 $.ajax({
