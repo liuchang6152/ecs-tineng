@@ -78,11 +78,10 @@ $(function () {
 								});
 							});
 							console.log(newList[0].orgId)
-							var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
-							page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
 							$('#' + oPar).attr('disabled', 'disabled');
-
-						}
+						};
+						var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
+						page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
 						orglist = datalist;
 						orgList = datalist;
 						$('#' + oPar).select2({
@@ -131,7 +130,7 @@ $(function () {
 				});
 				if (orgCode) {
 					// $("#drtDeptCode").val(orgCode);
-					$('#drtDeptCode').val(orgCode).trigger("change")
+					$('#drtDeptCode').val(orgCode).trigger("change");
 				}
 			},
 			/**
