@@ -164,6 +164,9 @@ $(function () {
                         for(var w=0;w<data.length;w++){
                             if(data[w].id){
                                 mini.get("deptcoder").setValue(data[w].id);
+                                page.logic.load_sidebar(function(){
+                                   
+                                });
                                 break;
                             }
                         }

@@ -145,7 +145,10 @@
                                     </td>
                                     <td class="mini-grid-cell" style="text-align:center;">
                                         <div class="mini-grid-cell-inner  mini-grid-cell-nowrap ">
-                                            {{recordsFileName}}</div>
+                                            <a @click="page.logic.playRecord()">
+                                                {{recordsFileName}}
+                                            </a>
+                                        </div>
                                     </td>
                                     <td class="mini-grid-cell" style="text-align:center;">
                                         <div class="mini-grid-cell-inner  mini-grid-cell-nowrap "><a
@@ -234,13 +237,11 @@
                     <h3 class="layui-timeline-title">现场处置</h3>
                     <ul class="left-ul">
                         <li>时间：</li>
-
-
                     </ul>
                     <ul class="right-ul">
                         <li style="list-style-type: none;">
                             <table class="mini-grid-table" cellspacing="0" cellpadding="0" border="0"
-                                style="width: 100%;">
+                                style="float:left;width: 50%;">
                                 <thead>
                                     <tr>
                                         <td class="mini-grid-headerCell" style="text-align:center;">
@@ -249,10 +250,6 @@
                                         <td class="mini-grid-headerCell" style="text-align:center;">
                                             <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">人员</div>
                                         </td>
-                                        <td class="mini-grid-headerCell" style="text-align:center;">
-                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">录音文件</div>
-                                        </td>
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -265,11 +262,28 @@
                                             <div class="mini-grid-cell-inner  mini-grid-cell-nowrap ">
                                                 {{team.teamName}}--{{team.teamManager}}</div>
                                         </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table class="mini-grid-table" cellspacing="0" cellpadding="0" border="0"
+                                style="float:left;width: 50%;">
+                                <thead>
+                                    <tr>
+                                        <td class="mini-grid-headerCell" style="text-align:center;">
+                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">录音文件</div>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-if="vm.records.length>1">
                                         <td class="mini-grid-cell" style="text-align:center;">
-                                            <div class="mini-grid-cell-inner  mini-grid-cell-nowrap ">{{team.fileName}}
+                                            <div class="mini-grid-cell-inner  mini-grid-cell-nowrap ">
+                                                <a v-for="(record,index) in vm.records" v-if="index!=0"
+                                                 @click="page.logic.playRecord(record)">
+                                                    {{record.filename}} <br />
+                                                </a>
                                             </div>
                                         </td>
-
                                     </tr>
                                 </tbody>
                             </table>
@@ -285,8 +299,6 @@
                     <h3 class="layui-timeline-title">处置完成</h3>
                     <ul class="left-ul">
                         <li>时间：{{detail.completeTime}}</li>
-
-
                     </ul>
                     <ul class="right-ul">
                         <li style="list-style-type: none;">
@@ -296,12 +308,7 @@
                 </div>
             </div>
         </li>
-
     </ul>
-
-
-
-
     <script src="../../../lib/jquery/jquery.min.js"></script>
     <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
     <!-- 自定义js -->

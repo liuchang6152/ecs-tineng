@@ -47,9 +47,15 @@ $(function () {
                     type: "get",
                     success: function (data) {
                         vm.detail = page.logic.Convert(data);
-                        vm.records = parent.getRecordsForP(eventId);
-                        for (var i = 0, len = vm.records.length; i < len; i++) {
-                            vm.recordsFileName = vm.records[i].filename + '.wav' + '</br>';
+                        var arr = parent.getRecordsForP(eventId);
+                        vm.records = arr.reverse();
+                        if (vm.records.length > 0) {
+                            vm.starttime = vm.records[0].starttime;
+                            vm.endtime = vm.records[0].endtime;
+                            vm.filename = vm.records[0].filename;
+                            vm.vruid = vm.records[0].vruid;
+                            vm.streamid = vm.records[0].streamid;
+                            vm.recordsFileName = vm.records[0].filename + '.wav';
                         }
                     },
                     error: function (e) {
@@ -122,6 +128,14 @@ $(function () {
                 parent.resetAnswerStatus();
                 var index = parent.layer.getFrameIndex(window.name);
                 parent.layer.close(index);
+            },
+            playRecord: function (record) {
+                if (record) {
+                    parent.recordDownload(record.starttime, record.endtime, record.filename, record.vruid, record.streamid);
+                }
+                else {
+                    parent.recordDownload(vm.starttime, vm.endtime, vm.filename, vm.vruid, vm.streamid);
+                }
             }
         }
     };

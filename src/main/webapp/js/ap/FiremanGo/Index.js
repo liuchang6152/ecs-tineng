@@ -575,12 +575,10 @@ $(function () {
 								success: function (layero, index) {
 									var body = layer.getChildFrame('body', index);
 									var iframeWin = window[layero.find('iframe')[0]['name']];
-
-
 									iframeWin.page.logic.setData(data, vm.eventId);
 								},
 								end: function () {
-									parent.parent.closeTeamcall();
+									//parent.parent.closeTeamcall();
 								}
 							});
 						} else {
