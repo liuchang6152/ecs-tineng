@@ -54,7 +54,7 @@ $(function () {
             },
 
             singleCall:function(item){
-                   parent.parent.callNs(item.contactWay);
+                   parent.parent.callNs(item.contactWay,vm.eventId);
             },
             /**
              * 保存

@@ -1118,7 +1118,6 @@
           console.log(e);
         }
       })
-
       pagestatus = 1;
     }
     loadCallNum();
@@ -1129,9 +1128,6 @@
         var num = res;
         $("#callNum").val(num);
         $("#callNum").text(num);
-
-
-
       });
     }
     //未接来电
@@ -1155,7 +1151,6 @@
       layer.open({
         type: 2,
         closeBtn: params.closeBtn,
-
         area: [params.width, params.height],
         skin: 'new-class',
         shadeClose: false,
@@ -1322,7 +1317,7 @@
   </script>
 
   <script language="javascript" for="IPB_OCX" event="evtCallOutConnected(calloutNumber)" type="text/javascript">
-    startRecord(currentPcNum, '');
+    startRecord(currentPcNum);
   </script>
 
   <script language="javascript" for="IPB_OCX" event="evtMeetingStatusChange(number,callType)" type="text/javascript">
