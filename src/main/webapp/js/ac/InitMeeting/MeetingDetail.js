@@ -162,8 +162,6 @@ $(function () {
 						}
 					})
 				}
-
-
 			},
 			setData: function (result) {
 				vm.meetingRecordId = result.meetingRecordPojo.meetingRecordId;
@@ -200,7 +198,6 @@ $(function () {
 						layer.msg("系统繁忙");
 					}
 				});
-
 				if (vm.eventId) {
 					var d = { eventId: vm.eventId };
 					$.ajax({
@@ -213,10 +210,8 @@ $(function () {
 						type: 'get',
 						success: function (result) {
 							vm.AlertInfo = page.logic.Convert(result);
-
 						},
 						error: function (result) {
-
 							// var errorResult = $.parseJSON(result.responseText);
 							// console.log(JSON.stringify(errorResult));
 							// layer.msg("系统繁忙");
@@ -224,13 +219,8 @@ $(function () {
 					});
 				}
 			},
-
 			Convert: function (items) {
-
-
 				items.initTime = moment(items.initTime).format('YYYY-MM-DD HH:mm:ss');
-
-
 				return items;
 			},
 			Select: function () {
@@ -306,11 +296,8 @@ $(function () {
 				$(select).removeClass("on");
 			},
 			On: function () {
-
-
 				var nums = page.logic.getPhoneNum();
 				parent.meetCtrl(nums, 0);
-
 				var select = $(".selectorDiv li.init input + label");
 				$(select).addClass("on");
 				$(select).removeClass("off");

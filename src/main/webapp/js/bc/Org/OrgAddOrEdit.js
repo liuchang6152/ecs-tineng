@@ -83,28 +83,52 @@ $(function () {
                 delete data.userID;
                 delete data.userName;
                 delete data.isnode_root;
+                // $.ajax({
+                //     url: addUrl,
+                //     async: true,
+                //     type: ajaxType,
+                //     data:JSON.stringify(data),
+                //     dataType: "text",
+                //     contentType: "application/json;charset=utf-8",
+                //     success: function (result) {
+                //         console.log(result)
+                //         if (result.isSuccess) {
+                //             layer.msg("保存成功！",{
+                //                 time: 1000
+                //             },function() {
+                //                 page.logic.closeLayer(true);
+                //             });
+                //         } else {
+                //             layer.msg(result.collection.error.message)
+                //         }
+                //     }, error: function (result) {
+                //         var errorResult = $.parseJSON(result.responseText);
+                //         layer.msg(errorResult.collection.error.message);
+                //     }
+                // })
                 $.ajax({
                     url: addUrl,
-                    async: false,
                     type: ajaxType,
-                    data:JSON.stringify(data),
-                    dataType: "text",
+                    async: false,
+                    data: JSON.stringify(data),
+                    dataType: "json",
                     contentType: "application/json;charset=utf-8",
-                    success: function (result) {
-                        if (result.indexOf('collection') < 0) {
-                            layer.msg("保存成功！",{
+                    success: function (res) {
+                        console.log(res)
+                        if (res.isSuccess) {
+                            layer.msg(res.message, {
                                 time: 1000
-                            },function() {
+                            }, function () {
                                 page.logic.closeLayer(true);
                             });
-                        } else {
-                            layer.msg(result.collection.error.message)
                         }
-                    }, error: function (result) {
+                    },
+                    error: function (result) {
+                        console.log(result)
                         var errorResult = $.parseJSON(result.responseText);
                         layer.msg(errorResult.collection.error.message);
                     }
-                })
+                });
             },
             /**
              * 初始化编辑数据
@@ -151,7 +175,7 @@ $(function () {
                       if (data.name) {
                         mini.get("#porgCode").setValue(data.name);
                       }else{
-                          mini.get("#porgCode").setValue('上层名称为空');
+                        mini.get("#porgCode").setValue('上层名称为空');
                       }
                       mini.get("porgCode").disable();
                       

@@ -84,7 +84,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-xs-4">报警地点：</label>
                                                 <div class="col-xs-7">
-                                                    <label id="mobileOrPhone" style="display: inline;" 
+                                                    <label id="mobileOrPhone" style="display: inline;"
                                                         class="control-label">{{AlertInfo.ringInstallAddress}}</label>
                                                 </div>
 
@@ -177,31 +177,21 @@
                                 </div>
                                 <div class="form-group pull-left">
                                     <div class="row-fluid selectorDiv">
-
                                         <ul>
                                             <li class="span3 init" v-for="item in items">
-
-                                                <input :id='item.userCode' type='checkbox' :value="item.meetingUserId">
-                                                <label v-bind:title="item.userName" :data="getPhone(item)"
+                                                <input :id='item.phone' type='checkbox' :value="item.phone">
+                                                <label v-bind:title="item.phone" :data="getPhone(item)"
                                                     :class="(item.joinState == 1) ? 'join' : ''"
-                                                    :for='item.userCode'>{{item.userName}}</label>
+                                                    :for='item.phone'>{{item.userName}}</label>
                                             </li>
                                             <li class="span3" v-for="n in total">
-
                                                 <input type='checkbox'>
                                                 <label>未上线</label>
                                             </li>
-
-
                                         </ul>
-
                                     </div>
                                 </div>
-
-
-
                             </div>
-
                         </div>
                     </div>
                 </div>

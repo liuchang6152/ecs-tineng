@@ -483,7 +483,7 @@ $(function () {
                     async: false,
                     type: ajaxType,
                     data:JSON.stringify(data),
-                    dataType: "text",
+                    dataType: "json",
                     contentType: "application/json;charset=utf-8",
                     beforeSend: function () {
                         $('#btnSave').attr('disabled', 'disabled');
@@ -491,19 +491,24 @@ $(function () {
                     },
                     success: function (result) {
                         ECS.hideLoading();
-                        if (result.indexOf('collection') < 0) {
-                            layer.msg("保存成功！",{time: 1000},function() {
+                        // layer.msg(result,{time: 1000},function() {
+                        //     page.logic.closeLayer(true);
+                        // });
+                        if (result.isSuccess) {
+                            layer.msg("保存成功",{time: 1000},function() {
                                 page.logic.closeLayer(true);
                             });
                         } else {
-                            layer.msg(result.collection.error.message);
+                            layer.msg(result.message);
+                            $('#btnSave').attr('disabled', true);
                         }
                     }, error: function (result) {
                         $('#btnSave').attr('disabled', false);
                         ECS.hideLoading();
-                        var errorResult = $.parseJSON(result.responseText);
-                        layer.msg(errorResult.collection.error.message);
+                        // layer.msg(result);
+                        layer.msg(errorResult.message);
                     }
+
                 });
             },
             /**
