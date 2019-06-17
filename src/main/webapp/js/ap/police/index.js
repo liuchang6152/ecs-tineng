@@ -132,10 +132,9 @@ $(function () {
              ;
           }
          })
-         $("#accidentTypeId").blur(function () { //安全风险区选择
+         $("#accidentTypeId").blur(function () { //事故小类选择
           if ($('#accidentTypeId option:selected').text() != '可搜索') {
              $('.accidentTypeId').html($('#accidentTypeId option:selected').text());
-             ;
           }
          })
     },
@@ -230,12 +229,11 @@ $(function () {
             "accidentCategoryID": pid
           }
         }, null, page.logic.cbxInfo);
-        // page.logic.cbxInfo();
       },
       /**
        * 事故等级
        */
-      cbxRiskRank: function () {
+      cbxRiskRank: function (pid) {
         ECS.ui.getCombobox("riskRankId", riskRankUrl + "?orgCode=" + $('#orgId').val(), {
           selectValue: "-1",
           keyField: "eventLvlId",
@@ -686,10 +684,10 @@ $(function () {
            layer.msg('请选择事故小类！');
            return false;
          }
-         if ($('#riskRankId').val() == '' || $('#riskRankId').val() == null) {
-           layer.msg('请选择事故等级！');
-           return false;
-         }
+        //  if ($('#riskRankId').val() == '' || $('#riskRankId').val() == null) {
+        //    layer.msg('请选择事故等级！');
+        //    return false;
+        //  }
         if (tempGridData.length == 0) {
           layer.msg('请选择接收人');
           return false;
