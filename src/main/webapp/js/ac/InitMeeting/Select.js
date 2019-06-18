@@ -5,18 +5,14 @@ var pageMode = PageModelEnum.NewAdd;
 window.pageLoadMode = PageLoadMode.None;
 var oid = "";
 var meetingRecordId = '';
-//var userList = null;
 $(function () {
     var index = parent.layer.getFrameIndex(window.name);//获取子窗口索引
     var page = {
         init: function () {
             mini.parse();
             this.bindUI();
-
             ECS.sys.RefreshContextFromSYS();//获取当前用户
-
             var height = document.body.clientHeight - 150 + 'px';
-
             $("#datagrid").css("height", height);
         },
         bindUI: function () {
@@ -31,12 +27,9 @@ $(function () {
                 window.pageLoadMode = PageLoadMode.None;
                 page.logic.closeLayer(false);
             });
-
-
             $("#selectOwner").click(function () {
                 page.logic.selectOwner("人员选择", PageModelEnum.Details)
             });
-
             $("#btnDel").click(function () {
                 page.logic.delAll()
             });
@@ -47,22 +40,17 @@ $(function () {
                 //userList = users;
                 //page.logic.search();
             },
-
             setWay: function (e) {
-
                 if (!e.row.mobile) {
                     return "<label>座机</label>";
                 }
                 var flag = e.value != 1 ? "checked='checked'" : "";
-
                 var input = '<label><input type="checkbox" ' + flag + '/> 手机</label>';
-
                 return input;
             },
             setStatus: function () {
                 return "未接通";
             },
-
             // search: function () {
             //     var grid = mini.get("datagrid");
             //     grid.set({
@@ -70,7 +58,6 @@ $(function () {
             //         ajaxType: "get",
             //         dataField: "pageList"
             //     });
-
             //     grid.load();
             // },
             /**
@@ -83,7 +70,6 @@ $(function () {
                     grid.removeRows(rows, true);
                 }
                 return false;
-
                 var idsArray = [];
                 var rowsArray = grid.getSelecteds();
                 $.each(rowsArray, function (i, el) {
@@ -155,10 +141,8 @@ $(function () {
                     end: function () {
                         var oldList = mini.get("datagrid").getData();
                         var returnlist = window.ownDetail;
-                        //var userList = [];
                         for (var index = 0; index < returnlist.length; index++) {
                             var element = returnlist[index];
-                            // if (!page.logic.isExists(oldList, window.ownDetail[index].userId)) {
                             var user = {
                                 name: 'New Row',
                                 userId: element.userId,
@@ -167,50 +151,22 @@ $(function () {
                                 phone: element.userPhone,
                                 isHandSet: 0
                             };
-                            //userList.push(user);
                             var grid = mini.get("datagrid");
                             grid.addRow(user);
-                            // } else {
-                            //     layer.msg(window.ownDetail[index].userName + "已存在");
-                            // }
                         }
-
-
                     }
                 })
             },
-            // isExists: function (data, id) {
-            //     if (!data) {
-            //         return false;
-            //     }
-            //     var len = data.length;
-            //     while (len-- > 0) {
-            //         if (data[len].userId == id) {
-            //             return true;
-            //         }
-            //     }
-            //     var len2 = userList.length;
-            //     while (len2-- > 0) {
-            //         if (userList[len2].userId == id) {
-            //             return true;
-            //         }
-            //     }
-            //     return false;
-            // },
-            /**
-             * 保存 
-             */
             save: function () {
                 var submitData = {
                     meetingRecordId: meetingRecordId,
                     meetingUserEntityList: []
                 }
                 var list = mini.get("datagrid").getData();
-                if (list.length > 20) {
-                    layer.msg('参会人员最多为20人');
+                if (list.length > parent.page.data.param.meetingCount) {
+                    layer.msg('参会人员最多为' + parent.page.data.param.meetingCount + '人');
                     return;
                 }
-
                 var phoneNums = [];
                 $(list).each(function (e) {
                     var user = {
@@ -223,11 +179,9 @@ $(function () {
                     phoneNums.push(list[e].isHandSet == 0 ? list[e].phone : list[e].mobile);
                 });
                 window.pageLoadMode = PageLoadMode.Reload;
-
-                if(parent.page.logic.isExistsArr(phoneNums)){
+                if (parent.page.logic.isExistsArr(phoneNums)) {
                     return;
                 }
-
                 $.ajax({
                     url: saveUrl,
                     async: false,
@@ -264,14 +218,10 @@ $(function () {
                     e.cancel = true;
                 }
             },
-            /**
-             * 关闭弹出层
-             */
             closeLayer: function (isRefresh) {
                 window.parent.pageLoadMode = window.pageLoadMode;
                 parent.layer.close(index);
             }
-
         }
     }
     page.init();

@@ -6,10 +6,6 @@ $(function () {
             mini.parse();
             page.bindUI();
             page.logic.initMeetingType();
-
-            //page.logic.testData();
-
-            //获取用户的相关数据
             ECS.sys.RefreshContextFromSYS();
         },
         table: {},
@@ -35,12 +31,6 @@ $(function () {
             }
         },
         logic: {
-            // testData: function () {
-            //     var data = [{ userId: "1196", userName: "李虹瑶(1196)", userMobile: "18574848307", userPhone: "", mark: 1 },
-            //     { userId: "1195", userName: "没有手机号(1195)", userMobile: "", userPhone: "13212121212", mark: 0 },
-            //     { userId: "1186", userName: "张三(1186)", userMobile: "13688888888", userPhone: "010-12345678", mark: 1 }];
-            //     mini.get('datagrid').setData(data);
-            // },
             initMeetingType: function () {
                 var data = [
                     { id: 0, text: '普通会议' },
@@ -127,8 +117,8 @@ $(function () {
                     layer.msg('请选择参会人员');
                     return;
                 }
-                if (users.length > 20) {
-                    layer.msg('参会人员最多为20人');
+                if (users.length > parent.meetingCount) {
+                    layer.msg('参会人员最多为' + parent.meetingCount + '人');
                     return;
                 }
                 var phoneNums = [];
@@ -145,8 +135,8 @@ $(function () {
                     data.person.push(obj);
                     phoneNums.push(users[i].mark == 1 ? users[i].userMobile : users[i].userPhone);
                 }
-                
-                if(page.logic.isExistsArr(phoneNums)){
+
+                if (page.logic.isExistsArr(phoneNums)) {
                     return;
                 }
 
@@ -155,15 +145,20 @@ $(function () {
                     data: data,
                     pageMode: PageModelEnum.NewAdd
                 }, function (result) {
-                    var data = result = $.parseJSON(result);
+                    var data = $.parseJSON(result);
+                    data.meetingCount = parent.meetingCount;
+                    data.station = parent.station;
                     var openUrl = '../../html/ac/InitMeeting/MeetingDetail.html?' + Math.random();
-                    window.parent.open(openUrl, data.result, function () {
-                        parent.closeMeeting();
-                    }, { height: '95%', width: '95%', closeBtn: 0 }, function () {
-                        parent.meeting(phoneNums);
-
-
-                    });
+                    window.parent.open(
+                        openUrl,
+                        data,
+                        function () {
+                            parent.closeMeeting();
+                        },
+                        { height: '95%', width: '95%', closeBtn: 0 },
+                        function () {
+                            parent.meeting(phoneNums);
+                        });
                 });
             },
             onCellbeginedit: function (e) {
