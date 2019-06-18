@@ -74,8 +74,12 @@ $(function(){
             });
             //补充信息赋值
             $("#nav_submenu").on("click","li",function () {
-                var str=$("#information").val();
-                $("#information").val(str+$(this).attr("title")+"  ");
+                var str = $(this).attr("title");
+                var text = $("#information").val();
+                if(text.indexOf(str)!=-1){
+                    return;
+                }
+                $("#information").val(text+$(this).attr("title")+"  ");
             });
             //事故等级
             $(document).on("change",'#eventLvlId',function(){
