@@ -828,6 +828,12 @@ $(function () {
                 //现场处置预案
                 var case_url_2 = page.logic.case_list_url(1,EventId,2);
                 page.logic.render_start_list(case_url_2,$("#start_case_2"));
+                //灭火处置预案
+                var case_url_3 = page.logic.case_list_url(1,EventId,3);
+                page.logic.render_start_list(case_url_3,$("#start_case_3"));
+                //其他
+                var case_url_4 = page.logic.case_list_url(1,EventId,4);
+                page.logic.render_start_list(case_url_4,$("#start_case_4"));
             },
             //未启动的预案----   20190102
             get_close_list:function(){
@@ -840,6 +846,12 @@ $(function () {
                 //现场处置预案
                 var case_url_2 = page.logic.case_list_url(0,EventId,2);
                 page.logic.render_close_list(case_url_2,$("#close_case_2"));
+                //灭火处置预案
+                var case_url_3 = page.logic.case_list_url(0,EventId,3);
+                page.logic.render_start_list(case_url_3,$("#close_case_3"));
+                //其他
+                var case_url_4 = page.logic.case_list_url(0,EventId,4);
+                page.logic.render_start_list(case_url_4,$("#close_case_4"));
             },
             //拼接预案的接口----  20190102
             //参数说明：
