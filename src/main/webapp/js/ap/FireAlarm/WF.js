@@ -12,7 +12,19 @@ var vm = new Vue({
     methods: {
         returnJson: function (d) {
             return JSON.stringify(d);
-        }
+        },
+        rendererTime:function(time){
+            return time.substring(0, 4) + '-' + time.substring(4, 6) + '-' + time.substring(6, 8)
+            + ' ' + time.substring(9, 11) + ':' + time.substring(11, 13) + ':' + time.substring(13, 15);
+        },
+        calltime: function (starttime,endtime) {
+            var strStartTime = starttime.substring(0, 4) + '-' + starttime.substring(4, 6) + '-' + starttime.substring(6, 8)
+                + ' ' + starttime.substring(9, 11) + ':' + starttime.substring(11, 13) + ':' + starttime.substring(13, 15);
+            var strEndTime = endtime.substring(0, 4) + '-' + endtime.substring(4, 6) + '-' + endtime.substring(6, 8)
+                + ' ' + endtime.substring(9, 11) + ':' + endtime.substring(11, 13) + ':' + endtime.substring(13, 15);
+            var res = mini.parseDate(strEndTime) - mini.parseDate(strStartTime);
+            return res / 1000;
+        },
     }
 });
 
@@ -47,9 +59,15 @@ $(function () {
                     type: "get",
                     success: function (data) {
                         vm.detail = page.logic.Convert(data);
-                        vm.records = parent.getRecordsForP(eventId);
-                        for (var i = 0, len = vm.records.length; i < len; i++) {
-                            vm.recordsFileName = vm.records[i].filename + '.wav' + '</br>';
+                        var arr = parent.getRecordsForP(eventId);
+                        vm.records = arr.reverse();
+                        if (vm.records.length > 0) {
+                            vm.starttime = vm.records[0].starttime;
+                            vm.endtime = vm.records[0].endtime;
+                            vm.filename = vm.records[0].filename;
+                            vm.vruid = vm.records[0].vruid;
+                            vm.streamid = vm.records[0].streamid;
+                            vm.recordsFileName = vm.records[0].filename + '.wav';
                         }
                     },
                     error: function (e) {
@@ -108,20 +126,20 @@ $(function () {
                 if (item.completeTime) {
                     item.completeTime = moment(item.completeTime).format('YYYY-MM-DD HH:mm:ss');
                 }
-                item.teamEntities.forEach(function (entity) {
-                    if (entity.printingTime) {
-                        entity.printingTime = moment(entity.printingTime).format('YYYY-MM-DD HH:mm:ss');
-                    }
-                    if (entity.handleTime) {
-                        entity.handleTime = moment(entity.handleTime).format('YYYY-MM-DD HH:mm:ss');
-                    }
-                });
                 return item;
             },
             closeLayer: function (isRefresh) {
                 parent.resetAnswerStatus();
                 var index = parent.layer.getFrameIndex(window.name);
                 parent.layer.close(index);
+            },
+            playRecord: function (record) {
+                if (record) {
+                    parent.recordDownload(record.starttime, record.endtime, record.filename, record.vruid, record.streamid);
+                }
+                else {
+                    parent.recordDownload(vm.starttime, vm.endtime, vm.filename, vm.vruid, vm.streamid);
+                }
             }
         }
     };
