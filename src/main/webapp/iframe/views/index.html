@@ -431,6 +431,7 @@
     var currentPcNum = '';
     var callNum = '';
     var numArr = [];
+    var meetingCount = 5;
     var station = '080';
     var serverIp = '192.168.20.10';
     var serverPort = '9800';
@@ -444,6 +445,7 @@
 
     var msgOCX = document.getElementById('TransferManager');
     var HOstatus = false;
+
     function initMsgOCX() {
       var strIps = ipb.readLocalIp();
       var ipArr = strIps.split('|');

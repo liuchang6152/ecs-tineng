@@ -7,7 +7,7 @@ window.pageLoadMode = PageLoadMode.None;
 var vm = new Vue({
 	el: '#main',
 	data: {
-		total: 20,
+		total: 0,
 		items: [],
 		meetingAbstract: '',
 		meetingTheme: '',
@@ -22,8 +22,8 @@ var vm = new Vue({
 	},
 	mounted: function () {
 		this.heigth = document.body.clientHeight - 120 + 'px';
-	}
-	, methods: {
+	},
+	methods: {
 		isShow: function (e) {
 			if (e && e.length > 0) {
 				return true;
@@ -98,19 +98,15 @@ $(function () {
 					}
 				}
 			]);
-
-
 			$(document).on('mouseover', '.me-codesta', function () {
 				$('.finale h1:first').css({ opacity: 0 });
 				$('.finale h1:last').css({ opacity: 1 });
 			});
-
 			$(document).on('mouseout', '.me-codesta', function () {
 				$('.finale h1:last').css({ opacity: 0 });
 				$('.finale h1:first').css({ opacity: 1 });
 			});
 			/*==========================右键============================== */
-
 		},
 		table: {},
 		bindUI: function () {
@@ -120,22 +116,18 @@ $(function () {
 			$('#btnSelect').click(function () {
 				page.logic.Select();
 			});
-
 			$('#btnOffMeeting').click(function () {
 				page.logic.OffMeeting();
 			});
-
 			$('#btnOff').click(function () {
 				page.logic.Off();
 			});
-
 			$('#btnOn').click(function () {
 				page.logic.On();
 			});
 			$('#btnLoad').click(function () {
 				page.logic.init();
 			});
-
 		},
 		data: {
 			param: {
@@ -143,7 +135,7 @@ $(function () {
 		},
 		logic: {
 			setStatus: function (number, callType) {
-				if (number.length == 14 && number.substr(0, 3) == "080") {
+				if (number.length == 14 && number.substr(0, 3) == page.data.param.station) {
 					number = number.substr(3, 11);
 				}
 				if (callType == 3 || callType == 4) {
@@ -163,9 +155,11 @@ $(function () {
 					})
 				}
 			},
-			setData: function (result) {
-				vm.meetingRecordId = result.meetingRecordPojo.meetingRecordId;
-				vm.eventId = result.meetingRecordPojo.eventId;
+			setData: function (data) {
+				vm.meetingRecordId = data.result.meetingRecordPojo.meetingRecordId;
+				vm.eventId = data.result.meetingRecordPojo.eventId;
+				page.data.param.meetingCount = data.meetingCount;
+				page.data.param.station = data.station;
 				if (!vm.eventId) {
 					vm.show = false;
 				}
@@ -178,13 +172,12 @@ $(function () {
 					async: true,
 					data: d,
 					dataType: "json",
-					// timeout: 1000,
 					contentType: "application/json;charset=utf-8",
 					type: 'get',
 					success: function (result) {
 						if (result.isSuccess) {
 							vm.items = result.result.users;
-							vm.total = 20 - vm.items.length;
+							vm.total = page.data.param.meetingCount - vm.items.length;
 							vm.meetingAbstract = result.result.meetingAbstract;
 							vm.meetingTheme = result.result.meetingTheme;
 							vm.startTime = result.result.startTime;
@@ -205,7 +198,6 @@ $(function () {
 						async: true,
 						data: d,
 						dataType: "json",
-						// timeout: 1000,
 						contentType: "application/json;charset=utf-8",
 						type: 'get',
 						success: function (result) {
