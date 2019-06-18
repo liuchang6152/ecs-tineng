@@ -7,7 +7,7 @@ window.pageLoadMode = PageLoadMode.None;
 var vm = new Vue({
 	el: '#main',
 	data: {
-		total: parent.parent.meetingCount,
+		total: 0,
 		items: [],
 		meetingAbstract: '',
 		meetingTheme: '',
