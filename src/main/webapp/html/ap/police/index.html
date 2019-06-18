@@ -40,7 +40,7 @@
     .box-tools{
       position: absolute;
       top: 8rem;
-      right: 2.2rem;
+      right: 2.9rem;
     }
     #btnMsgTrack,
     #btnNewMsg{
@@ -80,15 +80,15 @@
         </div>
         <p class='header'>位置信息：</p>
         <div class="">
-          <div class="row">
+          <div class="row" style='padding-left: 15px;'>
             <div class="col-xs-3">
                 <lable class="col-xs-4">企业名称：</lable>
-                <div class="col-xs-7" style="padding-right: 0;padding-left: 0">
+                <div class="col-xs-6" style="padding-right: 0;padding-left: 0">
                   <select name="orgId" id="orgId" class="form-control"></select>
                 </div>
                 <span class="span-required">*</span>
             </div>
-            <div class="col-xs-5">
+            <div class="col-xs-5" style="margin-left: -2rem;">
                 <div class="col-xs-5 control-label" style="padding-right: 0;padding-left: 0">安全风险区域：
                   <input id="msg" type="radio" name="sendType" value="1" checked="checked" />
                   <!-- <label class="control-label" for="msg">输入</label> -->
@@ -96,37 +96,37 @@
                   <input id="voice" type="radio" name="sendType" value="2"/>
                   <lable class="control-label" for="voice">选择</lable>
                 </div>
-                <div class="col-xs-5" id='inputs'>
+                <div class="col-xs-4" id='inputs'>
                     <input name="userName" id="userName" type="text" class="form-control" maxlength="200" placeholder="请输入" />
                 </div>
-                <div class="col-xs-5" id='selects'>
-                  <select name="systemId" id="systemId" class="form-control" style="width: 19.2rem"></select>
+                <div class="col-xs-4" id='selects'>
+                  <select name="systemId" id="systemId" class="form-control" style="width: 12.86rem"></select>
                 </div>
                 <span class="span-required">*</span>
             </div>
           </div>
         </div>
         <p class='header'>警情登记：</p>
-        <div class="row">
+        <div class="row" style="padding-left: 15px;">
           <div class="col-xs-3">
               <lable class="col-xs-4">事故大类：</lable>
-              <div class="col-xs-7" style="padding-right: 0;padding-left: 0">
+              <div class="col-xs-6" style="padding-right: 0;padding-left: 0">
                 <select name="accidentCategoryId" id="accidentCategoryId" class="form-control"></select>
               </div>
               <span class="span-required">*</span>
           </div>
-          <div class="col-xs-3" style="width: 23%;">
-              <lable class="col-xs-3" style="padding-left: 0;padding-right: 0;">事故小类：</lable>
-              <div class="col-xs-7" style="padding-right: 0;padding-left: 0">
+          <div class="col-xs-3" style="width: 23%;margin-left: -2rem;">
+              <lable class="col-xs-4" style="padding-left: 0;padding-right: 0;">事故小类：</lable>
+              <div class="col-xs-6" style="padding-right: 0;padding-left: 0">
                 <select name="accidentTypeId" id="accidentTypeId" class="form-control">
                   <option value="-1">请选择</option>
                 </select>
               </div>
               <span class="span-required">*</span>
           </div>
-          <div class="col-xs-3" style="width: 23%;">
-              <lable class="col-xs-3" style="padding-left: 0;padding-right: 0;">事故等级：</lable>
-              <div class="col-xs-7" style="padding-right: 0;padding-left: 0">
+          <div class="col-xs-3" style="width: 23%;margin-left: -2rem;">
+              <lable class="col-xs-4" style="padding-left: 0;padding-right: 0;">事故等级：</lable>
+              <div class="col-xs-6" style="padding-right: 0;padding-left: 0">
                 <select name="eventLvlName" id="riskRankId" class="form-control">
                   <option value="-1">请选择</option>
                 </select>
@@ -136,16 +136,15 @@
         <p class='header'>接警信息：</p>
         <div class="col-xs-12">
           <div class="">
-            <div class="col-xs-10">
+            <div class="col-xs-12">
               <textarea class="form-control" name="eventAddress" id="eventAddress" rows="3"
-                style="resize: none;width: 100%;font-size: 12px;margin-left: 7.4rem;"></textarea>
+                style="resize: none;width: 95.8%;font-size: 12px;margin-left: 6.4rem;"></textarea>
             </div>
           </div>
         </div>
         <p class="header">警情通知：</p>
         <div class="col-xs-12">
-          <div class="">
-            <div class="col-xs-10" style="width: 81%;margin-left: 8.5rem;height: 60px;border: 1px solid #e2e2e2; border-radius: 4px;">
+            <div class="col-xs-9" style="background: #e8e8e8;width: 93.6%;margin-left: 7.6rem;height: 60px;border: 1px solid #e2e2e2; border-radius: 4px;">
               <span class='orgId'></span>
               <span class='systemId'></span>
               <span class='happen'>发生</span>
@@ -154,7 +153,6 @@
               <!-- <textarea class="form-control" name="eventSummary" id="eventSummary" rows="3"
                 style="resize: none;width: 100%;font-size: 12px;" disabled></textarea> -->
             </div>
-          </div>
         </div>
         <p class="header">通知对象：</p>
         <div class="mini-splitter" style="width:100%;height:300px;">
