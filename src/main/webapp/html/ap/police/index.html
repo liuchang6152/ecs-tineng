@@ -20,7 +20,6 @@
   <link rel="stylesheet" href="../../../css/common/common.css" />
   <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
   <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
-  <!-- <link rel="stylesheet" href="../../../css/em/MsgSend/index.css" /> -->
   <link rel="stylesheet" href="../../../lib/select2/select2.min.css" />
   <style>
     .box-main>.box-body {
@@ -60,6 +59,12 @@
     lable{
       font-weight: 0 !important;
     }
+    .col-xs-4{
+      width:34%;
+    }
+    
+
+
   </style>
 </head>
 
@@ -135,23 +140,23 @@
         </div>
         <p class='header'>接警信息：</p>
         <div class="col-xs-12">
-          <div class="">
             <div class="col-xs-12">
               <textarea class="form-control" name="eventAddress" id="eventAddress" rows="3"
-                style="resize: none;width: 95.8%;font-size: 12px;margin-left: 6.4rem;"></textarea>
+                style="resize: none;width: 95.5%;font-size: 12px;margin-left: 6.4rem;"></textarea>
             </div>
-          </div>
         </div>
         <p class="header">警情通知：</p>
         <div class="col-xs-12">
-            <div class="col-xs-9" style="background: #e8e8e8;width: 93.6%;margin-left: 7.6rem;height: 60px;border: 1px solid #e2e2e2; border-radius: 4px;">
+            <!-- <div class="col-xs-9" style="background: #e8e8e8;width: 93%;margin-left: 7.6rem;height: 60px;border: 1px solid #e2e2e2; border-radius: 4px;">
               <span class='orgId'></span>
               <span class='systemId'></span>
               <span class='happen'>发生</span>
               <span class='accidentTypeId'></span>
               <span class='nsText'>请相关人员立即赶往现场处置！</span>
-              <!-- <textarea class="form-control" name="eventSummary" id="eventSummary" rows="3"
-                style="resize: none;width: 100%;font-size: 12px;" disabled></textarea> -->
+            </div> -->
+            <div class="col-xs-12">
+              <textarea class="form-control" name="notice" id="notice" rows="3"
+                style="resize: none;width: 95.5%;font-size: 12px;margin-left: 6.4rem;" disabled></textarea>
             </div>
         </div>
         <p class="header">通知对象：</p>

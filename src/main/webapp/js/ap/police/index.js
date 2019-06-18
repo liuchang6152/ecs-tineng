@@ -12,6 +12,8 @@ var systemUrl = ECS.api.apUrl + '/EventRegistration/getRiskAreaList' + '?orgCode
 var dataSource = null;
 var nsLeavel = [];
 var nsArr = [];
+var happen = '发生';
+var text = '请相关人员立即赶往现场处置！';
 
 $(function () {
   var page = {
@@ -117,24 +119,41 @@ $(function () {
       });
        //企业改变事件
         $("#orgId").on("select2:select", function () {
-          //  page.logic.tempAdd();
-          $('.orgId').html($('#orgId option:selected').text());
+          var msg = $('#userName').val();
+          var systemId = $('#systemId').val();
+          console.log(systemId)
            page.logic.cbxRiskRank(); //预警等级
-            page.logic.select_options(systemUrl, "systemId"); //安全风险区域
+           page.logic.select_options(systemUrl, "systemId"); //安全风险区域
+           $('#notice').val($('#orgId option:selected').text() + msg + happen + text);
         });
          $('#userName').blur(function () { //安全风险区输入
-            $('.systemId').html($('#userName').val());
+            var msg = $('#userName').val();
+            var systemId = $('#systemId').val();
+            var accidentTypeId = $('#accidentTypeId option:selected').text();
+            $('#notice').val($('#orgId option:selected').text() + msg + systemId + happen + accidentTypeId + text);
          });
          $("#systemId").on("select2:select", function () {//安全风险区选择
           $('.systemId').html('');
+           var msg = $('#userName').val();
+           var systemId = $('#systemId option:selected').text();
+           var accidentTypeId = $('#accidentTypeId option:selected').text();
           if ($('#systemId option:selected').text() != '可搜索') {
              $('.systemId').html($('#systemId option:selected').text());
-             ;
+             $('#notice').val($('#orgId option:selected').text() + msg + systemId + happen + accidentTypeId + text);
           }
-         })
+         });
          $("#accidentTypeId").blur(function () { //事故小类选择
-          if ($('#accidentTypeId option:selected').text() != '可搜索') {
-             $('.accidentTypeId').html($('#accidentTypeId option:selected').text());
+          $('.systemId').html('');
+          var msg = $('#userName').val();
+          var systemId;
+          if ($('#systemId option:selected').text() != '可搜索') {
+            systemId = $('#systemId option:selected').text()
+          }else{
+            systemId = $('#systemId').val();
+          };
+          var accidentTypeId = $('#accidentTypeId option:selected').text();
+          if ($('#accidentTypeId option:selected').text() != '请选择') {
+            $('#notice').val($('#orgId option:selected').text() + msg + systemId + happen + accidentTypeId + text);
           }
          })
     },
