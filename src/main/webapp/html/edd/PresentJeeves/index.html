@@ -34,8 +34,10 @@
                             新增</a>
                         <a id="btnDel" href="#" class="btn btn-danger btn-sm"><i class="icon-delete mr__5"></i>
                             删除</a>
-                            <a href="#" class="btn btn-primary btn-sm" id="btnImp" title="导入"><i class="icon-import mr__5"></i> 导入</a>&nbsp;&nbsp;
-                            <a href="#" class="btn btn-primary btn-sm" id="btnExport" title="导出" ><i class="icon-export mr__5"></i> 导出</a>&nbsp;&nbsp;
+                        <a href="#" class="btn btn-primary btn-sm" id="btnImp" title="导入"><i
+                                class="icon-import mr__5"></i> 导入</a>&nbsp;&nbsp;
+                        <a href="#" class="btn btn-primary btn-sm" id="btnExport" title="导出"><i
+                                class="icon-export mr__5"></i> 导出</a>&nbsp;&nbsp;
                     </div>
                 </div>
             </div>
@@ -44,13 +46,15 @@
                     <div class="form-group">
                         <label class="control-label">开始时间</label>
                         <div class="control-inline">
-                            <input id="startDate" name="startDate" class="mini-datepicker" allowInput="false" emptyText="请输入日期"/>
+                            <input id="startDate" name="startDate" class="mini-datepicker" allowInput="false"
+                                emptyText="请输入日期" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label">结束时间</label>
                         <div class="control-inline">
-                            <input id="endDate" name="endDate" class="mini-datepicker" allowInput="false" emptyText="请输入日期"/>
+                            <input id="endDate" name="endDate" class="mini-datepicker" allowInput="false"
+                                emptyText="请输入日期" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -69,14 +73,18 @@
                 </form>
                 <div id="datagrid" class="mini-datagrid" frozenstartcolumn="0" frozenendcolumn="2" multiSelect="true">
                     <div property="columns">
-                        <div type="checkcolumn"></div>
                         <div type="indexcolumn" headerAlign="center" align="center" width="35">序号</div>
+                        <div type="checkcolumn"></div>
                         <div width="50" headerAlign="center" align="center" renderer="ECS.util.editRenderer">操作</div>
-                        <div field="noticeDate" width="50" headerAlign="center" align="center" renderer="ECS.util.DateRender">通知时间</div>
-                        <div field="startDate" width="50" headerAlign="center" align="center" renderer="ECS.util.DateRender">开始时间</div>
-                        <div field="endDate" width="50" headerAlign="center" align="center" renderer="ECS.util.DateRender">结束时间</div>
+                        <div field="noticeDate" width="50" headerAlign="center" align="center"
+                            renderer="ECS.util.DateRender">通知时间</div>
+                        <div field="startDate" width="50" headerAlign="center" align="center"
+                            renderer="ECS.util.DateRender">开始时间</div>
+                        <div field="endDate" width="50" headerAlign="center" align="center"
+                            renderer="ECS.util.DateRender">结束时间</div>
                         <div field="address" headeralign="center" align="left">占道内容</div>
-                        <div field="mtrlType" width="30" headeralign="center" align="center" renderer="page.logic.renderer_mtrlType">企内/外</div>
+                        <div field="mtrlType" width="30" headeralign="center" align="center"
+                            renderer="page.logic.renderer_mtrlType">企内/外</div>
                     </div>
                 </div>
             </div>
