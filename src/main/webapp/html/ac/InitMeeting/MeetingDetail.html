@@ -179,10 +179,10 @@
                                     <div class="row-fluid selectorDiv">
                                         <ul>
                                             <li class="span3 init" v-for="item in items">
-                                                <input :id='item.phone' type='checkbox' :value="item.phone">
-                                                <label v-bind:title="item.phone" :data="getPhone(item)"
+                                                <input :id='item.phonenum' type='checkbox' :value="item.phonenum">
+                                                <label v-bind:title="item.phonenum" :data="getPhone(item)"
                                                     :class="(item.joinState == 1) ? 'join' : ''"
-                                                    :for='item.phone'>{{item.userName}}</label>
+                                                    :for='item.phonenum'>{{item.userName}}</label>
                                             </li>
                                             <li class="span3" v-for="n in total">
                                                 <input type='checkbox'>

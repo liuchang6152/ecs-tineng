@@ -21,7 +21,7 @@
 
 <body style="overflow-x: hidden">
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-        <legend>单警情记录</legend>
+        <legend>警情记录单</legend>
     </fieldset>
     <ul class="layui-timeline" style="padding-left: 30px" id="main" v-cloak>
         <li class="layui-timeline-item">
@@ -241,45 +241,60 @@
                     <ul class="right-ul">
                         <li style="list-style-type: none;">
                             <table class="mini-grid-table" cellspacing="0" cellpadding="0" border="0"
-                                style="float:left;width: 50%;">
+                                style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <td class="mini-grid-headerCell" style="text-align:center;">
-                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">时间</div>
+                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">主叫号码</div>
                                         </td>
                                         <td class="mini-grid-headerCell" style="text-align:center;">
-                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">人员</div>
+                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">被叫号码</div>
+                                        </td>
+                                        <td class="mini-grid-headerCell" style="text-align:center;">
+                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">开始时间</div>
+                                        </td>
+                                        <td class="mini-grid-headerCell" style="text-align:center;">
+                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">结束时间</div>
+                                        </td>
+                                        <td class="mini-grid-headerCell" style="text-align:center;">
+                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">通话时间(秒)
+                                            </div>
+                                        </td>
+                                        <td class="mini-grid-headerCell" style="text-align:center;">
+                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">文件名称</div>
                                         </td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="team in detail.teamEntities">
+                                    <tr v-for="(record,index) in vm.records" v-if="index!=0">
                                         <td class="mini-grid-cell" style="text-align:center;">
                                             <div class="mini-grid-cell-inner  mini-grid-cell-nowrap ">
-                                                {{team.printingTime}}</div>
+                                                {{record.caller}}
+                                            </div>
                                         </td>
                                         <td class="mini-grid-cell" style="text-align:center;">
                                             <div class="mini-grid-cell-inner  mini-grid-cell-nowrap ">
-                                                {{team.teamName}}--{{team.teamManager}}</div>
+                                                {{record.callee == '' ?'会议':record.callee}}
+                                            </div>
                                         </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table class="mini-grid-table" cellspacing="0" cellpadding="0" border="0"
-                                style="float:left;width: 50%;">
-                                <thead>
-                                    <tr>
-                                        <td class="mini-grid-headerCell" style="text-align:center;">
-                                            <div class="mini-grid-headerCell-inner  mini-grid-cell-nowrap ">录音文件</div>
-                                        </td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-if="vm.records.length>1">
                                         <td class="mini-grid-cell" style="text-align:center;">
                                             <div class="mini-grid-cell-inner  mini-grid-cell-nowrap ">
-                                                <a v-for="(record,index) in vm.records" v-if="index!=0"
-                                                 @click="page.logic.playRecord(record)">
+                                                {{rendererTime(record.starttime)}}
+                                            </div>
+                                        </td>
+                                        <td class="mini-grid-cell" style="text-align:center;">
+                                            <div class="mini-grid-cell-inner  mini-grid-cell-nowrap ">
+                                                {{rendererTime(record.endtime)}}
+                                            </div>
+                                        </td>
+                                        <td class="mini-grid-cell" style="text-align:center;">
+                                            <div class="mini-grid-cell-inner  mini-grid-cell-nowrap ">
+                                                {{calltime(record.starttime,record.endtime)}}
+                                            </div>
+                                        </td>
+                                        <td class="mini-grid-cell" style="text-align:center;">
+                                            <div class="mini-grid-cell-inner  mini-grid-cell-nowrap ">
+                                                <a @click="page.logic.playRecord(record)">
                                                     {{record.filename}} <br />
                                                 </a>
                                             </div>
