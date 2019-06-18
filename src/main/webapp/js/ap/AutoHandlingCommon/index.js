@@ -227,6 +227,22 @@ $(function () {
                     title:"其它处置预案选项"
                 });
             });
+            //点击“查找其它处置预案”，打开预案列表；
+            $("#check_case_btn_3").click(function () {
+                page.logic.gotocaselist({
+                    // businessModelId:8,
+                    planDefinition:3,
+                    title:"其它处置预案选项"
+                });
+            });
+            //点击“查找其它处置预案”，打开预案列表；
+            $("#check_case_btn_4").click(function () {
+                page.logic.gotocaselist({
+                    // businessModelId:8,
+                    planDefinition:4,
+                    title:"其它处置预案选项"
+                });
+            });
             //点击“确认危化品”，进行保存
             $("#danger_save_btn").click(function(){
                 page.logic.save_danger();
