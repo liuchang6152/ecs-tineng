@@ -622,11 +622,7 @@ $(function () {
                 ECS.util.importExcel(impUrl,exportUrl,confirmUrl,pageUrl,function(){
                     page.logic.load_sidebar(porg_url);   //侧边栏菜单的刷新
                 });
-				
-				
             },
-           
-           
         }
     };
     page.init();
