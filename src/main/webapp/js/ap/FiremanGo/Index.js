@@ -16,6 +16,8 @@ var tabindex1 = 0;
 var tabindex2 = 0;
 var tabindex3 = 0;
 var tabindex4 = 0;
+var surfaceId ;
+var type ;
 var vm = new Vue({
 	el: '#main',
 	data: {
@@ -174,7 +176,7 @@ $(function () {
 				} catch (error) {
 
 				}
-
+				page.logic.btnLocation(3,vm.eventId,type,surfaceId);
 				var index = parent.layer.getFrameIndex(window.name);
 				parent.layer.close(index);
 			});
@@ -294,7 +296,9 @@ $(function () {
 					success: function (data) {
 						vm.detail = page.logic.Convert(data);
 						tabindex2 = 1;
-
+						surfaceId = data.surfaceId;
+						type = data.type;
+						page.logic.btnLocation(2,vm.eventId,data.type,data.surfaceId);
 					},
 					error: function (e) {
 						//	alert(e);
@@ -782,6 +786,17 @@ $(function () {
 						layer.msg('获取中队登录信息失败，请重试');
 					}
 				});
+			},
+			btnLocation :function (processID,eventID,layerID,graphicID){
+				//构造向iframe中传递的数据data；
+				var data = "" + processID + "#" + eventID + "#" + layerID + "#" + graphicID;
+				
+				var ie_chrome = document.getElementById('page_Iframe').document;
+				if(ie_chrome == undefined){//firefox, chrome;
+					document.getElementById('page_Iframe').contentWindow.postMessage(data, "*");
+				}else{//ie;
+					document.getElementById('page_Iframe').postMessage(data, "*");
+				}
 			}
 		}
 	};
