@@ -1090,7 +1090,7 @@
 
       var eventUrl = ECS.api.apUrl + '/fileAlarmChild/getPoliceEventList';
       $.ajax({
-        url: eventUrl + '?seatIp=' + ip + Math.random(),
+        url: eventUrl + '?r=' + Math.random(),
         type: "GET",
         success: function (data) {
 
