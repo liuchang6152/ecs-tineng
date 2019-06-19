@@ -29,6 +29,8 @@ var riskAnlsObjId = null;          /*风险分析对象ID*/
 var pointId = null;                 /*风险分析点ID*/
 var map_posi = null;                //全局变量，捕获地图页的位置
 var mapchanged = false;             //地址是否改变，若改变，那么设置为true；若未改变，那么设置为false；
+var gisSurfaceId = null;
+var gisType = null;
 var index = parent.layer.getFrameIndex(window.name);//获取子窗口索引
 window.pageLoadMode = PageLoadMode.None;                         //页面模式
 $(function () {
@@ -572,9 +574,11 @@ $(function () {
                 data["optlRiskSoneId"] = optlRiskSoneId;  /*作业风险区ID*/
                 data["riskAnlsObjId"] = riskAnlsObjId;    /*风险分析对象ID*/
                 data["pointId"] = pointId;                 /*风险分析点ID*/
+                // data["gisSurfaceId"] = gisSurfaceId;
+                // data["gisType"] = gisType;
                 //进行保存；
                 $.ajax({
-                    url: saveAlarmUrl,
+                    url: saveAlarmUrl+"?gisSurfaceId="+gisSurfaceId+"&gisType="+gisType,
                     async: false,
                     data: JSON.stringify(data),
                     dataType: "text",

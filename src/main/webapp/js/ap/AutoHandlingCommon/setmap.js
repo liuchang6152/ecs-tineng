@@ -133,7 +133,8 @@ $(function () {
                         parent.optlRiskSoneId=result.optlRiskZoneId;                 /*作业风险区ID*/
                         parent.riskAnlsObjId="";                                     /*风险分析对象ID*/
                         parent.pointId="";                                            /*风险分析点ID*/
-
+                        parent.gisSurfaceId=result.gisSurfaceId;
+                        parent.gisType=result.type;
                         parent.map_posi = addInfo;
                         page.logic.closeLayer(true);
 
