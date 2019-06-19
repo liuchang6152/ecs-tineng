@@ -28,6 +28,7 @@ $(function () {
             });
             //主属性点击某一项，当前这一项呈选中状态；
             $("#main_attrlist_box").click(function(e){
+                console.log(e.target.tagName)
                 if(e.target.tagName=="LI"){
                     page.logic.cur_option_checked($(e.target).index());
                     //加载某个主属性对应的子属性列表；
@@ -309,7 +310,7 @@ $(function () {
                             async: true,
                             dataType: "json",
                             success: function (data) {
-                                // console.log("后端返回来的数据：",data);
+                                // console.log(data);
                                 //编辑数据塞入；
                                 for(var w=0;w<data.length;w++){
                                     (function(cur_dt,index){
@@ -358,10 +359,15 @@ $(function () {
             //设置主属性每一项的相关属性值；
             set_attr_list:function(oLi,cur_dt){
                 // console.log("每一条的数据：",cur_dt);
-                oLi.attr({
-                    "msdsFirmAtbId":(cur_dt["msdsFirmAtbId"]?cur_dt["msdsFirmAtbId"]:""),
-                    "orgId":(cur_dt["orgId"]?cur_dt["orgId"]:"")
-                });
+               
+                if (cur_dt["msdsFirmAtbId"] != undefined) {
+                     oLi.attr({
+                         "msdsFirmAtbId": (cur_dt["msdsFirmAtbId"] ? cur_dt["msdsFirmAtbId"] : ""),
+                         "orgId": (cur_dt["orgId"] ? cur_dt["orgId"] : "")
+                     });
+                      console.log(cur_dt["msdsFirmAtbId"])
+                }
+               
                 // console.log("当前这一条的索引值：",$(oLi).index());
                 if($(oLi).index()>3){
                     if(cur_dt["msdsFrimAtbName"]){

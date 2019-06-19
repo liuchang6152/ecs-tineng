@@ -52,55 +52,45 @@ $(function () {
 
 			},
 			enterprise: function (menu_url, oPar) {
-				console.log('测试')
+			
 				$.ajax({
 					url: menu_url + "?orgLvl=1",
 					type: "get",
 					success: function (data) {
 						var datalist = [];
+						// //若是企业用户，设置为不可用状态；
+						if (!ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)) {
+								console.log('测试')
+							$('#' + oPar).attr('disabled', 'disabled');
 								var newList = JSLINQ(data).Where(function (x) {
 									return x.orgCode == ECS.sys.Context.SYS_ENTERPRISE_CODE;
 								}).ToArray();
-								$.each(newList, function (i, el) {
-									datalist.push({
-										id: el["orgId"],
-										text: el["orgSname"],
-										code: el["orgCode"]
-									});
+							$.each(newList, function (i, el) {
+								datalist.push({
+									id: el["orgId"],
+									text: el["orgSname"],
+									code: el["orgCode"]
 								});
-								var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
-								page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
-						// //若是企业用户，设置为不可用状态；
-						if (!ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)) {
+							});
+							var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
+							page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
+							$('#drtDeptCode').val(orgCode).trigger("change");
+						}else {
+							var newList = JSLINQ(data).Where(function (x) {
+								return x.orgCode == ECS.sys.Context.SYS_ENTERPRISE_CODE;
+							}).ToArray();
+							$.each(newList, function (i, el) {
+								datalist.push({
+									id: el["orgId"],
+									text: el["orgSname"],
+									code: el["orgCode"]
+								});
+							});
 							$('#' + oPar).attr('disabled', 'disabled');
-							// 	var newList = JSLINQ(data).Where(function (x) {
-							// 		return x.orgCode == ECS.sys.Context.SYS_ENTERPRISE_CODE;
-							// 	}).ToArray();
-							// $.each(newList, function (i, el) {
-							// 	datalist.push({
-							// 		id: el["orgId"],
-							// 		text: el["orgSname"],
-							// 		code: el["orgCode"]
-							// 	});
-							// });
-							// var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
-							// page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
-						}
-						//  else {
-						// 	var newList = JSLINQ(data).Where(function (x) {
-						// 		return x.orgCode == ECS.sys.Context.SYS_ENTERPRISE_CODE;
-						// 	}).ToArray();
-						// 	$.each(newList, function (i, el) {
-						// 		datalist.push({
-						// 			id: el["orgId"],
-						// 			text: el["orgSname"],
-						// 			code: el["orgCode"]
-						// 		});
-						// 	});
-						// 	$('#' + oPar).attr('disabled', 'disabled');
-						// 	var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
-						// 	page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
-						// };
+							var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
+							page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
+							$('#drtDeptCode').val(orgCode).trigger("change");
+						};
 
 						orgList = datalist;
 						$('#' + oPar).select2({
@@ -147,10 +137,10 @@ $(function () {
 						});
 					},
 				});
-				if (orgCode) {
-					// $("#drtDeptCode").val(orgCode);
-					$('#drtDeptCode').val(orgCode).trigger("change");
-				}
+				// if (orgCode) {
+				// 	// $("#drtDeptCode").val(orgCode);
+				// 	$('#drtDeptCode').val(orgCode).trigger("change");
+				// }
 			},
 			/**
 			 * 初始化表格
@@ -262,9 +252,9 @@ $(function () {
 				var currentOrt = JSLINQ(orglist).Where(function (x) {
 					return x.id == $("#enterpriseCode").val();
 				}).ToArray()[0];
+				console.log($("#enterpriseCode").val())
 
-
-				if (!currentOrt) {
+				if (!$("#enterpriseCode").val()) {
 					layer.msg("企业不能为空");
 					ECS.hideLoading(); //隐藏加载；
 					return;
@@ -275,7 +265,7 @@ $(function () {
 					return;
 				}
 				$.ajax({
-					url: leftMenuUrl + "?orgCode=" + currentOrt.code + "&treeID=" + $("#drtDeptCode").val() + "&now=" + Math.random(),
+					url: leftMenuUrl + "?orgID=" + $("#enterpriseCode").val() + "&treeID=" + $("#drtDeptCode").val() + "&now=" + Math.random(),
 					type: "GET",
 					timeout: 5000,
 					success: function (Data) {
