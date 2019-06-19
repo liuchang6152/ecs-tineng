@@ -164,6 +164,7 @@ $(function () {
                     $('#riskAreaCatg').attr('disabled','disabled');
                     $('#zoneCatg').attr('disabled','disabled');
                     $('#riskAnlsObjCatg').attr('disabled','disabled');
+                    $('#rapCode').attr('disabled', 'disabled');
                 }
                 $.ajax({
                     url: getSingleUrl + "/" + data.pointID + "?now=" + Math.random(),

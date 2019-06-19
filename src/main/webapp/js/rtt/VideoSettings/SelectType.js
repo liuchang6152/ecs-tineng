@@ -52,37 +52,56 @@ $(function () {
 
 			},
 			enterprise: function (menu_url, oPar) {
+				console.log('测试')
 				$.ajax({
 					url: menu_url + "?orgLvl=1",
 					type: "get",
 					success: function (data) {
 						var datalist = [];
+								var newList = JSLINQ(data).Where(function (x) {
+									return x.orgCode == ECS.sys.Context.SYS_ENTERPRISE_CODE;
+								}).ToArray();
+								$.each(newList, function (i, el) {
+									datalist.push({
+										id: el["orgId"],
+										text: el["orgSname"],
+										code: el["orgCode"]
+									});
+								});
+								var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
+								page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
 						// //若是企业用户，设置为不可用状态；
-						if (ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)) {
-							$.each(data, function (i, el) {
-								datalist.push({
-									id: el["orgId"],
-									text: el["orgSname"],
-									code: el["orgCode"]
-								});
-							});
-						} else {
-							var newList = JSLINQ(data).Where(function (x) {
-								return x.orgCode == ECS.sys.Context.SYS_ENTERPRISE_CODE;
-							}).ToArray();
-							$.each(newList, function (i, el) {
-								datalist.push({
-									id: el["orgId"],
-									text: el["orgSname"],
-									code: el["orgCode"]
-								});
-							});
-							console.log(newList[0].orgId)
+						if (!ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)) {
 							$('#' + oPar).attr('disabled', 'disabled');
-						};
-						var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
-						page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
-						orglist = datalist;
+							// 	var newList = JSLINQ(data).Where(function (x) {
+							// 		return x.orgCode == ECS.sys.Context.SYS_ENTERPRISE_CODE;
+							// 	}).ToArray();
+							// $.each(newList, function (i, el) {
+							// 	datalist.push({
+							// 		id: el["orgId"],
+							// 		text: el["orgSname"],
+							// 		code: el["orgCode"]
+							// 	});
+							// });
+							// var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
+							// page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
+						}
+						//  else {
+						// 	var newList = JSLINQ(data).Where(function (x) {
+						// 		return x.orgCode == ECS.sys.Context.SYS_ENTERPRISE_CODE;
+						// 	}).ToArray();
+						// 	$.each(newList, function (i, el) {
+						// 		datalist.push({
+						// 			id: el["orgId"],
+						// 			text: el["orgSname"],
+						// 			code: el["orgCode"]
+						// 		});
+						// 	});
+						// 	$('#' + oPar).attr('disabled', 'disabled');
+						// 	var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
+						// 	page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
+						// };
+
 						orgList = datalist;
 						$('#' + oPar).select2({
 							tags: false,
