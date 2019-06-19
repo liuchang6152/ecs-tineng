@@ -1,5 +1,5 @@
 var initMeetingUrl = ECS.api.emUrl + '/initiateMeeting';
-var eventUrl = ECS.api.apUrl + '/fileAlarmChild/getTransferPoliceInfoNoPage';
+var eventUrl = ECS.api.apUrl + '/fileAlarmChild/getPoliceEventList';
 $(function () {
     var page = {
         init: function () {
@@ -34,10 +34,28 @@ $(function () {
             initMeetingType: function () {
                 var data = [
                     { id: 0, text: '普通会议' },
-                    { id: 1, text: '接警事件' },
+                    { id: 1, text: '接警事件' }
                 ];
                 mini.get('meetingType').setData(data);
-                mini.get('meetingType').select(0);
+                $.ajax({
+                    url: eventUrl,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data.length > 0){
+                            mini.get('eventId').setEnabled(true);
+                            mini.get('meetingType').select(1);
+                            mini.get('eventId').setData(data);
+                            mini.get('eventId').select(0);
+                        }else{
+                            mini.get('meetingType').select(0);
+                            mini.get('meetingType').setEnabled(false);
+                        }
+                    },
+                    error: function () {
+                        layer.msg('获取事件失败');
+                    }
+                });
             },
             getEvents: function (e) {
                 if (e.value == 1) {
@@ -46,9 +64,9 @@ $(function () {
                         url: eventUrl,
                         ctrId: 'eventId',
                         idField: 'eventId',
-                        textField: 'eventAddressr'
+                        textField: 'eventAddress'
                     }, function (result) {
-                        mini.get('eventId').setData(result.result);
+                        mini.get('eventId').setData(result);
                         mini.get('eventId').select(0);
                     });
                 } else {

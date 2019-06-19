@@ -21,13 +21,17 @@
     <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
     <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
     <style>
-        .btn{
+        .btn {
             width: auto;
             min-width: 75px;
         }
-        .box-main > .box-body{min-height:577px;}
+
+        .box-main>.box-body {
+            min-height: 577px;
+        }
     </style>
 </head>
+
 <body>
     <div class="main-content">
         <div class="box box-main">
@@ -52,7 +56,8 @@
                             <div class="form-group">
                                 <label class="control-label ">会议主题：</label>
                                 <div class="control-inline">
-                                    <input name="meetingTheme" id="meetingTheme" class="mini-textbox" emptyText="请输入" maxlength="200"/>
+                                    <input name="meetingTheme" id="meetingTheme" class="mini-textbox" emptyText="请输入"
+                                        maxlength="200" />
                                 </div>
                             </div>
                         </div>
@@ -68,7 +73,8 @@
                             <div class="form-group">
                                 <label class="control-label ">接警事件选择：</label>
                                 <div class="control-inline">
-                                    <input name="eventId" id="eventId" class="mini-combobox" enabled="false" />
+                                    <input name="eventId" id="eventId" valueField='eventId' textField='eventAddress'
+                                        class="mini-combobox" enabled="false" />
                                 </div>
                             </div>
                         </div>
@@ -78,21 +84,23 @@
                             <div class="form-group">
                                 <label class="control-label ">会议简介：</label>
                                 <div class="control-inline">
-                                    <input name="meetingAbstract" id="meetingAbstract" maxlength="200" class="form-control" style="resize: none;width: 945px;font-size: 12px;" />
+                                    <input name="meetingAbstract" id="meetingAbstract" maxlength="200"
+                                        class="form-control" style="resize: none;width: 945px;font-size: 12px;" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
-                <div id="datagrid" class="mini-datagrid" multiSelect="true" onlyCheckSelection="true" allowCellEdit="true"
-                    showpager="false" oncellbeginedit="page.logic.onCellbeginedit">
+                <div id="datagrid" class="mini-datagrid" multiSelect="true" onlyCheckSelection="true"
+                    allowCellEdit="true" showpager="false" oncellbeginedit="page.logic.onCellbeginedit">
                     <div property="columns">
                         <div type="checkcolumn"></div>
                         <div type="indexcolumn" headerAlign="center" align="center" width="35">序号</div>
                         <div field="userName" width="50" headerAlign="center" align="center">人员</div>
                         <div field="userMobile" width="50" headerAlign="center" align="center">手机号</div>
                         <div field="userPhone" width="50" headeralign="center" align="center">座机号</div>
-                        <div type="checkboxcolumn" field="mark" trueValue="0" falseValue="1" width="50" headerAlign="center">拨打座机</div>
+                        <div type="checkboxcolumn" field="mark" trueValue="0" falseValue="1" width="50"
+                            headerAlign="center">拨打座机</div>
                     </div>
                 </div>
             </div>
