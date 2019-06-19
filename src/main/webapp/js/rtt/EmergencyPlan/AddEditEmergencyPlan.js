@@ -149,6 +149,9 @@ $(function () {
                 window.pageLoadMode = PageLoadMode.None;
                 page.logic.closeLayer(false);
             });
+            mini.get("enterpriseCode").on("valuechanged",function(){
+                orgId = this.getValue();
+            });
             //预案分类选择以后，联动预案类型；
             $("#accidentCategoryID").on("change",function(){
                 //联动预案类型----
