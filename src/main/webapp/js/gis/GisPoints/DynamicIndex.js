@@ -1,5 +1,6 @@
 //2018.11.28: 补充新增表4，gis点动态数据的初始化展示，且不可操作； by yuanshuang;
 var searchUrl = ECS.api.gisPoint;    //接口
+var deleteMSDShUrl = ECS.api.gisSurfaceUrl;    //接口
 var gisId = -1;    //gis点的id保存；
 var state = 0;    //0:不可编辑;1:可编辑
 var grid = null;  //表1对象；（gis点动态的，非勾选时的表）
@@ -989,6 +990,47 @@ $(function () {
                                 var url = "isDelete(-1)";
                                 window.parent.postMessage(url, '*');
                             }
+                        },
+                        error: function (result) {
+                            ECS.hideLoading();
+                            return false;
+                        }
+                    });
+
+                    var systemGisId = [];
+                    var deleteMSDSUrl = deleteMSDShUrl+"/msdsGis/delMsdsGis";
+                    var deletelist = mini.get("datagridMSDS2").getSelecteds();
+                    var deletelist2 = mini.get("datagridMSDS").getSelecteds();
+                    for (var index = 0; index < deletelist2.length; index++) {
+                        var element = deletelist2[index];
+                        systemGisId.push(element.systemGisId);
+                    }
+                    var dd = {systemId :systemGisId};
+                    $.ajax({
+                        url: deleteMSDSUrl,
+                        async: true,
+                        dataType: "text",
+                        timeout:1000,
+                        contentType: "application/json;charset=utf-8",
+                        data:JSON.stringify(dd),
+                        type: 'DELETE',
+                        beforeSend: function () {
+                            ECS.showLoading();
+                        },
+                        success: function (result) {
+                            ECS.hideLoading();
+                            if (result.indexOf('成功') > -1)  {
+                                isTriggerEdit = false;             //退出编辑
+                                    page.logic.check_point(-1);         //刷新动态数据和静态数据；（初始化，所有点的关联的数据）
+                                    //向父窗口传递“删除成功”的信息
+                                    var url = "isDelete(1)";
+                                    window.parent.postMessage(url, '*');
+                            } else {
+                                //向父窗口传递“删除失败”的信息
+                                var url = "isDelete(-1)";
+                                window.parent.postMessage(url, '*');
+                            }
+                           
                         },
                         error: function (result) {
                             ECS.hideLoading();
