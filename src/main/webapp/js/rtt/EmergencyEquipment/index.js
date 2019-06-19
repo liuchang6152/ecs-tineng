@@ -87,6 +87,10 @@ $(function () {
 			$("#businessBgCategID").change(function(e){
 					page.logic.loadmodelType($("#businessBgCategID").val());
 			});
+			//企业
+			$("#enterpriseCode").change(function (e) {
+					page.data.param['enterpriseCode'] = ECS.sys.Context.SYS_ENTERPRISE_CODE;
+			});
 
 		},
 		data: {
@@ -100,12 +104,13 @@ $(function () {
 						url: menu_url + "?orgLvl=1",
 						type: "get",
 						success: function (data) {
+							console.log(data)
 							var datalist = [];
 							// //若是企业用户，设置为不可用状态；
 							if (ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)) {
 								$.each(data, function (i, el) {
 									datalist.push({
-										id: el["orgId"],
+										id: el["orgCode"],
 										text: el["orgSname"]
 									});
 								});
@@ -115,7 +120,7 @@ $(function () {
 								}).ToArray();
 								$.each(newList, function (i, el) {
 									datalist.push({
-										id: el["orgId"],
+										id: el["orgCode"],
 										text: el["orgSname"]
 									});
 								});
@@ -279,7 +284,6 @@ $(function () {
 				console.log(ECS.sys.Context.SYS_ENTERPRISE_CODE)
 				ECS.ui.getComboSelects(searchTypeUrl, "planDefinition", "id", "name", false);
 				ECS.ui.getComboSelects(smallTypeUrl, "smallIds", "accidentTypeID", "accidentTypeName", false);
-				// ECS.ui.getComboSelects(enterpriseCodeUrl, "enterpriseCode", "orgCode", "orgSname", false);//企业
 				ECS.ui.getComboSelects(dept_url, "drtDeptCode", "drtDeptCode", "drtDeptName", false);//二级单位
 				ECS.ui.getComboSelects(bigUrl,"businessBgCategID","businessBgCategCode","businessBgCategName",false);
 				ECS.ui.getComboSelects(stockpilePointTypeUrl,"stockpilePointType","key","value",false);
@@ -307,6 +311,10 @@ $(function () {
 			search: function (showSort) {
 				page.data.param = ECS.form.getData("searchForm");
 				grid = mini.get("datagrid");
+				console.log($("#enterpriseCode"));
+				// console.log($("#enterpriseCode").find("option:selected").val());
+				page.data.param['enterpriseCode'] = ECS.sys.Context.SYS_ENTERPRISE_CODE;
+				console.log(ECS.sys.Context.SYS_ENTERPRISE_CODE);
 				grid.set({
 					url: searchUrl,
 					ajaxType: "get",
