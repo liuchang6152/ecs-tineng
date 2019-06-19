@@ -371,7 +371,8 @@ $(function () {
                             "pageMode": pageMode,
                             "userID": userID,
                             "title": title,
-                            "getNode": getNode
+                            "getNode": getNode,
+                            "topNode":mini.get("tree1").data[0].orgId
                         };
                         iframeWin.page.logic.setData(data);
                     },
