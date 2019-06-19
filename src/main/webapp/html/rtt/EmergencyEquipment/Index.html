@@ -2,200 +2,200 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--[if lt IE 9]>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!--[if lt IE 9]>
     <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
     <![endif]-->
-    <title>应急装备查询</title>
-    <meta name="keywords" />
-    <meta name="description" />
-    <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
-    <link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
-    <link rel="stylesheet" href="../../../css/common/animate.css" />
-    <link rel="stylesheet" href="../../../css/common/font.css" />
-    <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" href="../../../css/common/common.css" />
-    <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
-    <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
-    <link rel="stylesheet" href="../../../css/bc/MonitorFactor/index.css" />
-    <link rel="stylesheet" href="../../../lib/select2/select2.min.css" />
-    <style>
-        .box-main>.box-body {
-            min-height: 577px;
-        }
-    </style>
+	<title>应急装备查询</title>
+	<meta name="keywords" />
+	<meta name="description" />
+	<link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
+	<link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
+	<link rel="stylesheet" href="../../../css/common/animate.css" />
+	<link rel="stylesheet" href="../../../css/common/font.css" />
+	<link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="../../../css/common/common.css" />
+	<link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+	<link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+	<link rel="stylesheet" href="../../../css/bc/MonitorFactor/index.css" />
+	<link rel="stylesheet" href="../../../lib/select2/select2.min.css" />
+	<style>
+		.box-main>.box-body {
+			min-height: 577px;
+		}
+	</style>
 </head>
 
 <body>
-    <div class="main-content">
-        <div class="box box-main">
-            <div class="box-header">
-                <i class="title-vertical"></i>
-                <div class="box-title text-color">
-                    应急装备(PCITC_ECS V1.0_20190508)
-                    <div class="box-tools pull-right">
-                        <a href="#" class="btn btn-primary btn-sm" id="btnAdd" title="新增"><i class="icon-add"></i>
-                            新增</a>
-                        <a href="#" class="btn btn-delete btn-sm" id="btnDel" title="删除"><i
-                                class="icon-delete mr__5"></i> 删除</a>&nbsp;&nbsp;
-                        <a href="#" class="btn btn-primary btn-sm" id="btnImp" title="导入"><i class="icon-add mr__5"></i>
-                            导入</a>&nbsp;&nbsp;
-                        <a href="#" class="btn btn-primary btn-sm" id="btnExport" title="导出"><i
-                                class="icon-export mr__5"></i> 导出</a>&nbsp;&nbsp;
+	<div class="main-content">
+		<div class="box box-main">
+			<div class="box-header">
+				<i class="title-vertical"></i>
+				<div class="box-title text-color">
+					应急装备(PCITC_ECS V1.0_20190508)
+					<div class="box-tools pull-right">
+						<a href="#" class="btn btn-primary btn-sm" id="btnAdd" title="新增"><i class="icon-add"></i>
+							新增</a>
+						<a href="#" class="btn btn-delete btn-sm" id="btnDel" title="删除"><i class="icon-delete mr__5"></i>
+							删除</a>&nbsp;&nbsp;
+						<a href="#" class="btn btn-primary btn-sm" id="btnImp" title="导入"><i class="icon-add mr__5"></i>
+							导入</a>&nbsp;&nbsp;
+						<a href="#" class="btn btn-primary btn-sm" id="btnExport" title="导出"><i class="icon-export mr__5"></i>
+							导出</a>&nbsp;&nbsp;
 
-                    </div>
-                </div>
-            </div>
-            <div class="box-body">
-                <form id="searchForm" onsubmit="return false;" class="form-inline">
-                    <div class="search-fixed">
-                        <div class="form-group">
-                            <label class="control-label width__110">装备名称：</label>
-                            <div class="control-inline mr__10">
+					</div>
+				</div>
+			</div>
+			<div class="box-body">
+				<form id="searchForm" onsubmit="return false;" class="form-inline">
+					<div class="search-fixed">
+						<div class="form-group">
+							<label class="control-label width__110">所属企业：</label>
+							<div class="control-inline">
+								<select name="enterpriseCode" id="enterpriseCode" class="form-control width__140"></select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label width__110">装备名称：</label>
+							<div class="control-inline mr__10">
+								<input name="emrgEquipName" id="emrgEquipName" type="text" class="form-control width__140"
+									maxlength="200" value="" autocomplete="off" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label width__110">负责人员：</label>
+							<div class="control-inline">
+								<input name="userName" id="userName" type="text" class="form-control width__140" maxlength="200"
+									value="" autocomplete="off" />
+							</div>
+						</div>
 
-                                <input name="emrgEquipName" id="emrgEquipName" type="text"
-                                    class="form-control width__140" maxlength="200" value="" autocomplete="off" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label width__110">负责人员：</label>
-                            <div class="control-inline">
-                                <input name="userName" id="userName" type="text" class="form-control width__140"
-                                    maxlength="200" value="" autocomplete="off" />
-                            </div>
-                        </div>
+						<div class="form-group">
+							<a href="#" class="btn btn-primary btn-sm" id="btnQuery" title="查询"><i class="icon-search"></i> 查询</a>
+						</div>
+						<div id="btnToggle"><i class="icon-showMore"></i></div>
+					</div>
+					<div class="search-unfixed">
+						<div class="row">
+							<div class="form-group">
+								<label class="control-label width__110">二级单位：</label>
+								<div class="control-inline">
+									<select name="drtDeptCode" id="drtDeptCode" class="form-control width__140"></select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label width__110">装备所属：</label>
+								<div class="control-inline">
+									<select name="equIpOwner" id="equIpOwner" class="form-control width__120"></select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label width__110">装备大类：</label>
+								<div class="control-inline">
+									<select name="bbCode" id="businessBgCategID" class="form-control width__140"></select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label width__110">装备中类：</label>
+								<div class="control-inline">
+									<select name="bmCode" id="businessMdCategID" class="form-control width__140"></select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group">
+								<label class="control-label width__110">存放点类型：</label>
+								<div class="control-inline">
+									<select name="storeType" id="stockpilePointType" class="form-control width__140"></select>
+								</div>
+							</div>
 
-                        <div class="form-group">
-                            <a href="#" class="btn btn-primary btn-sm" id="btnQuery" title="查询"><i
-                                    class="icon-search"></i> 查询</a>
-                        </div>
-                        <div id="btnToggle"><i class="icon-showMore"></i></div>
-                    </div>
-                    <div class="search-unfixed">
-                        <div class="row">
-                            <div class="form-group">
-                                <label class="control-label width__110">二级单位：</label>
-                                <div class="control-inline">
-                                    <select name="enterpriseCode" id="enterpriseCode"
-                                        class="form-control width__140"></select>
+							<div class="form-group">
+								<label class="control-label width__110">储存库类型：</label>
+								<div class="control-inline">
+									<select name="repoType" id="stockpileType" class="form-control width__120"></select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label width__110">存放地点：</label>
+								<div class="control-inline">
+									<input name="storeName" id="storeName" type="text" class="form-control width__140" maxlength="200"
+										value="" autocomplete="off" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label width__110">装备用途：</label>
+								<div class="control-inline">
+									<input name="purPose" id="purPose" type="text" class="form-control width__140" maxlength="200"
+										value="" autocomplete="off" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="control-label width__110">是否启用：</label>
+								<div class="control-inline">
+									<select name="inUse" id="inUse" class="form-control width__100"></select>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<div id="datagrid" class="mini-datagrid" idField="emergencyPlanID" multiSelect="true">
+					<div property="columns">
+						<div type="indexcolumn" headerAlign="center" align="center" width="35">序号</div>
+						<div type="checkcolumn" allowResize="false" width="35"></div>
+						<div field="emergencyPlanName" name="emergencyPlanName" align="center" headerAlign="center"
+							renderer="page.logic.show_editeditAttr">操作</div>
+						<div field="equipOwnerName" name="equipOwnerName" align="center" headerAlign="center">装备所属</div>
+						<div field="emrgEquipName" name="emrgEquipName" headerAlign="center" align="center">装备名称</div>
+						<div field="equipAmount" name="equipAmount" align="center" headerAlign="center">装备数量</div>
+						<div field="mesUnit" name="mesUnit" align="center" headerAlign="center">计量单位</div>
+						<div field="sourceType" name="sourceType" headerAlign="center" align="center">装备来源</div>
+						<div field="businessBgCategCode" name="businessBgCategCode" align="center" headerAlign="center"
+							renderer="page.logic.set_level">装备大类</div>
+						<div field="businessMdCategCode" name="businessMdCategCode" align="center" headerAlign="center">
+							装备中类</div>
+						<div field="businessSmCategCode" name="businessSmCategCode" align="center" headerAlign="center">
+							装备小类</div>
+						<div field="enterpriseCode" name="enterpriseCode" align="center" headerAlign="center">企业名称</div>
+						<div field="drtDeptCode" name="drtDeptCode" align="center" headerAlign="center">二级单位</div>
+						<div field="storeType" name="storeType" align="center" headerAlign="center">存放点类型</div>
+						<div field="repoType" name="repoType" align="center" headerAlign="center">储存库类型</div>
+						<div field="storageName" name="storageName" align="center" headerAlign="center">存放地点</div>
+						<div field="userName" name="userName" align="center" headerAlign="center">负责人</div>
+						<div field="manufacturer" name="manufacturer" align="center" headerAlign="center">生产厂家</div>
+						<div field="productionDate" name="productionDate" align="center" headerAlign="center"
+							renderer="ECS.util.DateRender">出厂日期</div>
+						<div field="expireDate" name="expireDate" align="center" headerAlign="center">有效期</div>
+						<div field="performanceDesc" name="performanceDesc" align="center" headerAlign="center">性能说明
+						</div>
+						<div field="purpose" name="purpose" align="center" headerAlign="center">用途</div>
 
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label width__110">装备所属：</label>
-                                <div class="control-inline">
-                                    <select name="equIpOwner" id="equIpOwner" class="form-control width__120"></select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label width__110">装备大类：</label>
-                                <div class="control-inline">
-                                    <select name="bbCode" id="businessBgCategID"
-                                        class="form-control width__140"></select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label width__110">装备中类：</label>
-                                <div class="control-inline">
-                                    <select name="bmCode" id="businessMdCategID"
-                                        class="form-control width__140"></select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group">
-                                <label class="control-label width__110">存放点类型：</label>
-                                <div class="control-inline">
-                                    <select name="storeType" id="stockpilePointType"
-                                        class="form-control width__140"></select>
-                                </div>
-                            </div>
-                           
-                            <div class="form-group">
-                                <label class="control-label width__110">储存库类型：</label>
-                                <div class="control-inline">
-                                    <select name="repoType" id="stockpileType" class="form-control width__120"></select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label width__110">存放地点：</label>
-                                <div class="control-inline">
-                                    <input name="storeName" id="storeName" type="text"
-                                        class="form-control width__140" maxlength="200" value="" autocomplete="off" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label width__110">装备用途：</label>
-                                <div class="control-inline">
-                                    <input name="purPose" id="purPose" type="text" class="form-control width__140"
-                                        maxlength="200" value="" autocomplete="off" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label width__110">是否启用：</label>
-                                <div class="control-inline">
-                                    <select name="inUse" id="inUse" class="form-control width__100"></select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <div id="datagrid" class="mini-datagrid" idField="emergencyPlanID" multiSelect="true">
-                    <div property="columns">
-                        <div type="indexcolumn" headerAlign="center" align="center" width="35">序号</div>
-                        <div type="checkcolumn" allowResize="false" width="35"></div>
-                        <div field="emergencyPlanName" name="emergencyPlanName" align="center" headerAlign="center"
-                            renderer="page.logic.show_editeditAttr">操作</div>
-                        <div field="equipOwnerName" name="equipOwnerName" align="center" headerAlign="center">装备所属</div>
-                        <div field="emrgEquipName" name="emrgEquipName" headerAlign="center" align="center">装备名称</div>
-                        <div field="equipAmount" name="equipAmount" align="center" headerAlign="center">装备数量</div>
-                        <div field="mesUnit" name="mesUnit" align="center" headerAlign="center">计量单位</div>
-                        <div field="sourceType" name="sourceType" headerAlign="center" align="center">装备来源</div>
-                        <div field="businessBgCategCode" name="businessBgCategCode" align="center" headerAlign="center"
-                            renderer="page.logic.set_level">装备大类</div>
-                        <div field="businessMdCategCode" name="businessMdCategCode" align="center" headerAlign="center">
-                            装备中类</div>
-                        <div field="businessSmCategCode" name="businessSmCategCode" align="center" headerAlign="center">
-                            装备小类</div>
-                        <div field="enterpriseCode" name="enterpriseCode" align="center" headerAlign="center">企业名称</div>
-                        <div field="drtDeptCode" name="drtDeptCode" align="center" headerAlign="center">二级单位</div>
-                        <div field="storeType" name="storeType" align="center" headerAlign="center">存放点类型</div>
-                        <div field="repoType" name="repoType" align="center" headerAlign="center">储存库类型</div>
-                        <div field="storageName" name="storageName" align="center" headerAlign="center">存放地点</div>
-                        <div field="userName" name="userName" align="center" headerAlign="center">负责人</div>
-                        <div field="manufacturer" name="manufacturer" align="center" headerAlign="center">生产厂家</div>
-                        <div field="productionDate" name="productionDate" align="center" headerAlign="center"
-                            renderer="ECS.util.DateRender">出厂日期</div>
-                        <div field="expireDate" name="expireDate" align="center" headerAlign="center">有效期</div>
-                        <div field="performanceDesc" name="performanceDesc" align="center" headerAlign="center">性能说明
-                        </div>
-                        <div field="purpose" name="purpose" align="center" headerAlign="center">用途</div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- 全局js -->
-    <script src="../../../lib/jquery/jquery.min.js"></script>
-    <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
-    <!-- 自定义js -->
-    <script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
-    <!-- JQ 表单序列化 -->
-    <script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
-    <script src="../../../lib/adminlte/js/adminlte.min.js"></script>
-    <!--公共js-->
-    <script src="../../../js/common/CommonEnum.js"></script>
-    <script src="../../../js/common/ecs-util.js"></script>
-    <script src="../../../js/common/ecs-env.js"></script>
-    <!-- 弹窗 -->
-    <script src="../../../lib/miniui/miniui.js"></script>
-    <script src="../../../lib/layer/layer.js"></script>
-    <script src="../../../lib/select2/select2.min.js"></script>
-    <script src="../../../js/rtt/EmergencyEquipment/index.js"></script>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 全局js -->
+	<script src="../../../lib/jquery/jquery.min.js"></script>
+	<script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+	<!-- 自定义js -->
+	<script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+	<!-- JQ 表单序列化 -->
+	<script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+	<script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+	<!--公共js-->
+	<script src="../../../js/common/CommonEnum.js"></script>
+	<script src="../../../js/common/ecs-util.js"></script>
+	<script src="../../../js/common/ecs-env.js"></script>
+	<!-- 弹窗 -->
+	<script src="../../../lib/miniui/miniui.js"></script>
+	<script src="../../../lib/layer/layer.js"></script>
+	<script src="../../../lib/select2/select2.min.js"></script>
+	<script src="../../../js/ap/VideoSurveillance/JSLINQ.js" type="text/javascript"></script>
+	<script src="../../../js/rtt/EmergencyEquipment/index.js"></script>
 </body>
 
 </html>

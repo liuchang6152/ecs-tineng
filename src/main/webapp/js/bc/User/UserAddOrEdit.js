@@ -164,6 +164,7 @@ $(function () {
                 }else{
                     parentOrgID="";
                 }
+                currentOrgId = data.topNode;
                 //下拉框数据的添加
                 page.logic.load_sidebar();//组织机构
                 page.logic.select_option(userSex_url,"userSex"); //性别
@@ -270,15 +271,8 @@ $(function () {
                     success: function (Data) {
                         if(Data.length>0){
                             mini.get("orgID").loadList(Data, "orgId", "orgPID");
+                            mini.get("orgID").setValue(parentOrgID?parentOrgID:currentOrgId);
                         }
-                    }
-                });
-                $.ajax({
-                    url:getOrgIdUrl+"?orgCode="+ECS.sys.Context.SYS_ENTERPRISE_CODE,
-                    type:"GET",
-                    async:false,
-                    success: function (Data) {
-                        currentOrgId = Data.orgId;                   //存储企业id;
                     }
                 });
             },
