@@ -88,7 +88,7 @@ $(function () {
                 mini.get("drtDeptCode").setValue("全部");
                 $("#mdCatgName").attr("disabled",true);
                 $("#smCatgName").attr("disabled",true);
-                mini.get("enterpriseCode").setValue(ECS.sys.Context.SYS_ENTERPRISE_CODE);
+                mini.get("enterpriseCode").setValue(mini.get("enterpriseCode").data[0].orgCode);
                 page.logic.getMtrlAmount();
             });
 
