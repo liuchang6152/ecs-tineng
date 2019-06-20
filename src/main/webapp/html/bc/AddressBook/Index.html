@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="../../../css/common/common.css" />
     <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
     <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+    <link rel="stylesheet" href="../../../lib/select2/select2.min.css" />
     <link rel="stylesheet" href="../../../css/bc/AddressBook/Index.css" />
 </head>
 <body>
@@ -34,20 +35,36 @@
             </div> -->
             <div class="main-body">
                 <div class="leftNav-body" style="padding-top:10px;height:100%;overflow-y:auto;">
+                    <select name="enterpriseCode" id="enterpriseCode" class="form-control"></select>
                     <!--左侧主体 start-->
-                    <div class="mini-toolbar" style="padding:2px;padding-bottom:10px;border-top:0;border-left:0;border-right:0;height:auto;background:none;overflow:hidden;">
+                    <div class="mini-toolbar"
+                        style="padding:2px;padding-bottom:10px;border-top:0;border-left:0;border-right:0;height:auto;background:none;overflow:hidden;">
                         <span style="padding-left:5px;float:left;">组织机构名称：</span>
-                        <input class="mini-textbox" width="120" maxlength="200" id="tree_val" style="float:left;"/>
-                        <a href="javascript:;" style="float:right;margin-right:5px;padding-top:2px; padding-bottom:2px;height:auto;width:60px;"
+                        <input class="mini-textbox" width="120" maxlength="200" id="tree_val" style="float: left" />
+                        <a href="javascript:;"
+                            style="float:right;margin-right:5px;padding-top:2px; padding-bottom:2px;height:auto;width:60px;"
                             class="btn btn-primary btn-sm" id="btnQuery2" title="查询"><i class="icon-search"></i> 查询</a>
                     </div>
-                    <div style="height:auto; overflow-y: auto;" id="left_tree">
-                        <ul id="tree1" class="mini-tree" url="" style="width:100%;" showTreeIcon="true" resultAsTree="true"
-                            showExpandButtons="true" textField="orgSname" idField="orgId" expandOnLoad="true">
+                    <div style="height:450px; overflow-y: auto;" id="left_tree">
+                        <ul id="tree1" class="mini-tree" style="width:100%;" showTreeIcon="true" resultAsTree="true"
+                            showExpandButtons="true" textField="orgSname" valueField="orgCode" idField="orgId" contextMenu="#treeMenu"
+                            expandOnLoad="true">
                         </ul>
                     </div>
-
-
+                    <ul id="treeMenu" class="mini-contextmenu" onbeforeopen="page.logic.onBeforeOpen" style="display:none;">
+                        <li>
+                            <span>新增节点</span>
+                            <ul id="add_list">
+                                <li name="addPnode" onclick="page.logic.onAddBefore">插入节点</li>
+                                <li onclick="page.logic.onAddNode">插入子节点</li>
+                            </ul>
+                        </li>
+                        <li name="edit" onclick="page.logic.onEditNode" id="edit_node">编辑节点</li>
+                        <li name="remove" onclick="page.logic.onRemoveNode" id="del_node">删除节点</li>
+                    </ul>
+                    <ul id="treeMenu2" class="right_menu" style="display:none;">
+                        <li>新增节点</li>
+                    </ul>
                     <!--左侧主体 end-->
                 </div>
                 <div class="btn-toggle"></div>
@@ -121,6 +138,8 @@
     <script src="../../../lib/miniui/miniui.js"></script>
     <script src="../../../lib/layer/layer.js"></script>
     <script src="../../../lib/vue/vue.min.js"></script>
+    <script src="../../../lib/select2/select2.min.js"></script>
+    <script src="../../../js/ap/VideoSurveillance/JSLINQ.js" type="text/javascript"></script>
     <!--页面逻辑-->
     <script src="../../../js/bc/AddressBook/Index.js" type="text/javascript"></script>
 </body>

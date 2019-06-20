@@ -121,12 +121,16 @@ $(function () {
 						parent.page.data.param.riskAreaId = null;
                         parent.page.data.param.optlRiskZoneId = null;
                         parent.page.data.param.res = null;
+                        parent.page.data.param.type = null;
+                        parent.page.data.param.gisid = null;
 
 						parent.page.data.param.enterpriseId = result.enterpriseId;
 						parent.page.data.param.unitId = result.unitId;
 						parent.page.data.param.riskAreaId = result.riskAreaId;
                         parent.page.data.param.optlRiskZoneId = result.optlRiskZoneId;
                         parent.page.data.param.res = res;
+                        parent.page.data.param.type = type;
+                        parent.page.data.param.gisid = event.data[0].id;
                         page.logic.closeLayer(true);
 
                     }, error: function (result) {
