@@ -33,7 +33,7 @@
     ECS.sys.RefreshContextFromSYS();
     var height = window.screen.availHeight * (window.screen.systemYDPI/window.screen.logicalYDPI);
     var width = window.screen.availWidth * (window.screen.systemXDPI/window.screen.logicalXDPI);
-    window.open(ECS.api.gisserver_url+"/all_zjdxgis/index.html?"+window.btoa(ECS.sys.Context.SYS_ENTERPRISE_CODE),"_blank", "height=" + height + ",width=" + width +",menubar=no,scrollbars=no,location=no,status=no,toolbar=no");
+    window.open(ECS.api.gisserver_url+"/GISQuery/index.html?orign="+window.btoa(ECS.sys.Context.SYS_ENTERPRISE_CODE),"_blank", "height=" + height + ",width=" + width +",menubar=no,scrollbars=no,location=no,status=no,toolbar=no");
 </script>
 
 </body>
