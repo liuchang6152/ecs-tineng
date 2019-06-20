@@ -187,7 +187,7 @@ $(function () {
 				layer.open({
 					type: 2,
 					closeBtn: 0,
-					area: ['1000px', '500px'],
+					area: ['900px', '500px'],
 					skin: 'new-class',
 					shadeClose: false,
 					scrollbar: false,
