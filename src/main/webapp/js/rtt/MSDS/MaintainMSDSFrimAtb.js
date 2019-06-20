@@ -145,6 +145,7 @@ $(function () {
                             //若保存成功，若当前这一项为新增保存的一项，那么将返回的id值插入；
                             if(id==""){
                                 $oli.attr("msdsfirmatbId",result.result);
+                                $oli.attr("orgId",orgId);
                             }
                             //若是最后一项，那么并添加一项；
                             if(index==$("#main_attrlist_box").find("li").length-1){
@@ -239,6 +240,8 @@ $(function () {
                         layer.msg(result.message);         //提示当前保存状态
                         if(result.isSuccess){
                             //若是最后一项，那么并添加一项；
+                            $("#child_attrlist_box").find("li").eq(index).attr("msdssubatbId",result.result);
+                            $("#child_attrlist_box").find("li").eq(index).attr("msdsfirmatbId",msdsFirmAtbId);
                             if(index==$("#child_attrlist_box").find("li").length-1){
                                 var oCreat_oPtion = $("#child_attrlist_box").find("li").eq(index).clone();
                                 //将表单置空
