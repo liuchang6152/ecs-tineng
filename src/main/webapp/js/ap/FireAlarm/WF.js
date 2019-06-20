@@ -6,18 +6,18 @@ var vm = new Vue({
         selectedItem: [],
         eventId: '',
         detail: {},
-        records: {},
+        records: [],
         recordsFileName: ''
     },
     methods: {
         returnJson: function (d) {
             return JSON.stringify(d);
         },
-        rendererTime:function(time){
+        rendererTime: function (time) {
             return time.substring(0, 4) + '-' + time.substring(4, 6) + '-' + time.substring(6, 8)
-            + ' ' + time.substring(9, 11) + ':' + time.substring(11, 13) + ':' + time.substring(13, 15);
+                + ' ' + time.substring(9, 11) + ':' + time.substring(11, 13) + ':' + time.substring(13, 15);
         },
-        calltime: function (starttime,endtime) {
+        calltime: function (starttime, endtime) {
             var strStartTime = starttime.substring(0, 4) + '-' + starttime.substring(4, 6) + '-' + starttime.substring(6, 8)
                 + ' ' + starttime.substring(9, 11) + ':' + starttime.substring(11, 13) + ':' + starttime.substring(13, 15);
             var strEndTime = endtime.substring(0, 4) + '-' + endtime.substring(4, 6) + '-' + endtime.substring(6, 8)
@@ -34,7 +34,7 @@ $(function () {
         init: function () {
             mini.parse();
             this.bindUI();
-            page.logic.initPage();
+            //page.logic.initPage();
         },
         table: {},
         //绑定事件和逻辑
@@ -60,7 +60,15 @@ $(function () {
                     success: function (data) {
                         vm.detail = page.logic.Convert(data);
                         var arr = parent.getRecordsForP(eventId);
-                        vm.records = arr.reverse();
+                        arr = arr.reverse();
+
+                        for (var i = 0, len = data.eventMerges.length; i < len; i++) {
+                            var relationArr = parent.getRecordsForP(data.eventMerges[i]);
+                            arr = arr.concat(relationArr);
+                        }
+                        arr = arr.sort(page.logic.createComparisonFunction('starttime'));
+                        vm.records = arr;
+
                         if (vm.records.length > 0) {
                             vm.starttime = vm.records[0].starttime;
                             vm.endtime = vm.records[0].endtime;
@@ -140,6 +148,19 @@ $(function () {
                 else {
                     parent.recordDownload(vm.starttime, vm.endtime, vm.filename, vm.vruid, vm.streamid);
                 }
+            },
+            createComparisonFunction: function (propertyName) {
+                return function (object1, object2) {
+                    var value1 = object1[propertyName];
+                    var value2 = object2[propertyName];
+                    if (value1 < value2) {
+                        return -1;
+                    } else if (value1 > value2) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                };
             }
         }
     };

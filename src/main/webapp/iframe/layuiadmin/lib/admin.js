@@ -268,7 +268,7 @@ layui.define('view', function(exports){
       return $(APP_BODY).find('.'+ TABS_BODY).eq(index || 0);
     }
     
-    //切换页面标签主体
+    //切换页面标签主体 FJ 
     ,tabsBodyChange: function(index, options){
       options = options || {};
       
