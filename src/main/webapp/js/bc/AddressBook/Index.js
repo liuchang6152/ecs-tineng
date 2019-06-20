@@ -86,7 +86,9 @@ $(function () {
                 page.logic.onAddNode2();
             });
             //企业修改
-            $("#enterpriseCode").change(function () {
+            // $("#enterpriseCode").change(function () {
+            $("#enterpriseCode").on("select2:select", function () {
+                console.log('测试切换企业');
                 page.logic.enterprisechanged();
             });
             //左侧树级菜单_查询（筛选树菜单）
@@ -197,7 +199,7 @@ $(function () {
                                      orgId: el["orgId"]
                                  });
                              });
-                             $('#' + oPar).attr('disabled', 'disabled');
+                             //$('#' + oPar).attr('disabled', 'disabled');
                          }
                          orgList = datalist;
                          $('#' + oPar).select2({

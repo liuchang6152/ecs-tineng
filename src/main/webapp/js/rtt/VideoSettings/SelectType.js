@@ -6,6 +6,7 @@ var loadUnitsUrl = ECS.api.rttUrl + "/msds/secunit"; //二级单位
 window.pageLoadMode = PageLoadMode.None; //页面模式
 var orgCode;
 var orglist = [];
+var nsData;
 var secordOrglist = [];
 $(function () {
 	var index = parent.layer.getFrameIndex(window.name); // 获取子窗口索引
@@ -34,7 +35,9 @@ $(function () {
 				page.logic.load_Tree();
 			});
 
-			$("#enterpriseCode").change(function () {
+			// $("#enterpriseCode").change(function () {
+		 $("#enterpriseCode").on("select2:select", function () {
+			 console.log('测试切换企业');
 				page.logic.enterprisechanged();
 			});
 		},
@@ -59,7 +62,7 @@ $(function () {
 					success: function (data) {
 						var datalist = [];
 						// //若是企业用户，设置为不可用状态；
-						if (!ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)) {
+						if (ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)) {
 								console.log('测试')
 							$('#' + oPar).attr('disabled', 'disabled');
 								var newList = JSLINQ(data).Where(function (x) {
@@ -72,9 +75,10 @@ $(function () {
 									code: el["orgCode"]
 								});
 							});
+							console.log(orgCode)
 							var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
 							page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
-							$('#drtDeptCode').val(orgCode).trigger("change");
+							// $('#drtDeptCode').val(orgCode).trigger("change");
 						}else {
 							var newList = JSLINQ(data).Where(function (x) {
 								return x.orgCode == ECS.sys.Context.SYS_ENTERPRISE_CODE;
@@ -89,7 +93,7 @@ $(function () {
 							$('#' + oPar).attr('disabled', 'disabled');
 							var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
 							page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
-							$('#drtDeptCode').val(orgCode).trigger("change");
+							// $('#drtDeptCode').val(orgCode).trigger("change");
 						};
 
 						orgList = datalist;
@@ -137,10 +141,11 @@ $(function () {
 						});
 					},
 				});
-				// if (orgCode) {
-				// 	// $("#drtDeptCode").val(orgCode);
-				// 	$('#drtDeptCode').val(orgCode).trigger("change");
-				// }
+				if (orgCode) {
+					// $("#drtDeptCode").val(orgCode);
+					$('#enterpriseCode').val(data.riskAreaCode).trigger("change");
+					$('#drtDeptCode').val(orgCode).trigger("change");
+				}
 			},
 			/**
 			 * 初始化表格
@@ -243,6 +248,8 @@ $(function () {
 			},
 
 			setData: function (data) {
+				console.log(data)
+				nsData = data;
 				orgCode = data.orgCode;
 				console.log(orgCode)
 			},
