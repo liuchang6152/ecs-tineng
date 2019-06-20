@@ -28,3 +28,4 @@
 /bin/**
 restore.bat
 /src/main/webapp/js/common/ecs-env.js
+.factorypath
