@@ -176,7 +176,7 @@ $(function(){
 		logic:{
             setData: function (data) {
                 ECS.sys.RefreshContextFromSYS();
-                $("#iframe_map").attr("src",ECS.api.gisserver_url+"/all_zjdxgis/index_ptquery.html?iframe=true&show_info=false&code="+window.btoa(ECS.sys.Context.SYS_ENTERPRISE_CODE));
+                $("#iframe_map").attr("src",ECS.api.gisserver_url+"/GISQuery/index_ptquery.html?iframe=true&show_info=false&code="+window.btoa(ECS.sys.Context.SYS_ENTERPRISE_CODE));
                 page.logic.cbxRiskRank();//预警等级
                 page.logic.cbxEventLvl();//事故等级
                 page.logic.cbxDrtDept(); //企业名称

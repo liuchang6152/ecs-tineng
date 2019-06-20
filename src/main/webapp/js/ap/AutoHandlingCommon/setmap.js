@@ -157,7 +157,7 @@ $(function () {
                 }
                 ECS.sys.RefreshContextFromSYS();        //用户登录
                 //地图链接设置
-                $("#iframe_map").attr("src",ECS.api.gisserver_url+"/all_zjdxgis/index_ptquery.html?iframe=true&show_info=false&code="+window.btoa(ECS.sys.Context.SYS_ENTERPRISE_CODE));
+                $("#iframe_map").attr("src",ECS.api.gisserver_url+"/GISQuery/index_ptquery.html?iframe=true&show_info=false&code="+window.btoa(ECS.sys.Context.SYS_ENTERPRISE_CODE));
                 //初始化选定gis
                 if(data.optlRiskSoneId){
                     page.logic.getList("5",data.optlRiskSoneId,"作业风险区");

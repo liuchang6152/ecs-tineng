@@ -30,6 +30,7 @@ $(function () {
 			$("#searchForm")[0].reset();      //初始化查询条件
 			page.logic.initTable();            //初始化表格
 			page.logic.enterprise(riskorg_url, "enterpriseCode"); //企业名称
+			// page.logic.search();
 		},
 		table: {},
 		//绑定事件和逻辑
@@ -88,9 +89,12 @@ $(function () {
 					page.logic.loadmodelType($("#businessBgCategID").val());
 			});
 			//企业
-			$("#enterpriseCode").change(function (e) {
-					page.data.param['enterpriseCode'] = ECS.sys.Context.SYS_ENTERPRISE_CODE;
-			});
+			// $("#enterpriseCode").change(function (e) {
+			// 	$("#enterpriseCode").on("select2:select", function () {
+			// 		console.log('测试切换企业');
+			// 		page.data.param['enterpriseCode'] = ECS.sys.Context.SYS_ENTERPRISE_CODE;
+			// 		page.logic.search();
+			// });
 
 		},
 		data: {
@@ -124,8 +128,9 @@ $(function () {
 										text: el["orgSname"]
 									});
 								});
+								console.log(datalist)
 								var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
-								page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
+								page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgCode', 'orgSname', false); //树形菜单
 								$('#' + oPar).attr('disabled', 'disabled');
 
 							}
@@ -139,6 +144,7 @@ $(function () {
 									}
 								},
 							});
+							page.logic.search();
 						},
 						error: function (e) {
 							//	alert(e);
@@ -303,7 +309,7 @@ $(function () {
              * 初始化表格
              */
 			initTable: function () {
-				page.logic.search();
+				//page.logic.search();
 			},
             /**
              * 搜索
@@ -311,10 +317,8 @@ $(function () {
 			search: function (showSort) {
 				page.data.param = ECS.form.getData("searchForm");
 				grid = mini.get("datagrid");
-				console.log($("#enterpriseCode"));
-				// console.log($("#enterpriseCode").find("option:selected").val());
-				page.data.param['enterpriseCode'] = ECS.sys.Context.SYS_ENTERPRISE_CODE;
-				console.log(ECS.sys.Context.SYS_ENTERPRISE_CODE);
+				console.log($("#enterpriseCode").val());
+				page.data.param['enterpriseCode'] = $("#enterpriseCode").val();
 				grid.set({
 					url: searchUrl,
 					ajaxType: "get",

@@ -335,7 +335,7 @@ $(function () {
                 $("#titles").text(data.title);    //弹框标题设置；
                 ECS.sys.RefreshContextFromSYS();        //用户登录
                 //地图链接设置
-                $("#iframe_map").attr("src",ECS.api.gisserver_url+"/all_zjdxgis/index.html?"+window.btoa(ECS.sys.Context.SYS_ENTERPRISE_CODE));
+                $("#iframe_map").attr("src",ECS.api.gisserver_url+"/GISQuery/index.html?orign="+window.btoa(ECS.sys.Context.SYS_ENTERPRISE_CODE));
             },
             /**
              * 实时监测报警情况模块 数据填充
