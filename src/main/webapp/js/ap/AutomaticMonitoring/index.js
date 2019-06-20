@@ -63,7 +63,7 @@ $(function(){
                     dataType: "text",
                     success: function () {
                         $.ajax({
-                            url: acceptance +"/"+ uuid +"?ip="+curIP +"&eventId="+eventId+"&now=" + Math.random(),
+                            url: acceptance +"/"+ (uuid?uuid:null) +"?ip="+curIP +"&eventId="+eventId+"&now=" + Math.random(),
                             type: "get",
                             dataType: "json",
                             success: function (result) {
