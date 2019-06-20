@@ -595,6 +595,7 @@ $(function () {
 							layer.msg("立案成功！", {
 								time: 1000
 							}, function () {
+								page.logic.btnLocation(1,eventId,page.data.param.type,page.data.param.gisid);
 								page.logic.Redirection(eventId);
 								//	page.logic.closeLayer(true);
 							});
@@ -613,6 +614,7 @@ $(function () {
 				})
 			},
 			SaveHO: function () {
+
 				if (!$("#answerInstallAddress").val()) {
 					layer.msg("请在地图上选择案发位置"); return;
 				}
@@ -655,7 +657,7 @@ $(function () {
 						if (result.isSuccess) {
 							layer.msg("立案成功！");
 							$('#btnSave_HO').attr('disabled', true);
-
+							page.logic.btnLocation(1,result.result,page.data.param.type,page.data.param.gisid);
 							page.logic.Redirection(result.result);
 							//	var index = parent.layer.getFrameIndex(window.name);
 							//	parent.layer.close(index);
@@ -810,7 +812,20 @@ $(function () {
 					newArr.push(obj);
 				});
 				return newArr;
+			},
+
+			btnLocation :function (processID,eventID,layerID,graphicID){
+				//构造向iframe中传递的数据data；
+				var data = "" + processID + "#" + eventID + "#" + layerID + "#" + graphicID;
+				
+				var ie_chrome = document.getElementById('page_Iframe').document;
+				if(ie_chrome == undefined){//firefox, chrome;
+					document.getElementById('page_Iframe').contentWindow.postMessage(data, "*");
+				}else{//ie;
+					document.getElementById('page_Iframe').postMessage(data, "*");
+				}
 			}
+		
 		}
 	};
 	page.init();

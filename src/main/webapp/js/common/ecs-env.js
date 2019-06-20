@@ -17,7 +17,7 @@ ECS.api.apIpVerify = "http://{server_ap_url}/api/ap/eventAuto";
 
 // //义企业总部编码，默认20000000
 ECS.sys.hq_code = "{hq_code}";
-ECS.api.gisserver_url = "http://{gisserver_url}";  //gis相关接口
+ECS.api.gisserver_url = "http://{gisserver_url}/";  //gis相关接口
 
 
 // ECS.api.sampleUrl = "http://localhost:8090/api/sample";
@@ -34,7 +34,7 @@ ECS.api.gisserver_url = "http://{gisserver_url}";  //gis相关接口
 // ECS.api.emUrl="http://localhost:8090/api/em";
 // ECS.api.eddUrl = "http://localhost:8090/api/edd";
 // ECS.api.edUrl = "http://localhost:8090/api/ed";
-// ECS.api.gisserver_url = "http://10.238.120.61:81";  //gis相关接口
+// ECS.api.gisserver_url = "http://10.238.120.61:81/guobozijin/";  //gis相关接口
 // // 35650000: 用作gis测试；
 // ECS.sys.hq_code = "20000000";
 
@@ -59,4 +59,4 @@ ECS.api.gisserver_url = "http://{gisserver_url}";  //gis相关接口
 
 // 企业总部编码，默认20000000
 // ECS.sys.hq_code = "10010117";
-// ECS.api.gisserver_url = "http://10.163.224.111:81";  //gis相关接口
+// ECS.api.gisserver_url = "http://10.163.224.111:81/guobozijin/";  //gis相关接口

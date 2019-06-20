@@ -61,7 +61,7 @@ $(function () {
                 if(ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)){
                     ECS.ui.getCombobox("orgId", orgNameUrl, {
                         selectFirstRecord: true,
-                        keyField: "orgId",
+                        keyField: "orgCode",
                         valueField: "orgSname",
                         codeField:"orgId",
                         valueSField:"orgSname",

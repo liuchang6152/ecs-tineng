@@ -335,7 +335,7 @@ $(function () {
                 $("#titles").text(data.title);    //弹框标题设置；
                 ECS.sys.RefreshContextFromSYS();        //用户登录
                 //地图链接设置
-                $("#iframe_map").attr("src",ECS.api.gisserver_url+"/all_zjdxgis/index.html?"+window.btoa(ECS.sys.Context.SYS_ENTERPRISE_CODE));
+                $("#iframe_map").attr("src",ECS.api.gisserver_url+"/GISQuery/index.html?orign="+window.btoa(ECS.sys.Context.SYS_ENTERPRISE_CODE));
             },
             /**
              * 实时监测报警情况模块 数据填充
@@ -440,6 +440,16 @@ $(function () {
                         $("#accidentCategoryId").val(data["accidentCategoryId"]);               //事故大类
                         // $("#eventSummary").html(data["eventSummary"]?data["eventSummary"]:"无");   //警情摘要
                         var warn_info = data["eventSummary"]?data["eventSummary"]:"";
+                        enterpriseId = data["enterpriseId"];
+                        $.ajax({
+                            url:FinishedUrl+"?orgId="+enterpriseId+"&ip="+IpAdress +"&status=open&now=" + Math.random(),
+                            async: true,//异步
+                            contentType: "application/json;charset=utf-8",
+                            type: 'GET',
+                            success: function () {
+                                console.log("开始报警信息");
+                            }
+                        });
                         //实时地更新“事故小类”，并将值塞进来；
                         page.logic.category_menu2(function(){
                             $("#accidentTypeId").val(data["accidentTypeId"]);                     //事故小类
@@ -1202,6 +1212,15 @@ $(function () {
              * 关闭弹出层
              */
             closeLayer: function (isRefresh) {
+                $.ajax({
+                    url:FinishedUrl+"?orgId="+enterpriseId+"&ip="+IpAdress +"&status=close&now=" + Math.random(),
+                    async: false,//异步
+                    contentType: "application/json;charset=utf-8",
+                    type: 'GET',
+                    success: function () {
+                        console.log("暂不处理报警信息");
+                    }
+                });
                 window.parent.pageLoadMode = window.pageLoadMode;
                 parent.layer.close(index);
             }

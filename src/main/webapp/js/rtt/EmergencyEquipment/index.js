@@ -13,6 +13,7 @@ var bigUrl = ECS.api.bcUrl + '/busiBgCateg/getListByModelID?businessModelId=32';
 var mUrl = ECS.api.bcUrl + '/busiBgCateg/getListByBgCode'; //中类
 var stockpilePointTypeUrl = ECS.api.rttUrl + '/mtrlStorage/getStoreTypeEnumList'; //   存放点类型
 var stockpileTypeUrl = ECS.api.rttUrl + '/mtrlStorage/getRepoTypeEnumList'; //存储库类型
+var riskorg_url = ECS.api.bcUrl + '/org/porgName';
 var grid = null;   //全局变量
 var flag = false;
 var enterpriseCode = "";    //企业节点编码；
@@ -24,9 +25,12 @@ $(function () {
 		init: function () {
 			mini.parse();                      //初始化miniui框架
 			this.bindUI();                     //绑定事件
+			ECS.sys.RefreshContextFromSYS();
 			page.logic.loadType();
 			$("#searchForm")[0].reset();      //初始化查询条件
 			page.logic.initTable();            //初始化表格
+			page.logic.enterprise(riskorg_url, "enterpriseCode"); //企业名称
+			// page.logic.search();
 		},
 		table: {},
 		//绑定事件和逻辑
@@ -84,6 +88,13 @@ $(function () {
 			$("#businessBgCategID").change(function(e){
 					page.logic.loadmodelType($("#businessBgCategID").val());
 			});
+			//企业
+			// $("#enterpriseCode").change(function (e) {
+			// 	$("#enterpriseCode").on("select2:select", function () {
+			// 		console.log('测试切换企业');
+			// 		page.data.param['enterpriseCode'] = ECS.sys.Context.SYS_ENTERPRISE_CODE;
+			// 		page.logic.search();
+			// });
 
 		},
 		data: {
@@ -91,21 +102,90 @@ $(function () {
 		},
 		//定义业务逻辑方法
 		logic: {
+			//企业
+				enterprise: function (menu_url, oPar) {
+					$.ajax({
+						url: menu_url + "?orgLvl=1",
+						type: "get",
+						success: function (data) {
+							console.log(data)
+							var datalist = [];
+							// //若是企业用户，设置为不可用状态；
+							if (ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)) {
+								$.each(data, function (i, el) {
+									datalist.push({
+										id: el["orgCode"],
+										text: el["orgSname"]
+									});
+								});
+							} else {
+								var newList = JSLINQ(data).Where(function (x) {
+									return x.orgCode == ECS.sys.Context.SYS_ENTERPRISE_CODE;
+								}).ToArray();
+								$.each(newList, function (i, el) {
+									datalist.push({
+										id: el["orgCode"],
+										text: el["orgSname"]
+									});
+								});
+								console.log(datalist)
+								var secordUrl = menu_url + "?isAll=false&orgPID=" + newList[0].orgId + "&orgLvl=3";
+								page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgCode', 'orgSname', false); //树形菜单
+								$('#' + oPar).attr('disabled', 'disabled');
 
+							}
+							orgList = datalist;
+							$('#' + oPar).select2({
+								tags: false,
+								data: datalist,
+								language: {
+									noResults: function (params) {
+										return "没有匹配项";
+									}
+								},
+							});
+							page.logic.search();
+						},
+						error: function (e) {
+							//	alert(e);
+						}
+					})
+				},
+					getsecordEnterPriseSelects: function (url, ctrlId, key, value, tags) {
+						console.log(url);
+						$("#" + ctrlId).html('<option value="" selected="selected">可输入</option>');
+						$.ajax({
+							url: url,
+							async: false,
+							dataType: "json",
+							success: function (data) {
+								console.log(data.length);
+								var datalist = [];
+								$.each(data, function (i, el) {
+									datalist.push({
+										id: el[key],
+										text: el[value]
+									});
+								});
+								$('#' + ctrlId).select2({
+									tags: tags,
+									data: datalist,
+									language: {
+										noResults: function (params) {
+											return "没有匹配项";
+										}
+									},
+								});
+							},
+						})
+					},
 			setUrlK: function (ojson) {
-
 				var s = '', name, key;
-
 				for (var p in ojson) {
-
 					// if(!ojson[p]) {return null;} 
-
 					if (ojson.hasOwnProperty(p)) { name = p };
-
 					key = ojson[p];
-
 					s += "&" + name + "=" + encodeURIComponent(key);
-
 				};
 
 				return s.substring(1, s.length);
@@ -207,9 +287,10 @@ $(function () {
 			},
 			loadType: function (enterpriseCode) {
 				page.logic.getEnterpriseType();
+				console.log(ECS.sys.Context.SYS_ENTERPRISE_CODE)
 				ECS.ui.getComboSelects(searchTypeUrl, "planDefinition", "id", "name", false);
 				ECS.ui.getComboSelects(smallTypeUrl, "smallIds", "accidentTypeID", "accidentTypeName", false);
-				ECS.ui.getComboSelects(dept_url,"enterpriseCode","drtDeptCode","drtDeptName",false);
+				ECS.ui.getComboSelects(dept_url, "drtDeptCode", "drtDeptCode", "drtDeptName", false);//二级单位
 				ECS.ui.getComboSelects(bigUrl,"businessBgCategID","businessBgCategCode","businessBgCategName",false);
 				ECS.ui.getComboSelects(stockpilePointTypeUrl,"stockpilePointType","key","value",false);
 				ECS.ui.getComboSelects(stockpileTypeUrl,"stockpileType","key","value",false);
@@ -228,7 +309,7 @@ $(function () {
              * 初始化表格
              */
 			initTable: function () {
-				page.logic.search();
+				//page.logic.search();
 			},
             /**
              * 搜索
@@ -236,6 +317,8 @@ $(function () {
 			search: function (showSort) {
 				page.data.param = ECS.form.getData("searchForm");
 				grid = mini.get("datagrid");
+				console.log($("#enterpriseCode").val());
+				page.data.param['enterpriseCode'] = $("#enterpriseCode").val();
 				grid.set({
 					url: searchUrl,
 					ajaxType: "get",

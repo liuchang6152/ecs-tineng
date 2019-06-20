@@ -121,12 +121,16 @@ $(function () {
 						parent.page.data.param.riskAreaId = null;
                         parent.page.data.param.optlRiskZoneId = null;
                         parent.page.data.param.res = null;
+                        parent.page.data.param.type = null;
+                        parent.page.data.param.gisid = null;
 
 						parent.page.data.param.enterpriseId = result.enterpriseId;
 						parent.page.data.param.unitId = result.unitId;
 						parent.page.data.param.riskAreaId = result.riskAreaId;
                         parent.page.data.param.optlRiskZoneId = result.optlRiskZoneId;
                         parent.page.data.param.res = res;
+                        parent.page.data.param.type = type;
+                        parent.page.data.param.gisid = event.data[0].id;
                         page.logic.closeLayer(true);
 
                     }, error: function (result) {
@@ -148,7 +152,7 @@ $(function () {
                 }
                 ECS.sys.RefreshContextFromSYS();        //用户登录
                 //地图链接设置
-                $("#iframe_map").attr("src",ECS.api.gisserver_url+"/all_ZJDXGIS/index_ptquery.html?iframe=true&show_info=false&search=true&code="+window.btoa(ECS.sys.Context.SYS_ENTERPRISE_CODE));
+                $("#iframe_map").attr("src",ECS.api.gisserver_url+"/GISQuery/index_ptquery.html?iframe=true&show_info=false&search=true&code="+window.btoa(ECS.sys.Context.SYS_ENTERPRISE_CODE));
                 //初始化选定gis
                 if(data.optlRiskSoneId){
                     page.logic.getList("5",data.optlRiskSoneId,"作业风险区");

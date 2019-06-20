@@ -2,10 +2,11 @@
 var loginInfoUrl = ECS.api.apUrl + '/event/getIPInfo';//登录信息
 var EventListUrl = ECS.api.apUrl + '/selectEvents?isFinished=0&eventType=0';    //“处理中事件”列表
 var CheckEventListUrl = ECS.api.apUrl + '/selectEvents?eventType=0';             //“可查看事件”列表
+var pcStatus = ECS.api.apIpVerify+'/getThisIPstatus';
 //页面所需全局变量
 var map = {};
 var strIp = [];
-// var strIp = "192.168.164.1";    //用作测试
+// var strIp = "10.163.225.58";    //用作测试
 var ipReader=null;
 var hasArlamId={};
 var callStatus=0;
@@ -26,6 +27,20 @@ $(function () {
             page.logic.initPage();   //初始化
             page.logic.search();    //我的处理中事件
             page.logic.search2();   //可查看的事件
+            setInterval(function(){
+                $.ajax({
+                    url:pcStatus+"?orgCode="+ECS.sys.Context.SYS_ENTERPRISE_CODE+"&ip="+strIp,
+                    dataType:"text",
+                    type:"GET",
+                    success:function(result){
+                        if(result==1){
+                            $("#pcStatus").text("正忙");
+                        }else{
+                            $("#pcStatus").text("空闲");
+                        }
+                    }
+                });
+            },5000);
         },
         table: {},
         bindUI: function () {
