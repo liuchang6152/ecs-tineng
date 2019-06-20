@@ -37,7 +37,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="box-body" style="min-height: auto">
+			<div class="box-body" style="min-height: 300px">
 				<form id="searchForm" onsubmit="return false;" class="form-inline">
 					<div class="form-group">
 						<label class="control-label">企业名称：</label>
@@ -55,15 +55,13 @@
 
 					</div>
 				</form>
-				<div id="datagrid" class="mini-datagrid" idField="id" multiSelect="true" 
-				 showpager="false" pagesize="9990">
+				<div id="datagrid" class="mini-datagrid" idField="id" multiSelect="true" showpager="false" pagesize="9990">
 					<div property="columns">
 						<div type="indexcolumn" headerAlign="center" align="center" allowResize="false" width="35">序号</div>
 						<div type="checkcolumn" allowResize="false" width="35"></div>
 						<div field="event_cancel" headerAlign="center" align="center" allowResize="false" width="40" renderer="page.logic.show_edit">操作</div>
 						<div field="orgName" headerAlign="center" align="center">企业名称</div>
 						<div field="commGroupTypeName" headerAlign="center" align="center">通讯组类型</div>
-
 					</div>
 				</div>
 			</div>
