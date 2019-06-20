@@ -143,7 +143,7 @@ $(function () {
 				});
 				if (orgCode) {
 					// $("#drtDeptCode").val(orgCode);
-					$('#enterpriseCode').val(data.riskAreaCode).trigger("change");
+					$('#enterpriseCode').val(nsData.riskAreaCode).trigger("change");
 					$('#drtDeptCode').val(orgCode).trigger("change");
 				}
 			},
