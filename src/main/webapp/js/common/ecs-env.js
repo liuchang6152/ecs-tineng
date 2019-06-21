@@ -36,7 +36,8 @@ ECS.api.gisserver_url = "http://{gisserver_url}/";  //gis相关接口
 // ECS.api.edUrl = "http://localhost:8090/api/ed";
 // ECS.api.gisserver_url = "http://10.238.120.61:81/guobozijin/";  //gis相关接口
 // // 35650000: 用作gis测试；
-// ECS.sys.hq_code = "20000000";
+// ECS.sys.hq_code = "10010117";
+// ECS.api.bodyUrl = "http://localhost:8080/api/fpt";
 
 //
 //临时开发环境

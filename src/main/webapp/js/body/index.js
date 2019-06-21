@@ -96,7 +96,7 @@ $(function () {
 			search: function () {
 				var form = new mini.Form('searchForm');
 				var data = form.getData();
-				if (data.startTime > data.endTime) {
+				if (data.beginTime > data.endTime) {
 					layer.msg('开始时间不能大于结束时间');
 					return;
 				}
@@ -106,7 +106,7 @@ $(function () {
 					ajaxType: "get",
 					dataField: "pageList"
 				});
-				data.startTime = mini.formatDate(data.startTime, 'yyyy-MM-dd HH:mm:ss');
+				data.beginTime = mini.formatDate(data.beginTime, 'yyyy-MM-dd HH:mm:ss');
 				data.endTime = mini.formatDate(data.endTime, 'yyyy-MM-dd HH:mm:ss');
 				grid.load(data);
 			},
