@@ -36,6 +36,7 @@ var IsOnlyRead = false;                 //是否只读，开关； 若为true, �
 var IsCanClick = true;                  //添加根目录是否可点击。
 // mini_debugger = false;                   //取消miniui的自我调试
 window.ownDetail;
+var orgID = null;
 var eventId;
 var pageMode = PageModelEnum.NewAdd;
 window.pageLoadMode = PageLoadMode.None;
@@ -168,6 +169,7 @@ $(function () {
                 emergencyPlanName = data.emergencyPlanName;  //应急预案名称；
                 IsOnlyRead = data.IsOnlyRead?data.IsOnlyRead:false;   //设置页面模式
                 eventId = data.eventID?data.eventID:"";   //设置页面模式
+                orgID = data.orgID;
                 //面包屑导航动态设置
                 $(".bread_title").html(emergencyPlanName);
                 ECS.sys.RefreshContextFromSYS();    //判断是否登录(获取当前用户)
@@ -1026,7 +1028,8 @@ $(function () {
                         var body = layer.getChildFrame('body', index);
                         var iframeWin = window[layero.find('iframe')[0]['name']];
                         var data = {
-                            'title': "职位选择"                         //标题
+                            'title': "职位选择",                 //标题
+                            "orgID":orgID
                         };
                         iframeWin.page.logic.setData(data);
                     },

@@ -282,10 +282,10 @@ $(function () {
             set_level:function(e){
                 if(e.row.applicationLevel==null){
                     //未配置
-                    return '<a href="javascript:page.logic.gotosetpage(\''+e.row.emergencyPlanID+ '\',\'' +e.row.planDefinition+'\')" style="text-decoration:underline;">未配置</a>';
+                    return '<a href="javascript:page.logic.gotosetpage(\''+e.row.emergencyPlanID+ '\',\'' +e.row.planDefinition+'\',\''+e.row.orgID+'\')" style="text-decoration:underline;">未配置</a>';
                 }else{
                     //已配置
-                    return '<a href="javascript:page.logic.gotosetpage(\''+e.row.emergencyPlanID+ '\',\''+e.row.planDefinition+'\')" style="color:red;text-decoration:underline;">已配置</a>';
+                    return '<a href="javascript:page.logic.gotosetpage(\''+e.row.emergencyPlanID+ '\',\''+e.row.planDefinition+'\',\''+e.row.orgID+'\')" style="color:red;text-decoration:underline;">已配置</a>';
                 }
             },
             //预案类型
@@ -299,15 +299,15 @@ $(function () {
             is_true:function(e){
                 switch(e.row.isStructure){
                     case 1:
-                        return '<span style="color:green;cursor:pointer;" onclick="page.logic.gotoStructurePlan(\''+e.row.emergencyPlanID+'\',\''+e.row.emergencyPlanName+'\')">是</span>';
+                        return '<span style="color:green;cursor:pointer;" onclick="page.logic.gotoStructurePlan(\''+e.row.emergencyPlanID+'\',\''+e.row.emergencyPlanName+'\',\''+e.row.orgID+'\')">是</span>';
                         break;
                     case 0:
-                        return '<span style="color:red;cursor:pointer;" onclick="page.logic.gotoStructurePlan(\''+e.row.emergencyPlanID+'\',\''+e.row.emergencyPlanName+'\')">否</span>';
+                        return '<span style="color:red;cursor:pointer;" onclick="page.logic.gotoStructurePlan(\''+e.row.emergencyPlanID+'\',\''+e.row.emergencyPlanName+'\',\''+e.row.orgID+'\')">否</span>';
                         break;
                 }
             },
             //跳转到“结构化预案”页面；(第一个参数表示：应急预案id； 第二个参数表示：应急预案名称；)
-            gotoStructurePlan:function(emergencyPlanID,emergencyPlanName){
+            gotoStructurePlan:function(emergencyPlanID,emergencyPlanName,orgID){
                 var pageMode = PageModelEnum.View;   //设置查看模式
                 layer.open({
                     type: 2,
@@ -324,6 +324,7 @@ $(function () {
                             "pageMode": pageMode,
                             "emergencyPlanID": emergencyPlanID,         //应急预案id;
                             "emergencyPlanName":emergencyPlanName,    //应急预案名称
+                            "orgID":orgID,
                             "title": "结构化预案"
                         };
                         iframeWin.page.logic.setData(data);
@@ -337,7 +338,7 @@ $(function () {
                 })
             },
             //跳转到“应用级别配置”页面；参数说明：第一个参数：应急预案id; 第二个参数：预案类型类别
-            gotosetpage:function(emergencyPlanID,planDefinition){
+            gotosetpage:function(emergencyPlanID,planDefinition,orgID){
                 var pageMode = PageModelEnum.View;   //设置查看模式
                 layer.open({
                     type: 2,
@@ -354,6 +355,7 @@ $(function () {
                             "pageMode": pageMode,
                             "emergencyPlanID": emergencyPlanID,    //预案id；
                             "planDefinition":planDefinition,       //预案定义类型；
+                            "orgID":orgID,
                             "title": "应用级别配置"
                         };
                         iframeWin.page.logic.setData(data);
