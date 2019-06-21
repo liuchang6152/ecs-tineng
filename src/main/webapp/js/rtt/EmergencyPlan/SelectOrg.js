@@ -158,11 +158,7 @@ $(function () {
                 if(sort){
                     page.data.param["sortType"]=1;
                 }
-                if(ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)){
-                    page.data.param["orgID"] = "-1";
-                }else{
-                    page.data.param["orgID"] = orgId;          //企业id;
-                }
+                page.data.param["orgID"] = orgId;          //企业id;
                 grid.load(page.data.param);
             },
             /**
