@@ -86,8 +86,7 @@ $(function () {
                 page.logic.onAddNode2();
             });
             //企业修改
-            // $("#enterpriseCode").change(function () {
-            $("#enterpriseCode").on("select2:select", function () {
+            $("#enterpriseCode").change(function () {
                 console.log('测试切换企业');
                 page.logic.enterprisechanged();
             });
@@ -289,7 +288,7 @@ $(function () {
             load_sidebar: function (menu_url, cb) {
                 var enterprise = $("#enterpriseCode").val();
                 console.log(enterprise)
-                var _url = porg_urls + "?orgCode=" + ECS.sys.Context.SYS_ENTERPRISE_CODE;
+                var _url = porg_urls + "?orgCode=" + enterprise;
                 $.ajax({
                     url: _url,
                     type: "GET",
