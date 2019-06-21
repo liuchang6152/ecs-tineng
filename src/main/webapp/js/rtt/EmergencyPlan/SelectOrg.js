@@ -77,9 +77,11 @@ $(function () {
                 ECS.sys.RefreshContextFromSYS();          //判断是否登录(获取当前用户)
                 parent.aPositionList = [];                 //职位选择，清空缓存；
                 //根据企业code获取企业id;
-                page.logic.GetOrgId(function(){
-                    page.logic.initTable();             //初始化表格
-                });
+                orgId = data.orgID;
+                page.logic.initTable();             //初始化表格
+                // page.logic.GetOrgId(function(){
+                //
+                // });
 
             },
             /**
@@ -135,17 +137,17 @@ $(function () {
                 page.logic.search(true);
             },
             //获取企业id;
-            GetOrgId:function(cb){
-                $.ajax({
-                    url:getOrgIdUrl+"?orgCode="+ECS.sys.Context.SYS_ENTERPRISE_CODE,
-                    type: "GET",
-                    timeout:5000,
-                    success: function (Data) {
-                        orgId = Data.orgId;                   //存储企业id;
-                        cb && cb();
-                    }
-                });
-            },
+            // GetOrgId:function(cb){
+            //     $.ajax({
+            //         url:getOrgIdUrl+"?orgCode="+ECS.sys.Context.SYS_ENTERPRISE_CODE,
+            //         type: "GET",
+            //         timeout:5000,
+            //         success: function (Data) {
+            //             orgId = Data.orgId;                   //存储企业id;
+            //             cb && cb();
+            //         }
+            //     });
+            // },
             /**
              * 搜索
              */
@@ -156,7 +158,11 @@ $(function () {
                 if(sort){
                     page.data.param["sortType"]=1;
                 }
-                page.data.param["orgID"] = orgId;          //企业id;
+                if(ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)){
+                    page.data.param["orgID"] = "-1";
+                }else{
+                    page.data.param["orgID"] = orgId;          //企业id;
+                }
                 grid.load(page.data.param);
             },
             /**

@@ -127,26 +127,28 @@ $(function () {
                 emergencyPlanID = data.emergencyPlanID;    //应急预案id;
                 planDefinition = data.planDefinition;      //预案定义类别字段；
                 //根据企业code获取企业id;
+                orgId = data.orgID;
+                page.logic.load_level_menu(function(){
+                    //左侧tree组件的数据加载
+                    page.logic.load_sidebar();
+                });
                 page.logic.GetOrgId(function(){
                     //应用级别下拉菜单数据加载
-                    page.logic.load_level_menu(function(){
-                        //左侧tree组件的数据加载
-                        page.logic.load_sidebar();
-                    });
+
                 });
             },
-            //获取企业id;
-            GetOrgId:function(cb){
-                $.ajax({
-                    url:getOrgIdUrl+"?orgCode="+ECS.sys.Context.SYS_ENTERPRISE_CODE,
-                    type: "GET",
-                    timeout:5000,
-                    success: function (Data) {
-                        orgId = Data.orgId;                   //存储企业id;
-                        cb && cb();
-                    }
-                });
-            },
+            // //获取企业id;
+            // GetOrgId:function(cb){
+            //     $.ajax({
+            //         url:getOrgIdUrl+"?orgCode="+ECS.sys.Context.SYS_ENTERPRISE_CODE,
+            //         type: "GET",
+            //         timeout:5000,
+            //         success: function (Data) {
+            //             orgId = Data.orgId;                   //存储企业id;
+            //             cb && cb();
+            //         }
+            //     });
+            // },
             //进行重置，取消关联
             reset_menu:function(){
                 // 接收参数:emergencyPlanID  预案ID   清空预案关联 返回删除的数量
