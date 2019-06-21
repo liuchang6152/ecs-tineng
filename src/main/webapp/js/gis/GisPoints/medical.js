@@ -30,10 +30,10 @@ $(function () {
 		//绑定事件和逻辑
 		bindUI: function () {
 			$("#searchForm")[0].reset();
-			//搜索栏中input不允许输入空格
-			$('input').keyup(function () {
-				$(this).val($.trim($(this).val()))
-			});
+			//搜索栏中input不允许输入空格 ns暂时注释
+			// $('input').keyup(function () {
+			// 	$(this).val($.trim($(this).val()))
+			// });
 			//tab切换,动态加载数据；
 			// tabs.on("activechanged", function (e) {
 			//     if (e.tab.title == "静态数据") {

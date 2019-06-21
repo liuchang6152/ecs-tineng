@@ -53,10 +53,10 @@ $(function () {
 		//绑定事件和逻辑
 		bindUI: function () {//切换中调用方法
 			$("#searchForm")[0].reset();
-			//搜索栏中input不允许输入空格
-			$('input').keyup(function () {
-				$(this).val($.trim($(this).val()))
-			});
+			//搜索栏中input不允许输入空格 ns暂时注释
+			// $('input').keyup(function () {
+			// 	$(this).val($.trim($(this).val()))
+			// });
 			//查询
 			$('#btnQuery').click(function () {
 				page.logic.search();
