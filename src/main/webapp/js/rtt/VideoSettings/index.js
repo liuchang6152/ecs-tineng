@@ -18,7 +18,7 @@ var riskorg_url = ECS.api.bcUrl + '/org/porgName';
 var grid = null;   //全局变量
 var flag = false;
 var enterpriseID = ""; //企业节点编码；
-var drtDeptCode = "";       //二级单位节点编码；
+var drtDeptID = "";       //二级单位节点编码；
 window.pageLoadMode = PageLoadMode.None;
 
 $(function () {
@@ -45,8 +45,8 @@ $(function () {
 			});
 			// 新增
 			$('#btnAdd').click(function () {
-				console.log($('#drtDeptCode').val())
-				if ($('#drtDeptCode').val() != null && $('#drtDeptCode').val() != '') {
+				console.log($('#drtDeptID').val())
+				if ($('#drtDeptID').val() != null && $('#drtDeptID').val() != '') {
 					page.logic.add();
 				}else{
 					layer.msg('请选择二级单位');
@@ -88,7 +88,7 @@ $(function () {
 			enterprisechanged: function () {
 				var enterprise = $("#enterpriseID").val();
 				var secordUrl  = riskorg_url+"?isAll=false&orgPID="+enterprise+"&orgLvl=3";
-				page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode",'orgCode','orgSname',false); //树形菜
+				page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptID", 'orgId', 'orgSname', false); //树形菜
 				
               
 			},
@@ -109,7 +109,7 @@ $(function () {
 							datalist.push({ id: el["orgId"], text: el["orgSname"]});
 						});
 						var secordUrl  = menu_url+"?isAll=false&orgPID="+newList[0].orgId+"&orgLvl=3";
-						page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgCode', 'orgSname', false); //树形菜单
+						page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptID", 'orgId', 'orgSname', false); //树形菜单
 						$('#' + oPar).attr('disabled', 'disabled');
 					
 					 }
@@ -253,9 +253,9 @@ $(function () {
 			},
 
 			getEnterpriseType :function(){
-				$("#drtDeptCode").html('<option value="" selected="selected">可输入</option>');
+				$("#drtDeptID").html('<option value="" selected="selected">可输入</option>');
 				var datalist = [{"text":"队伍","id":1},{"text":"企业","id":2}];
-				$('#drtDeptCode').select2({
+				$('#drtDeptID').select2({
 					tags: false,
 					data: datalist,
 					language: {
@@ -291,8 +291,8 @@ $(function () {
 					dataField: "pageList"
 				});
 				console.log(page.data.param)
-				if(page.data.param.drtDeptCode == '全部'){
-					page.data.param.drtDeptCode = '';
+				if(page.data.param.drtDeptID == '全部'){
+					page.data.param.drtDeptID = '';
 				}
 				grid.load(page.data.param);
 		
@@ -324,8 +324,8 @@ $(function () {
 				var treeID
 				var gridList = grid.getSelected();
 				var nsCode = $('#enterpriseID').val();
-				if ($('drtDeptCode').val()){
-					treeID =$('drtDeptCode').val();
+				if ($('#drtDeptID').val()){
+					treeID =$('#drtDeptID').val();
 				};
 				
 				layer.open({
@@ -345,7 +345,7 @@ $(function () {
 							'riskAreaCode': nsCode,
 							'treeID': treeID,
 							'id': emrgEquipID,
-							'orgCode': $('#drtDeptCode').val()
+							'orgId': $('#drtDeptID').val()
 						};
 						iframeWin.page.logic.setData(data, gridList);
 					},

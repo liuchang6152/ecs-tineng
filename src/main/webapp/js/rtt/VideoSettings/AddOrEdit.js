@@ -9,7 +9,7 @@ $(function () {
 	var ns_row = '';
 	var leavel = [];
 	var nsLeavel = [];
-	var orgCode;
+	var orgId;
 
 
 
@@ -161,7 +161,7 @@ $(function () {
 				ns_code = data.riskAreaCode;
 				ns_treeid = data.treeID;
 				ns_row = data.id;
-				orgCode = data.orgCode;
+				orgId = data.orgId;
 				$('#title-main').text(data.title);
 				page.data.param.pageMode = data.pageMode;
 				page.data.param.id = data.id;
@@ -342,7 +342,7 @@ $(function () {
 							'enterpriseName': enterpriseName,
 							'title': title,
 							'keys': keys,
-							'orgCode': orgCode
+							'orgId': orgId
 						};
 						iframeWin.page.logic.setData(data);
 					},
