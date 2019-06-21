@@ -290,17 +290,12 @@ $(function () {
                 var enterprise = $("#enterpriseCode").val();
                 console.log(enterprise)
                 var _url = porg_urls + "?orgCode=" + ECS.sys.Context.SYS_ENTERPRISE_CODE;
-                // if(ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)){
-                //     _url=org_url;
-                // }else{
-                //     _url=porg_url+"?orgCode="+enterprise;
-                // }
                 $.ajax({
                     url: _url,
                     type: "GET",
-                    success: function (Data) {
-                        if (Data.length > 0) {
-                            mini.get("tree1").loadList(Data, "orgId", "orgPID");
+                    success: function (res) {
+                        if (res.length > 0) {
+                            mini.get("tree1").loadList(res, "orgId", "orgPID");
                             page.logic.search();
                         } else {
                             page.logic.rightmenu("left_tree", "treeMenu2");

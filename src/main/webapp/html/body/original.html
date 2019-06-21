@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+  <title>体能测试</title>
+  <meta name="keywords">
+  <meta name="description">
+  <link rel="stylesheet" href="../../../lib/layui-2.3.0/css/layui.css" />
+  <link rel="stylesheet" href="../../../lib/layer/skin/layer.css" />
+  <link rel="stylesheet" href="../../../css/common/animate.css" />
+  <link rel="stylesheet" href="../../../css/common/font.css" />
+  <link rel="stylesheet" href="../../../lib/bootstrap/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../../css/common/common.css" />
+  <link rel="stylesheet" href="../../../lib/miniui/themes/default/miniui.css" />
+  <link rel="stylesheet" href="../../../lib/miniui/themes/bootstrap/skin.css" />
+  <style>
+    .box-main>.box-body {
+      min-height: 577px;
+    }
+
+    #btnAgain {
+      width: 98px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-content">
+    <div class="box box-main">
+      <!-- <div class="box-header">
+        <i class="title-vertical"></i>
+        <div class="box-title text-color">
+          查看打分明细
+        </div>
+      </div> -->
+      <div class="box-body">
+        <form id="searchForm" onsubmit="return false;" class="form-inline searchForm"></form>
+        <div id="datagrid" class="mini-datagrid" frozenstartcolumn="0" frozenendcolumn="1" multiSelect="true"
+          ondrawcell="page.logic.draw">
+          <div property="columns">
+            <div type="indexcolumn" headerAlign="center" align="center" width="35">序号</div>
+            <div field="rawprojectName" width="100" headerAlign="center" align="center">测试项目名称</div>
+            <div field="rawprojectValue" width="100" headerAlign="center" align="center">测试成绩</div>
+            <div field="rawprojectCompany" width="100" headerAlign="center" align="center">单位</div>
+            <div field="rawprojectTime" width="100" headerAlign="center" align="center">测试时间</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 全局js -->
+  <script src="../../../lib/jquery/jquery.min.js"></script>
+  <script src="../../../lib/bootstrap/js/bootstrap.min.js"></script>
+  <!-- 自定义js -->
+  <script src="../../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+  <!-- JQ 表单序列化 -->
+  <script src="../../../lib/jquery/jquery.serialize-object.min.js"></script>
+  <script src="../../../lib/adminlte/js/adminlte.min.js"></script>
+  <!--公共js-->
+  <script src="../../../js/common/CommonEnum.js"></script>
+  <script src="../../../js/common/ecs-util.js"></script>
+  <script src="../../../js/common/ecs-env.js"></script>
+  <!-- 弹窗 -->
+  <script src="../../../lib/miniui/miniui.js"></script>
+  <script src="../../../lib/layer/layer.js"></script>
+  <!--页面逻辑-->
+  <script src="../../../js/pft/body/original.js"></script>
+</body>
+
+</html>

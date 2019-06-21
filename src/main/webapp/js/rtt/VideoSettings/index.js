@@ -29,8 +29,6 @@ $(function () {
 			this.bindUI();                     //绑定事件	
 			ECS.sys.RefreshContextFromSYS();	
 			page.logic.enterprise(riskorg_url, "enterpriseCode"); //企业名称
-			page.logic.search();
-			
 		},
 		table: {},
 		//绑定事件和逻辑
@@ -77,6 +75,7 @@ $(function () {
 			});
 
 			$("#enterpriseCode").change(function(){
+				console.log('企业切换');
 				page.logic.enterprisechanged();
 			});
 		},
@@ -100,8 +99,7 @@ $(function () {
 					success: function (data) {
 						var datalist = [];
 					 // //若是企业用户，设置为不可用状态；
-					 if (ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)) 
-					 {
+					 if (ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)) {
 						$.each(data, function (i, el) {
 							datalist.push({ id: el["orgId"], text: el["orgSname"] });
 						});
@@ -125,6 +123,7 @@ $(function () {
 								}
 							},
 						});
+							page.logic.search();
 					},
 					error: function (e) {
 						//	alert(e);
