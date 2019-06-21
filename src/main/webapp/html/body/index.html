@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--[if lt IE 9]>
+    <script src="../../../lib/html5shiv/html5shiv-printshiv.min.js"></script>
+    <![endif]-->
+  <title>体能测试</title>
+  <meta name="keywords">
+  <meta name="description">
+  <link rel="stylesheet" href="../../lib/layui-2.3.0/css/layui.css"/>
+  <link rel="stylesheet" href="../../lib/layer/skin/layer.css" />
+  <link rel="stylesheet" href="../../css/common/animate.css" />
+  <link rel="stylesheet" href="../../css/common/font.css" />
+  <link rel="stylesheet" href="../../lib/bootstrap/css/bootstrap.css" />
+  <link rel="stylesheet" href="../../css/common/common.css" />
+  <link rel="stylesheet" href="../../lib/miniui/themes/default/miniui.css" />
+  <link rel="stylesheet" href="../../lib/miniui/themes/bootstrap/skin.css" />
+  <link rel="stylesheet" href="../../lib/select2/select2.min.css"/>
+  <style>
+    .box-main>.box-body {
+      min-height: 577px;
+    }
+    #btnAgain{
+      width: 98px;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-content">
+    <div class="box box-main">
+      <div class="box-header">
+        <i class="title-vertical"></i>
+        <div class="box-title text-color">
+          综合体能-体能记录
+        </div>
+      </div>
+      <div class="box-body">
+        <form id="searchForm" onsubmit="return false;" class="form-inline searchForm">
+          <!-- <div class="form-group">
+            <label class="control-label">企业名称</label>
+            <div class="control-inline">
+              <input name="orgCode" id="orgCode" class="mini-treeselect" multiSelect="false" checkRecursive="true"
+                expandOnLoad="true" showFolderCheckBox="false" textField="orgSname" valueField="orgCode"
+                parentField="porgCode" showTreeIcon="true" />
+            </div>
+          </div> -->
+          <div class="form-group">
+            <label class="control-label ">测试批次名</label>
+            <div class="control-inline">
+              <input name="rawprojectBatchcode" id="rawprojectBatchcode" class="mini-textbox" emptyText="请输入" maxlength="200" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">批次上传时间</label>
+            <div class="control-inline">
+              <input id="startTime" name="startTime" class="mini-datepicker width__160" showTime="true"
+                format="yyyy-MM-dd H:mm" timeFormat="H:mm" allowInput="false" emptyText="请输入日期" />-
+              <input id="endTime" name="endTime" class="mini-datepicker width__160" showTime="true"
+                format="yyyy-MM-dd H:mm" timeFormat="H:mm" allowInput="false" emptyText="请输入日期" />
+            </div>
+          </div>
+          <div class="form-group">
+            <a id="btnQuery" href="#" class="btn btn-primary btn-sm"><i class="icon-search mr__5"></i>
+              查询</a>
+          </div>
+          <div class="form-group">
+            <a id="btnAgain" href="#" class="btn btn-primary"><i class="icon-search mr__5"></i>重新计算</a>
+          </div>
+        </form>
+        <div id="datagrid" class="mini-datagrid" frozenstartcolumn="0" frozenendcolumn="1" allowResize="true"
+        allowCellEdit="true" multiSelect="true" ondrawcell="page.logic.draw">
+          <div property="columns">
+            <div type="checkcolumn"></div>
+            <div type="indexcolumn" headerAlign="center" align="center" width="35">序号</div>
+            <div field="rawprojectBatchcode" width="120" headerAlign="center" align="center">测试批次名</div>
+            <div field="testNumber" width="120" headerAlign="center" align="center">测试人数</div>
+            <div field="rawprojectTime" width="120" headerAlign="center" align="center">
+              批次上传时间</div>
+            <div width="50" headeralign="center" align="center">查看详情</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- 全局js -->
+<script src="../../lib/jquery/jquery.min.js"></script>
+<script src="../../lib/bootstrap/js/bootstrap.min.js"></script>
+<!-- 自定义js -->
+<script src="../../lib/jquery-migrate-1.4.1/jquery-migrate-1.4.1.min.js"></script>
+<!-- JQ 表单序列化 -->
+<script src="../../lib/jquery/jquery.serialize-object.min.js"></script>
+<script src="../../lib/adminlte/js/adminlte.min.js"></script>
+<!--公共js-->
+<script src="../../js/common/CommonEnum.js"></script>
+<script src="../../js/common/ecs-util.js"></script>
+<script src="../../js/common/ecs-env.js"></script>
+<!-- 弹窗 -->
+<script src="../../lib/miniui/miniui.js"></script>
+<script src="../../lib/layer/layer.js"></script>
+<script src="../../lib/vue/vue.min.js"></script>
+<script src="../../lib/select2/select2.min.js"></script>
+<script src="../../js/ap/VideoSurveillance/JSLINQ.js" type="text/javascript"></script>
+  <!--页面逻辑-->
+  <script src="../../js/body/index.js"></script>
+</body>
+
+</html>

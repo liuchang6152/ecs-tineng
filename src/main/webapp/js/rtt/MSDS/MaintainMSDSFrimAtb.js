@@ -223,6 +223,10 @@ $(function () {
                 msdsFirmAtbId   //主属性ID
                 * */
                 var msdsFirmAtbId = $("input:checked").parents("li").attr("msdsFirmAtbId")?$("input:checked").parents("li").attr("msdsFirmAtbId"):"";
+                if(msdsFirmAtbId==""){
+                    layer.msg("请先保存主属性!");
+                    return;
+                }
                 var data = {};
                 data["msdsSubAtbId"] = ($oli.attr("msdssubatbId")?$oli.attr("msdssubatbId"):"");
                 data["msdsSubAtbName"] = $.trim($oli.find("input:text").eq(0).val());

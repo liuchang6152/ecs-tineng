@@ -17,7 +17,7 @@ var stockpileTypeUrl = ECS.api.rttUrl + '/mtrlStorage/getRepoTypeEnumList'; //�
 var riskorg_url = ECS.api.bcUrl + '/org/porgName';  
 var grid = null;   //全局变量
 var flag = false;
-var enterpriseCode = "";    //企业节点编码；
+var enterpriseID = ""; //企业节点编码；
 var drtDeptCode = "";       //二级单位节点编码；
 window.pageLoadMode = PageLoadMode.None;
 
@@ -28,9 +28,7 @@ $(function () {
 			mini.parse();                      //初始化miniui框架
 			this.bindUI();                     //绑定事件	
 			ECS.sys.RefreshContextFromSYS();	
-			page.logic.enterprise(riskorg_url, "enterpriseCode"); //企业名称
-			page.logic.search();
-			
+			page.logic.enterprise(riskorg_url, "enterpriseID"); //企业名称
 		},
 		table: {},
 		//绑定事件和逻辑
@@ -76,7 +74,8 @@ $(function () {
 				page.logic.delAll();
 			});
 
-			$("#enterpriseCode").change(function(){
+			$("#enterpriseID").change(function () {
+				console.log('企业切换');
 				page.logic.enterprisechanged();
 			});
 		},
@@ -87,7 +86,7 @@ $(function () {
 		//定义业务逻辑方法
 		logic: {
 			enterprisechanged: function () {
-				var enterprise = $("#enterpriseCode").val();
+				var enterprise = $("#enterpriseID").val();
 				var secordUrl  = riskorg_url+"?isAll=false&orgPID="+enterprise+"&orgLvl=3";
 				page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode",'orgCode','orgSname',false); //树形菜
 				
@@ -100,8 +99,7 @@ $(function () {
 					success: function (data) {
 						var datalist = [];
 					 // //若是企业用户，设置为不可用状态；
-					 if (ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)) 
-					 {
+					 if (ECS.sys.isHQ(ECS.sys.Context.SYS_ENTERPRISE_CODE)) {
 						$.each(data, function (i, el) {
 							datalist.push({ id: el["orgId"], text: el["orgSname"] });
 						});
@@ -111,7 +109,7 @@ $(function () {
 							datalist.push({ id: el["orgId"], text: el["orgSname"]});
 						});
 						var secordUrl  = menu_url+"?isAll=false&orgPID="+newList[0].orgId+"&orgLvl=3";
-						page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgId', 'orgSname', false); //树形菜单
+						page.logic.getsecordEnterPriseSelects(secordUrl, "drtDeptCode", 'orgCode', 'orgSname', false); //树形菜单
 						$('#' + oPar).attr('disabled', 'disabled');
 					
 					 }
@@ -125,6 +123,7 @@ $(function () {
 								}
 							},
 						});
+							page.logic.search();
 					},
 					error: function (e) {
 						//	alert(e);
@@ -324,7 +323,7 @@ $(function () {
 			detail: function (title, emrgEquipID, pageMode) {
 				var treeID
 				var gridList = grid.getSelected();
-				var nsCode = $('#enterpriseCode').val();
+				var nsCode = $('#enterpriseID').val();
 				if ($('drtDeptCode').val()){
 					treeID =$('drtDeptCode').val();
 				};
