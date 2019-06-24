@@ -17,7 +17,7 @@ ECS.api.apIpVerify = "http://{server_ap_url}/api/ap/eventAuto";
 
 // //义企业总部编码，默认20000000
 ECS.sys.hq_code = "{hq_code}";
-ECS.api.gisserver_url = "http://{gisserver_url}/";  //gis相关接口
+ECS.api.gisserver_url = "http://{gisserver_url}";  //gis相关接口
 
 
 // ECS.api.sampleUrl = "http://localhost:8090/api/sample";
