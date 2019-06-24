@@ -323,7 +323,7 @@ $(function () {
 							var index = filename.lastIndexOf(".");
 							var suffix = filename.substr(index + 1);
 
-							if (suffix == "doc" || suffix == "docx" || suffix == "xls" || suffix == "xlsx" || suffix == "rar") {
+							if (suffix == "doc" || suffix == "docx" || suffix == "xls" || suffix == "xlsx" || suffix == "rar"|| suffix == "exe") {
 								layer.msg("该文件不支持在线预览");
 							}
 							vm.attrUrl = downloadUrl + '?fileId=' + data.result.atchPath + "#toolbar=0";
